@@ -6,6 +6,7 @@ using Precise.Common.Core.Language;
 using Precise.Common.Core.Logging;
 //using Precise.Wpf.Common
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Brooks_TCS_Demo
@@ -27,7 +28,7 @@ namespace Brooks_TCS_Demo
             InitializeComponent();
             InitializeGdsComponents();
             InitializeSettings();
-
+            UpdateConnectionStatus();
         }
 
         public void InitializeGdsComponents()
@@ -109,6 +110,7 @@ namespace Brooks_TCS_Demo
                 {
                     tcsManager.Controller.Connect(controllerIP);
                     button_ConnectDisconnect.Text = "Disconnect";
+                    UpdateConnectionStatus(true);
                 }
             }
             catch (Exception ex)
@@ -124,12 +126,28 @@ namespace Brooks_TCS_Demo
                 {
                     tcsManager.Controller.Disconnect();
                     tcsManager.Disconnect();
-                    button_ConnectDisconnect.Text = "Connect";
+                    UpdateConnectionStatus(false);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void UpdateConnectionStatus(bool connected = false)
+        {
+            if (connected)
+            {
+                button_ConnectDisconnect.Text = "Disconnect";
+                toolStripStatusLabel_RobotConnection.Text = "Connected";
+                toolStripStatusLabel_RobotConnection.ForeColor = Color.Green;
+            }
+            else
+            {
+                button_ConnectDisconnect.Text = "Connect";
+                toolStripStatusLabel_RobotConnection.Text = "Disconnected";
+                toolStripStatusLabel_RobotConnection.ForeColor = Color.Red;
             }
         }
 
@@ -151,14 +169,16 @@ namespace Brooks_TCS_Demo
             Disconnect();
         }
 
-        private string SendSingleCommand(string command, int timeout = 5000, int sleep = 1000)
+        private string SendSingleCommand(string command, int sleep = 1000, int timeout = 5000)
         {
             if (controllerHelper.IsActive)
             {
                 tcsManager.CommandText = command;
+                Console.WriteLine(string.Format("<-- {0}", command));
                 tcsManager.SendCommand();
                 TcsHelper.Wait(() => !tcsManager.IsBackgroundExecuting, timeout);
                 System.Threading.Thread.Sleep(sleep);
+                Console.WriteLine(string.Format("--> {0}", tcsManager.CommandResponse));
                 return tcsManager.CommandResponse;
             }
             return string.Empty;
@@ -166,35 +186,41 @@ namespace Brooks_TCS_Demo
 
         private void initToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SendSingleCommand("Attach 1", 5000);
-            SendSingleCommand("hp 1", 5000, 5000);
-            SendSingleCommand("homeAll", 5000, 5000);
-            SendSingleCommand("waitForEom", 5000);
-
+            if (controllerHelper.IsActive)
+            {
+                RobotTcsCmds.RobotInit(tcsManager);
+            }
         }
 
         private void powerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //string resp = SendSingleCommand("hp", 5000);
-            if(tcsManager.Controller.OperationInfo.IsPowerEnabled)
-                SendSingleCommand("hp 0", 5000);
-            else
-                SendSingleCommand("hp 1", 5000);
+
         }
 
         private void TestConnection()
         {
-            if (controllerHelper.IsActive)
-            {
-                //tcsManager.CommandText = "Attach 1";
-                //tcsManager.SendCommand();
-                //TcsHelper.Wait(() => !tcsManager.IsBackgroundExecuting, 3000);
-                //Console.WriteLine(tcsManager.CommandResponse);
-                //tcsManager.CommandText = "hp 1";
-                //tcsManager.SendCommand();
-                //TcsHelper.Wait(() => !tcsManager.IsBackgroundExecuting, 3000);
-                //Console.WriteLine(tcsManager.CommandResponse);
-            }
+
+            
+        }
+
+        private void button_Free_RB1_Click(object sender, EventArgs e)
+        {
+            RobotTcsCmds.ToggleFreeMode(tcsManager);
+        }
+
+        private void loadTCSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TcsProjectManager.LoadTCS(tcsManager);
+        }
+
+        private void startTCSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TcsProjectManager.LoadTCS(tcsManager);
+        }
+
+        private void stopTCSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TcsProjectManager.StopTCS(tcsManager);
         }
     }
 }
