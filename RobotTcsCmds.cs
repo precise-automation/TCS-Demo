@@ -1,8 +1,10 @@
 ﻿using Precise.Common.Communication.Controllers;
 using Precise.Common.Communication.Managers.TCS;
+using Precise.Common.Communication.Protocols.GplComm;
 using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Brooks_TCS_Demo
 {
@@ -76,18 +78,22 @@ namespace Brooks_TCS_Demo
             return false;
         }
 
-        public static bool ToggleFreeMode(TCSManager tcsManager)
+        public static bool SetFreeMode(TCSManager tcsManager, bool enable)
         {
             try
             {
                 if (tcsManager.Controller.IsActive)
                 {
-                    if (tcsManager.Controller.OperationInfo.IsJogModeEnabled)
-                        TcsHelper.SendSingleCommand(tcsManager, "Free -1");
-                    else
+                    if (enable)
                     {
                         TcsHelper.SendSingleCommand(tcsManager, "Attach 1");
                         TcsHelper.SendSingleCommand(tcsManager, "FreeMode 0");
+                        Thread.Sleep(3000);
+                    }
+                    else
+                    {
+                        TcsHelper.SendSingleCommand(tcsManager, "FreeMode -1");
+                        
                     }
                 }
                 return true;
@@ -110,6 +116,58 @@ namespace Brooks_TCS_Demo
             }
             catch { return false; }
         }
+
+        public static bool IsRobotInFreeMode(TCSManager tcsManager)
+        {
+            // Check
+            // Power Enabled == true
+            // 3520 == jog mode
+            // 12100 == axis is in torque control mode
+            // Result -> FreeMode Enabled = True
+            bool result = true;
+            int robotNumber = 1;
+
+            // Power Enabled
+            var powerState = tcsManager.Controller.OperationInfo.CurrentPowerState;
+            result &= powerState >= PowerStates.AutoModeWaiting;
+
+            // Check if in Jog Mode (DataID 3520)
+            var trajGenState = tcsManager.Controller.DatalogInfo.GetTrajectoryGeneratorState(robotNumber);
+            result &= trajGenState == TrajectoryGeneratorState.PositionControlJogMode;
+
+            // Check if in Torque Control Mode
+            bool inTorqueControlMode = IsInTorqueControlMode(tcsManager);
+            result &= inTorqueControlMode;
+
+            return result;
+        }
+
+
+        public static bool IsInTorqueControlMode(TCSManager tcsManager, int robotNumber=1)
+        {
+            int bitMask = 0b10000010; // Need to figure out the correct mask here (Probably Bit 1 and 8 (Zero based))
+
+            int result = ReadDataID(tcsManager, (int)ParameterDatabase.AxisDynamic_AxisOperationMode);
+
+            return (result & bitMask) > 0;
+        }
+
+        public static int ReadDataID(TCSManager tcsManager, int DataID, int robotNum = 1, int dataUnit = 0, int arrayIndex= 0)
+        {
+            DataIDObj dataIDObj = new DataIDObj();
+            dataIDObj.objDataID = DataID;
+            dataIDObj.objDataUnit1 = robotNum;
+            dataIDObj.objDataUnit2 = dataUnit;
+            dataIDObj.objArrayIdx = arrayIndex;
+
+            tcsManager.Controller.Handle.DataIdGet(ref dataIDObj);
+
+            int result;
+            if (int.TryParse(dataIDObj.objDataValue, out result) == false)
+                return dataIDObj.objStatusCode;
+            return result;
+        }
+
 
 
     }
