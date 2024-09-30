@@ -44,6 +44,7 @@ namespace Brooks_TCS_Demo
                 TcsHelper.SendSingleCommand(tcsManager, "hp 0");
                 return true;
             }
+            return false;
         }
         public static bool AttachRobot(TCSManager tcsManager, bool state = true)
         {

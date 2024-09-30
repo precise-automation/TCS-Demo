@@ -36,14 +36,21 @@ namespace Brooks_TCS_Demo
 
         void IDisposable.Dispose()
         {
-            Disconnect();
+            Dispose();
+        }
+        public void Dispose()
+        {
+            visionEngineClientService.Disconnect();
             visionEngineClientService.ErrorDetected -= VisionEngineClientService_ErrorDetected;
             visionEngineClientService.ImageUpdated -= VisionEngineClientService_ImageUpdated;
+            image?.Dispose();
         }
-
 
         private void InitializeVisionComponents()
         {
+            logService = new LogService();
+            languageService = new LanguageService(logService);
+
             visionToolInstanceFinder = () =>
             {
                 return visionEngineClientService.VisionToolInstances.ToArray();
@@ -114,6 +121,8 @@ namespace Brooks_TCS_Demo
         {
             visionEngineClientService.StopLiveVideo();
         }
+
+
     }
 
 }

@@ -131,29 +131,29 @@ namespace Brooks_TCS_Demo
         {
 
             // Option 1
-            pictureBox_LiveImage.Visible = false;
-            pictureBox_LiveImage.Image?.Dispose();
-            cameraImageDisplay = img;
-            pictureBox_LiveImage.Image = cameraImageDisplay;
+            //pictureBox_LiveImage.Visible = false;
+            //pictureBox_LiveImage.Image?.Dispose();
+            //cameraImageDisplay = img;
+            //pictureBox_LiveImage.Image = cameraImageDisplay;
 
             // Option 2
-            //string fileName = "ImageFromCamera.bmp";
-            //if (pictureBox_LiveImage.Visible)
-            //{
-            //    pictureBox_LiveImage.Visible = false;
-            //    pictureBox_LiveImage.Image?.Dispose();
-            //    File.Delete(fileName);
-            //}
-            //img.Save(fileName, ImageFormat.Bmp);
-            //img.Dispose();
-            //pictureBox_LiveImage.Image = Image.FromFile(fileName);
+            string fileName = "ImageFromCamera.bmp";
+            if (pictureBox_LiveImage.Visible)
+            {
+                pictureBox_LiveImage.Visible = false;
+                pictureBox_LiveImage.Image?.Dispose();
+                File.Delete(fileName);
+            }
+            img.Save(fileName, ImageFormat.Bmp);
+            img.Dispose();
+            pictureBox_LiveImage.Image = Image.FromFile(fileName);
 
             pictureBox_LiveImage.Visible = true;
         }
 
         public void UpdateRobotConnectionStatus()
         {
-            if (robot1Controller.IsConnected == false)
+            if (robot1Controller?.IsConnected == true)
             {
                 button_ConnectDisconnect.Text = "Disconnect";
                 toolStripStatusLabel_RobotConnection.Text = "Connected";
@@ -182,8 +182,8 @@ namespace Brooks_TCS_Demo
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            RobotDisconnect();
-            VisionDisconnect();
+            robot1Controller.Dispose();
+            robot1Vision.Dispose();
         }
 
         private void initToolStripMenuItem_Click(object sender, EventArgs e)
@@ -193,7 +193,8 @@ namespace Brooks_TCS_Demo
 
         private void powerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            robot1Controller.SetPower(true);
+            //throw new NotImplementedException();
         }
 
         private void TestConnection()

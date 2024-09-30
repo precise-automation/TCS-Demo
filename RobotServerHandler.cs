@@ -2,16 +2,10 @@
 using Precise.Common.Communication.Managers.TCS;
 using Precise.Common.Communication.Protocols.GplComm;
 using Precise.Common.Communication.Protocols.TCS;
-using Precise.Common.Communication.Vision.VisionEngineComm;
 using Precise.Common.Core.Language;
 using Precise.Common.Core.Logging;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Brooks_TCS_Demo
@@ -38,6 +32,11 @@ namespace Brooks_TCS_Demo
 
         void IDisposable.Dispose()
         {
+            Dispose();
+        }
+
+        public void Dispose()
+        {
             Disconnect();
         }
 
@@ -56,10 +55,7 @@ namespace Brooks_TCS_Demo
                                         tcsMacroDirectory);
             tcsManager.Controller.ConnectionStateChanged += Controller_ConnectionStateChanged;
         }
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         private void Controller_ConnectionStateChanged(bool obj)
         {
