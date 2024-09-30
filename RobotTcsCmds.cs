@@ -13,10 +13,12 @@ namespace Brooks_TCS_Demo
 
         public static bool RobotInit(TCSManager tcsManager)
         {
+            if (tcsManager.Controller.IsActive == false) return false;
+
             bool status = true;
             try
             {
-                status &= EnableHighPower(tcsManager);
+                status &= SetHighPower(tcsManager);
                 status &= AttachRobot(tcsManager);
                 status &= HomeRobot(tcsManager);
             }
@@ -28,21 +30,40 @@ namespace Brooks_TCS_Demo
             return status;
         }
 
-        public static bool EnableHighPower(TCSManager tcsManager)
+        public static bool SetHighPower(TCSManager tcsManager, bool state = true)
         {
-            TcsHelper.SendSingleCommand(tcsManager, "hp 1");
-            bool result = WaitForRobotPowerState(tcsManager, PowerAutoExecStates.GPLReady, 10 * 1000);
-            Thread.Sleep(250);
-            return result;
+            if (tcsManager.Controller.IsActive == false) return false;
+
+            if (state)
+            {
+                TcsHelper.SendSingleCommand(tcsManager, "hp 1");
+                return WaitForRobotPowerState(tcsManager, PowerAutoExecStates.GPLReady, 10 * 1000);
+            }
+            else
+            {
+                TcsHelper.SendSingleCommand(tcsManager, "hp 0");
+                return true;
+            }
         }
-        public static bool AttachRobot(TCSManager tcsManager)
+        public static bool AttachRobot(TCSManager tcsManager, bool state = true)
         {
-            TcsHelper.SendSingleCommand(tcsManager, "Attach 1");
-            return WaitForRobotPowerState(tcsManager, PowerAutoExecStates.GPLAttached);
+            if (tcsManager.Controller.IsActive == false) return false;
+
+            if (state)
+            {
+                TcsHelper.SendSingleCommand(tcsManager, "Attach 1");
+                return WaitForRobotPowerState(tcsManager, PowerAutoExecStates.GPLAttached);
+            }
+            else
+            {
+                TcsHelper.SendSingleCommand(tcsManager, "Attach 0");
+                return true;
+            }
         }
         public static bool HomeRobot(TCSManager tcsManager)
         {
-            bool state;
+            if (tcsManager.Controller.IsActive == false) return false;
+            
             TcsHelper.SendSingleCommand(tcsManager, "homeAll", 1000);
             if (WaitForRobotPowerState(tcsManager, PowerAutoExecStates.RobotsHoming, 5 * 1000) == false)
                 return false;
@@ -83,20 +104,20 @@ namespace Brooks_TCS_Demo
         {
             try
             {
-                if (tcsManager.Controller.IsActive)
+                if (tcsManager.Controller.IsActive == false) return false;
+
+                if (enable)
                 {
-                    if (enable)
-                    {
-                        TcsHelper.SendSingleCommand(tcsManager, "Attach 1");
-                        TcsHelper.SendSingleCommand(tcsManager, "FreeMode 0");
-                        Thread.Sleep(3000);
-                    }
-                    else
-                    {
-                        TcsHelper.SendSingleCommand(tcsManager, "FreeMode -1");
-                        
-                    }
+                    TcsHelper.SendSingleCommand(tcsManager, "Attach 1");
+                    TcsHelper.SendSingleCommand(tcsManager, "FreeMode 0");
+                    Thread.Sleep(3000);
                 }
+                else
+                {
+                    TcsHelper.SendSingleCommand(tcsManager, "FreeMode -1");
+
+                }
+                
                 return true;
             }
             catch (Exception ex)
@@ -110,13 +131,13 @@ namespace Brooks_TCS_Demo
         {
             try
             {
-                if (tcsManager.Controller.IsActive)
-                {
-                    if (tcsManager.Controller.OperationInfo.IsPowerEnabled)
+                if (tcsManager.Controller.IsActive == false) return false;
+
+                if (tcsManager.Controller.OperationInfo.IsPowerEnabled)
                         TcsHelper.SendSingleCommand(tcsManager, "hp 0", 500);
                     else
-                        EnableHighPower(tcsManager);
-                }
+                        SetHighPower(tcsManager);
+                
                 return true;
             }
             catch (Exception ex)

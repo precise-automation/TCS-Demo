@@ -1,67 +1,37 @@
-﻿using Precise.Common.Communication.Controllers;
-using Precise.Common.Communication.Managers.TCS;
-using Precise.Common.Communication.Protocols.GplComm;
-using Precise.Common.Communication.Protocols.TCS;
-using Precise.Common.Communication.Protocols.VisionStream.Server;
-using Precise.Common.Communication.Vision.VisionEngineComm;
-using Precise.Common.Communication.VisionEngineComm.Vision.Results;
-using Precise.Common.Core.Language;
-using Precise.Common.Core.Logging;
-//using Precise.Wpf.Common
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Brooks_TCS_Demo
 {
     public partial class Form1 : Form
     {
-        private LogService logService;
-        private LanguageService languageService;
-        private Communications commHandle;
-        private ControllerHelper controllerHelper;
-        private TCSManager tcsManager;
 
-        Func<VisionToolInstance[]> visionToolInstanceFinder;
-        private ResultConverterFactory resultConverterFactory;
-        private VisionEngineClientService visionEngineClientService;
-        private VisionServerHandler visionServerHandler;
-        private VisionDataClient visionDataClient;
+        private VisionServerHandler robot1Vision;
+        private RobotServerHandler robot1Controller;
 
         private Image cameraImageDisplay;
-
         private ProgramSettings programSettings;
 
-        private string controllerIP;
+        private string robot1ControllerIP;
+        private string robot1VisionIP;
 
         public Form1()
         {
             InitializeComponent();
-            InitializeGdsComponents();
             InitializeSettings();
             UpdateRobotConnectionStatus();
-            InitializeVisionComponents();
             UpdateVisionConnectionStatusDisplay();
+            robot1Controller = new RobotServerHandler();
+            robot1Controller.ConnectionChanged += Robot1Controller_ConnectionChanged;
+
+            robot1Vision = new VisionServerHandler();
+            robot1Vision.ImageCaptured += Robot1Vision_ImageCaptured;
         }
 
-        public void InitializeGdsComponents()
-        {
-            logService = new LogService();
-            languageService = new LanguageService(logService);
-            commHandle = new Communications();
-            controllerHelper = new ControllerHelper(commHandle);
 
-            string tcsMacroDirectory = TcsHelper.GetTCSMacroFolder();
-            tcsManager = new TCSManager(languageService,
-                                        logService,
-                                        controllerHelper,
-                                        new TCSConnection(logService),
-                                        tcsMacroDirectory);
-
-        }
 
         private void InitializeSettings()
         {
@@ -72,10 +42,11 @@ namespace Brooks_TCS_Demo
 
         private void LoadSettings(bool forceReload = false)
         {
-            if(forceReload)
+            if (forceReload)
                 programSettings.LoadSettings();
 
-            controllerIP = programSettings.Get<string>("ControllerIP", "192.168.0.1");
+            robot1ControllerIP = programSettings.Get<string>("Robot1ControllerIP", "192.168.0.1");
+            robot1VisionIP = programSettings.Get<string>("Robot1VisionIP", "192.168.0.200");
 
             //    Example Code:
             //    int volume = programSettings.Get<int>("volume", 50); // Default to 50 if not found
@@ -84,7 +55,8 @@ namespace Brooks_TCS_Demo
 
         private void SaveSettings()
         {
-            programSettings.Set("ControllerIP", controllerIP);
+            programSettings.Set("Robot1ControllerIP", robot1ControllerIP);
+            programSettings.Set("Robot1VisionIP", robot1VisionIP);
             programSettings.SaveSettings();
 
             //    Example Code: 
@@ -92,45 +64,22 @@ namespace Brooks_TCS_Demo
             //    programSettings.Set("theme", "dark");
         }
 
-        private void InitializeVisionComponents()
-        {
-            visionToolInstanceFinder = () =>
-            {
-                return visionEngineClientService.VisionToolInstances.ToArray();
-            };
-
-            var resultsConverterFactory = new ResultConverterFactory(languageService, logService, visionToolInstanceFinder);
-
-            visionEngineClientService = new VisionEngineClientService(languageService, logService, resultsConverterFactory);
-            visionServerHandler = new VisionServerHandler(visionEngineClientService);
-
-            visionDataClient = new VisionDataClient(logService, 0);
-        }
 
         private void VisionConnect()
         {
             UpdateVisionConnectionStatusDisplay();
-            string visionServerIP = "192.168.0.200";
-            if (visionEngineClientService.IsConnected == false)
+            if (robot1Vision.IsConnected == false)
             {
-                visionEngineClientService.ErrorDetected += VisionEngineClientService_ErrorDetected;
-                visionEngineClientService.Connect(visionServerIP);
-                visionEngineClientService.ImageUpdated += VisionEngineClientService_ImageUpdated;
+                robot1Vision.Connect(robot1VisionIP);
                 UpdateVisionConnectionStatusDisplay(true);
             }
         }
 
-        private void VisionEngineClientService_ErrorDetected(Exception obj)
-        {
-            MessageBox.Show(obj.Message, "Vision Error");
-        }
 
         private void VisionDisconnect()
         {
             UpdateVisionConnectionStatusDisplay();
-            visionEngineClientService.ImageUpdated -= VisionEngineClientService_ImageUpdated;
-            if (visionEngineClientService.IsConnected)
-                visionEngineClientService.Disconnect();
+
         }
 
         private void UpdateVisionConnectionStatusDisplay(bool connected = false)
@@ -148,54 +97,63 @@ namespace Brooks_TCS_Demo
             }
         }
 
-        private void VisionEngineClientService_ImageUpdated(object sender, ImageUpdatedArguments e)
-        {
-            
-        }
-
         private void VisionAquireSingle(int camera = 1)
         {
-            visionServerHandler.TriggerCamera(camera);
+            robot1Vision.TriggerCamera(camera);
         }
 
+
+        private void button_TriggerCamera_Click(object sender, EventArgs e)
+        {
+            VisionAquireSingle();
+        }
 
         private void RobotConnect()
         {
-            try
-            {
-                if (tcsManager.IsConnected == false)
-                {
-                    tcsManager.Controller.Connect(controllerIP);
-                    button_ConnectDisconnect.Text = "Disconnect";
-                    UpdateRobotConnectionStatus(true);
-                    RobotTcsCmds.AttachRobot(tcsManager);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            robot1Controller.Connect(robot1ControllerIP);
         }
         private void RobotDisconnect()
         {
-            try
-            {
-                if (tcsManager.IsConnected == true)
-                {
-                    tcsManager.Controller.Disconnect();
-                    tcsManager.Disconnect();
-                    UpdateRobotConnectionStatus(false);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            robot1Controller.Disconnect();
         }
 
-        public void UpdateRobotConnectionStatus(bool connected = false)
+        private void Robot1Controller_ConnectionChanged(object sender, EventArgs e)
         {
-            if (connected)
+            pictureBox_LiveImage.Invoke(new Action(() => { UpdateRobotConnectionStatus(); }));
+        }
+
+        private void Robot1Vision_ImageCaptured(object sender, Image img)
+        {
+            pictureBox_LiveImage.Invoke(new Action(() => { UpdateImageDisplay(img); }));
+        }
+
+        public void UpdateImageDisplay(Image img)
+        {
+
+            // Option 1
+            pictureBox_LiveImage.Visible = false;
+            pictureBox_LiveImage.Image?.Dispose();
+            cameraImageDisplay = img;
+            pictureBox_LiveImage.Image = cameraImageDisplay;
+
+            // Option 2
+            //string fileName = "ImageFromCamera.bmp";
+            //if (pictureBox_LiveImage.Visible)
+            //{
+            //    pictureBox_LiveImage.Visible = false;
+            //    pictureBox_LiveImage.Image?.Dispose();
+            //    File.Delete(fileName);
+            //}
+            //img.Save(fileName, ImageFormat.Bmp);
+            //img.Dispose();
+            //pictureBox_LiveImage.Image = Image.FromFile(fileName);
+
+            pictureBox_LiveImage.Visible = true;
+        }
+
+        public void UpdateRobotConnectionStatus()
+        {
+            if (robot1Controller.IsConnected == false)
             {
                 button_ConnectDisconnect.Text = "Disconnect";
                 toolStripStatusLabel_RobotConnection.Text = "Connected";
@@ -211,7 +169,7 @@ namespace Brooks_TCS_Demo
 
         private void button_ConnectDisconnect_Click(object sender, EventArgs e)
         {
-            if (tcsManager.IsConnected)
+            if (robot1Controller.IsConnected)
                 RobotDisconnect();
             else
                 RobotConnect();
@@ -230,64 +188,60 @@ namespace Brooks_TCS_Demo
 
         private void initToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (controllerHelper.IsActive)
-            {
-                RobotTcsCmds.RobotInit(tcsManager);
-            }
+            robot1Controller.Init();
         }
 
         private void powerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            throw new NotImplementedException();
         }
 
         private void TestConnection()
         {
-
-            
+            throw new NotImplementedException();
         }
 
         private bool FreeModeState = false;
         private void button_Free_RB1_Click(object sender, EventArgs e)
         {
             FreeModeState = !FreeModeState;
-            RobotTcsCmds.SetFreeMode(tcsManager, FreeModeState);
+            robot1Controller.SetFreeMode(FreeModeState);
         }
 
         private void freeModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FreeModeState = !FreeModeState;
-            RobotTcsCmds.SetFreeMode(tcsManager, FreeModeState);
+            robot1Controller.SetFreeMode(FreeModeState);
         }
 
         private void enableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RobotTcsCmds.SetFreeMode(tcsManager, true);
+            robot1Controller.SetFreeMode(true);
         }
 
         private void disableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RobotTcsCmds.SetFreeMode(tcsManager, false);
+            robot1Controller.SetFreeMode(false);
         }
 
         private void loadTCSToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TcsHelper.LoadTCS(tcsManager);
+            robot1Controller.LoadTCS();
         }
 
         private void startTCSToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TcsHelper.LoadTCS(tcsManager);
+            robot1Controller.StartTCS();
         }
 
         private void stopTCSToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TcsHelper.StopTCS(tcsManager);
+            robot1Controller.StopTCS();
         }
 
         private void attachToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RobotTcsCmds.AttachRobot(tcsManager);
+            robot1Controller.SetAttach(true);
         }
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -307,12 +261,12 @@ namespace Brooks_TCS_Demo
 
         private void liveStartToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            visionEngineClientService.LiveVideo(1);
+            robot1Vision.LiveVideo(1);
         }
 
         private void liveStopToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            visionEngineClientService.StopLiveVideo();
+            robot1Vision.StopLiveVideo();
         }
     }
 }

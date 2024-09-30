@@ -1,4 +1,6 @@
-﻿namespace Brooks_TCS_Demo
+﻿using System;
+
+namespace Brooks_TCS_Demo
 {
     partial class Form1
     {
@@ -50,7 +52,7 @@
             this.button_Free_RB1 = new System.Windows.Forms.Button();
             this.tabPage_Vision1 = new System.Windows.Forms.TabPage();
             this.pictureBox_LiveImage = new System.Windows.Forms.PictureBox();
-            this.button_GetImage = new System.Windows.Forms.Button();
+            this.button_TriggerCamera = new System.Windows.Forms.Button();
             this.visionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aquireToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -261,7 +263,7 @@
             // tabPage_Vision1
             // 
             this.tabPage_Vision1.Controls.Add(this.pictureBox_LiveImage);
-            this.tabPage_Vision1.Controls.Add(this.button_GetImage);
+            this.tabPage_Vision1.Controls.Add(this.button_TriggerCamera);
             this.tabPage_Vision1.Location = new System.Drawing.Point(4, 25);
             this.tabPage_Vision1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPage_Vision1.Name = "tabPage_Vision1";
@@ -280,16 +282,16 @@
             this.pictureBox_LiveImage.TabIndex = 2;
             this.pictureBox_LiveImage.TabStop = false;
             // 
-            // button_GetImage
+            // button_TriggerCamera
             // 
-            this.button_GetImage.Location = new System.Drawing.Point(832, 407);
-            this.button_GetImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button_GetImage.Name = "button_GetImage";
-            this.button_GetImage.Size = new System.Drawing.Size(100, 28);
-            this.button_GetImage.TabIndex = 1;
-            this.button_GetImage.Text = "Get Image";
-            this.button_GetImage.UseVisualStyleBackColor = true;
-            this.button_GetImage.Click += new System.EventHandler(this.button_GetImage_Click);
+            this.button_TriggerCamera.Location = new System.Drawing.Point(832, 407);
+            this.button_TriggerCamera.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_TriggerCamera.Name = "button_TriggerCamera";
+            this.button_TriggerCamera.Size = new System.Drawing.Size(100, 28);
+            this.button_TriggerCamera.TabIndex = 1;
+            this.button_TriggerCamera.Text = "Trigger Camera";
+            this.button_TriggerCamera.UseVisualStyleBackColor = true;
+            this.button_TriggerCamera.Click += new System.EventHandler(this.button_TriggerCamera_Click);
             // 
             // visionToolStripMenuItem
             // 
@@ -423,7 +425,7 @@
         private System.Windows.Forms.ToolStripMenuItem startTCSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stopTCSToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_RobotConnection;
-        private System.Windows.Forms.Button button_GetImage;
+        private System.Windows.Forms.Button button_TriggerCamera;
         private System.Windows.Forms.PictureBox pictureBox_LiveImage;
         private System.Windows.Forms.ToolStripMenuItem freeModeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enableToolStripMenuItem;

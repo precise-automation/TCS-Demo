@@ -1,11 +1,12 @@
-﻿using Precise.Common.Communication.Vision.VisionEngineComm;
+﻿using Precise.Common.Communication.Protocols.VisionStream.Server;
+using Precise.Common.Communication.Vision.VisionEngineComm;
+using Precise.Common.Communication.VisionEngineComm.Vision.Results;
+using Precise.Common.Core.Language;
+using Precise.Common.Core.Logging;
 using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
 using System.Windows.Forms;
 
 namespace Brooks_TCS_Demo
@@ -13,38 +14,82 @@ namespace Brooks_TCS_Demo
     public class VisionServerHandler : IDisposable
     {
         public Image image;
-        private string ip;
-        private int port;
+        public event EventHandler<Image> ImageCaptured;
+
+        public bool IsConnected
+        {
+            get => visionEngineClientService.IsConnected;
+        }
+
+        private string ipAddress;
+        private LogService logService;
+        private LanguageService languageService;
+        private Func<VisionToolInstance[]> visionToolInstanceFinder;
+        private ResultConverterFactory resultConverterFactory;
+        private VisionDataClient visionDataClient;
         private VisionEngineClientService visionEngineClientService;
 
-        public VisionServerHandler(VisionEngineClientService visionEngineClientService)
+        public VisionServerHandler()
         {
-            this.visionEngineClientService = visionEngineClientService;
+            InitializeVisionComponents();
         }
 
         void IDisposable.Dispose()
         {
             Disconnect();
+            visionEngineClientService.ErrorDetected -= VisionEngineClientService_ErrorDetected;
+            visionEngineClientService.ImageUpdated -= VisionEngineClientService_ImageUpdated;
         }
 
-        public void Connect(string ipAddress)
+
+        private void InitializeVisionComponents()
         {
-            try
+            visionToolInstanceFinder = () =>
             {
-                //string visionServerIP = "192.168.0.200";
-                //if (visionEngineClientService.IsConnected == false)
-                //    visionEngineClientService.Connect(visionServerIP);
-                //visionEngineClientService.ImageUpdated += VisionEngineClientService_ImageUpdated;
-            }
-            catch (Exception e) { }
+                return visionEngineClientService.VisionToolInstances.ToArray();
+            };
 
+            var resultsConverterFactory = new ResultConverterFactory(languageService, logService, visionToolInstanceFinder);
 
+            visionEngineClientService = new VisionEngineClientService(languageService, logService, resultsConverterFactory);
+
+            visionDataClient = new VisionDataClient(logService, 0);
+
+            visionEngineClientService.ErrorDetected += VisionEngineClientService_ErrorDetected;
+            visionEngineClientService.ImageUpdated += VisionEngineClientService_ImageUpdated;
         }
+
+        public void Connect(string ipAddress = "192.168.0.200")
+        {
+            if (visionEngineClientService.IsConnected == false)
+                visionEngineClientService.Connect(ipAddress);
+        }
+
 
         public void Disconnect()
         {
-            //if (client.Connected)
-            //    client.Dispose();
+            if (visionEngineClientService.IsConnected)
+                visionEngineClientService.Disconnect();
+        }
+
+        private void VisionEngineClientService_ErrorDetected(Exception exception)
+        {
+            MessageBox.Show(exception.Message, "Vision Engine Client Service Error Detected");
+        }
+
+        private void VisionEngineClientService_ImageUpdated(object sender, ImageUpdatedArguments e)
+        {
+            int cameraNumber = e.CameraNumber;
+
+            var camera = visionEngineClientService.Cameras.First(c => c.CameraNumber == cameraNumber); //PNG or JPG
+
+            using (var stream = new MemoryStream(camera.CameraImage.Bytes, 0, camera.CameraImage.DataLength))
+            {
+                using (var img = Bitmap.FromStream(stream))
+                {
+                    ImageCaptured.Invoke(this, img);
+                }
+            }
         }
 
         public void TriggerCamera(int cameraNumber = 1)
@@ -60,35 +105,15 @@ namespace Brooks_TCS_Demo
             }
         }
 
-        public void ImageUpdated(object sender, ImageUpdatedArguments e)
+        internal void LiveVideo(int camera)
         {
-            int cameraNumber = e.CameraNumber;
-
-            var camera = visionEngineClientService.Cameras.FirstOrDefault(c => c.CameraNumber == cameraNumber); //PNG or JPG
-
-            using (var stream = new MemoryStream(camera.CameraImage.Bytes, 0, camera.CameraImage.DataLength))
-            {
-                using (var image = Bitmap.FromStream(stream))
-                {
-                    pictureBox_LiveImage.Invoke(new Action(() =>
-                    {
-                        string fileName = "ImageFromCamera.bmp";
-                        if (pictureBox_LiveImage.Visible)
-                        {
-                            pictureBox_LiveImage.Visible = false;
-                            pictureBox_LiveImage.Image?.Dispose();
-                            File.Delete(fileName);
-                        }
-                        image.Save(fileName, ImageFormat.Bmp);
-                        image.Dispose();
-                        pictureBox_LiveImage.Image = Image.FromFile(fileName);
-                        pictureBox_LiveImage.Visible = true;
-                    }));
-                }
-
-            }
+            visionEngineClientService.LiveVideo(camera);
         }
 
+        internal void StopLiveVideo()
+        {
+            visionEngineClientService.StopLiveVideo();
+        }
     }
 
 }
