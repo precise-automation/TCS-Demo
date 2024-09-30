@@ -22,6 +22,7 @@ namespace Brooks_TCS_Demo
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "Error in Robot Init");
                 return false;
             }
             return status;
@@ -98,7 +99,11 @@ namespace Brooks_TCS_Demo
                 }
                 return true;
             }
-            catch { return false; }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error occured while setting free mode");
+                return false; 
+            }
         }
 
         public static bool ToggleHighPower(TCSManager tcsManager)
@@ -114,7 +119,11 @@ namespace Brooks_TCS_Demo
                 }
                 return true;
             }
-            catch { return false; }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error occured while toggling high power");
+                return false;
+            }
         }
 
         public static bool IsRobotInFreeMode(TCSManager tcsManager)

@@ -150,43 +150,12 @@ namespace Brooks_TCS_Demo
 
         private void VisionEngineClientService_ImageUpdated(object sender, ImageUpdatedArguments e)
         {
-            int cameraNumber = e.CameraNumber;
-
-            var camera = visionEngineClientService.Cameras.FirstOrDefault(c => c.CameraNumber == cameraNumber); //PNG or JPG
-
-            using (var stream = new MemoryStream(camera.CameraImage.Bytes, 0, camera.CameraImage.DataLength))
-            {
-                using (var image = Bitmap.FromStream(stream))
-                {
-                    pictureBox_LiveImage.Invoke(new Action(() =>
-                    {
-                        string fileName = "ImageFromCamera.bmp";
-                        if (pictureBox_LiveImage.Visible)
-                        {
-                            pictureBox_LiveImage.Visible = false;
-                            pictureBox_LiveImage.Image?.Dispose();
-                            File.Delete(fileName);
-                        }
-                        image.Save(fileName, ImageFormat.Bmp);
-                        image.Dispose();
-                        pictureBox_LiveImage.Image = Image.FromFile(fileName);
-                        pictureBox_LiveImage.Visible = true;
-                    }));
-                }
-
-            }
+            
         }
 
         private void VisionAquireSingle(int camera = 1)
         {
-            if (visionEngineClientService.IsConnected)
-            {
-                visionEngineClientService.AcquireImage(camera);
-            }
-            else
-            {
-                MessageBox.Show("Camera Not Connected");
-            }
+            visionServerHandler.TriggerCamera(camera);
         }
 
 
@@ -259,21 +228,6 @@ namespace Brooks_TCS_Demo
             VisionDisconnect();
         }
 
-        private string SendSingleCommand(string command, int sleep = 1000, int timeout = 5000)
-        {
-            if (controllerHelper.IsActive)
-            {
-                tcsManager.CommandText = command;
-                Console.WriteLine(string.Format("<-- {0}", command));
-                tcsManager.SendCommand();
-                TcsHelper.Wait(() => !tcsManager.IsBackgroundExecuting, timeout);
-                System.Threading.Thread.Sleep(sleep);
-                Console.WriteLine(string.Format("--> {0}", tcsManager.CommandResponse));
-                return tcsManager.CommandResponse;
-            }
-            return string.Empty;
-        }
-
         private void initToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (controllerHelper.IsActive)
@@ -318,28 +272,17 @@ namespace Brooks_TCS_Demo
 
         private void loadTCSToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TcsProjectManager.LoadTCS(tcsManager);
+            TcsHelper.LoadTCS(tcsManager);
         }
 
         private void startTCSToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TcsProjectManager.LoadTCS(tcsManager);
+            TcsHelper.LoadTCS(tcsManager);
         }
 
         private void stopTCSToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TcsProjectManager.StopTCS(tcsManager);
-        }
-
-        private VisionHtmlServerHandler imageWebSocketHandler;
-        private void button_GetImage_Click(object sender, EventArgs e)
-        {
-            if (imageWebSocketHandler == null)
-                imageWebSocketHandler = new VisionHtmlServerHandler("192.168.0.200", 5000);
-            if(imageWebSocketHandler.client.Connected == false)
-                imageWebSocketHandler.Connect();
-
-            pictureBox_LiveImage.Image = imageWebSocketHandler.GetImage();
+            TcsHelper.StopTCS(tcsManager);
         }
 
         private void attachToolStripMenuItem_Click(object sender, EventArgs e)

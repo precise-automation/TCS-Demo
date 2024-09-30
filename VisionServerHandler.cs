@@ -1,7 +1,9 @@
 ﻿using Precise.Common.Communication.Vision.VisionEngineComm;
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
@@ -45,35 +47,46 @@ namespace Brooks_TCS_Demo
             //    client.Dispose();
         }
 
-        public Image GetImage(string cameraName = "Image1")
+        public void TriggerCamera(int cameraNumber = 1)
         {
 
-            string url = "http://192.168.0.200:5000/CurrentImage/Image1";
-            string localFilePath = "DownloadedImage.jpg";
-
-            try
+            if (visionEngineClientService.IsConnected)
             {
-                // Download the image using WebClient
-                using (WebClient client = new WebClient())
+                visionEngineClientService.AcquireImage(cameraNumber);
+            }
+            else
+            {
+                MessageBox.Show("Camera Not Connected");
+            }
+        }
+
+        public void ImageUpdated(object sender, ImageUpdatedArguments e)
+        {
+            int cameraNumber = e.CameraNumber;
+
+            var camera = visionEngineClientService.Cameras.FirstOrDefault(c => c.CameraNumber == cameraNumber); //PNG or JPG
+
+            using (var stream = new MemoryStream(camera.CameraImage.Bytes, 0, camera.CameraImage.DataLength))
+            {
+                using (var image = Bitmap.FromStream(stream))
                 {
-                    byte[] imageData = client.DownloadData(url);
-
-                    // Convert byte array to image
-                    using (MemoryStream ms = new MemoryStream(imageData))
+                    pictureBox_LiveImage.Invoke(new Action(() =>
                     {
-                        Image image = Image.FromStream(ms);
-                        return image;
-                        // Save the image to a local file
-                        image.Save(localFilePath);
-                        Console.WriteLine($"Image successfully downloaded and saved as {localFilePath}");
-                    }
+                        string fileName = "ImageFromCamera.bmp";
+                        if (pictureBox_LiveImage.Visible)
+                        {
+                            pictureBox_LiveImage.Visible = false;
+                            pictureBox_LiveImage.Image?.Dispose();
+                            File.Delete(fileName);
+                        }
+                        image.Save(fileName, ImageFormat.Bmp);
+                        image.Dispose();
+                        pictureBox_LiveImage.Image = Image.FromFile(fileName);
+                        pictureBox_LiveImage.Visible = true;
+                    }));
                 }
+
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-            return null;
         }
 
     }
