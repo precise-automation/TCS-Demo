@@ -69,7 +69,8 @@ namespace Brooks_TCS_Demo
                 if (tcsManager.IsConnected == false)
                 {
                     tcsManager.Controller.Connect(ipAddress);
-                    RobotTcsCmds.AttachRobot(tcsManager);
+                    if (TcsHelper.IsTcsRunning(tcsManager) == false)
+                        MessageBox.Show("TCS Not Running On Target Controller", "Warning");
                 }
             }
             catch (Exception ex)
@@ -105,7 +106,6 @@ namespace Brooks_TCS_Demo
 
         public void SetAttach(bool attach = true) => RobotTcsCmds.AttachRobot(tcsManager, attach);
         public void SetFreeMode(bool freeAllJoints = true) => RobotTcsCmds.SetFreeMode(tcsManager, freeAllJoints);
-        
 
         public void LoadTCS() => TcsHelper.LoadTCS(tcsManager);
         public void CompileTCS() => throw new NotImplementedException();

@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace Brooks_TCS_Demo
@@ -11,6 +12,13 @@ namespace Brooks_TCS_Demo
         private static string Tcp_Project_Name = "Tcp_cmd_server_pa";
         private static string Tcp_Project_Path = "/flash/projects/";
 
+        public static bool IsTcsRunning(TCSManager tcsManager)
+        {
+            var executionDetails = tcsManager.Controller.GetExecutionDetails();
+            bool result = executionDetails.ThreadNames.Any(t => t.Contains("Tcp_cmd_server"));
+            return result;
+        }
+        
         public static void LoadTCS(TCSManager tcsManager)
         {
             if (tcsManager.Controller.IsActive)
