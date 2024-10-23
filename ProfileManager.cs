@@ -1,10 +1,7 @@
-﻿using Precise.Common.Communication.Controllers;
-using Precise.Common.Communication.Managers.Projects.Variables;
+﻿using Precise.Common.Communication.Managers.Projects.Variables;
 using Precise.Common.Communication.Managers.TCS;
-using Precise.Common.Core.Util;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace Brooks_TCS_Demo
