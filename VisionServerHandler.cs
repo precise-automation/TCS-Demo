@@ -13,7 +13,6 @@ namespace Brooks_TCS_Demo
 {
     public class VisionServerHandler : IDisposable
     {
-        public Image image;
         public event EventHandler<Image> ImageCaptured;
 
         public bool IsConnected
@@ -21,37 +20,16 @@ namespace Brooks_TCS_Demo
             get => visionEngineClientService.IsConnected;
         }
 
-        private string ipAddress;
-        private LogService logService;
-        private LanguageService languageService;
-        private Func<VisionToolInstance[]> visionToolInstanceFinder;
-        private ResultConverterFactory resultConverterFactory;
+        private Image image;
         private VisionDataClient visionDataClient;
         private VisionEngineClientService visionEngineClientService;
 
         public VisionServerHandler()
         {
-            InitializeVisionComponents();
-        }
+            var logService = new LogService();
+            var languageService = new LanguageService(logService);
 
-        void IDisposable.Dispose()
-        {
-            Dispose();
-        }
-        public void Dispose()
-        {
-            visionEngineClientService.Disconnect();
-            visionEngineClientService.ErrorDetected -= VisionEngineClientService_ErrorDetected;
-            visionEngineClientService.ImageUpdated -= VisionEngineClientService_ImageUpdated;
-            image?.Dispose();
-        }
-
-        private void InitializeVisionComponents()
-        {
-            logService = new LogService();
-            languageService = new LanguageService(logService);
-
-            visionToolInstanceFinder = () =>
+            Func<VisionToolInstance[]> visionToolInstanceFinder = () =>
             {
                 return visionEngineClientService.VisionToolInstances.ToArray();
             };
@@ -64,6 +42,18 @@ namespace Brooks_TCS_Demo
 
             visionEngineClientService.ErrorDetected += VisionEngineClientService_ErrorDetected;
             visionEngineClientService.ImageUpdated += VisionEngineClientService_ImageUpdated;
+        }
+
+        void IDisposable.Dispose()
+        {
+            Dispose();
+        }
+        public void Dispose()
+        {
+            visionEngineClientService.Disconnect();
+            visionEngineClientService.ErrorDetected -= VisionEngineClientService_ErrorDetected;
+            visionEngineClientService.ImageUpdated -= VisionEngineClientService_ImageUpdated;
+            image?.Dispose();
         }
 
         public void Connect(string ipAddress = "192.168.0.200")
@@ -80,9 +70,8 @@ namespace Brooks_TCS_Demo
         }
 
         private void VisionEngineClientService_ErrorDetected(Exception exception)
-        {
-            MessageBox.Show(exception.Message, "Vision Engine Client Service Error Detected");
-        }
+            => MessageBox.Show(exception.Message, 
+                "Vision Engine Client Service Error Detected");
 
         private void VisionEngineClientService_ImageUpdated(object sender, ImageUpdatedArguments e)
         {
@@ -113,16 +102,10 @@ namespace Brooks_TCS_Demo
         }
 
         internal void LiveVideo(int camera)
-        {
-            visionEngineClientService.LiveVideo(camera);
-        }
-
+            => visionEngineClientService.LiveVideo(camera);
+        
         internal void StopLiveVideo()
-        {
-            visionEngineClientService.StopLiveVideo();
-        }
-
-
+            => visionEngineClientService.StopLiveVideo();
     }
 
 }

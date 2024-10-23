@@ -18,29 +18,27 @@ namespace Brooks_TCS_Demo
             get => tcsManager.IsConnected ;
         }
 
+        public LocationManager LocationManager
+        {
+            get
+            {
+                if (locationManager == null)
+                {
+                    locationManager = new LocationManager(tcsManager);
+                }
+                return locationManager;
+            }
+        }
+
         private LogService logService;
         private LanguageService languageService;
         private Communications commHandle;
         private ControllerHelper controllerHelper;
         private TCSManager tcsManager;
+        private LocationManager locationManager;
 
 
         public RobotServerHandler()
-        {
-            InitializeGdsComponents();
-        }
-
-        void IDisposable.Dispose()
-        {
-            Dispose();
-        }
-
-        public void Dispose()
-        {
-            Disconnect();
-        }
-
-        public void InitializeGdsComponents()
         {
             logService = new LogService();
             languageService = new LanguageService(logService);
@@ -48,19 +46,22 @@ namespace Brooks_TCS_Demo
             controllerHelper = new ControllerHelper(commHandle);
 
             string tcsMacroDirectory = TcsHelper.GetTCSMacroFolder();
+
             tcsManager = new TCSManager(languageService,
                                         logService,
                                         controllerHelper,
                                         new TCSConnection(logService),
                                         tcsMacroDirectory);
-            tcsManager.Controller.ConnectionStateChanged += Controller_ConnectionStateChanged;
-        }
-        
 
-        private void Controller_ConnectionStateChanged(bool obj)
-        {
-            ConnectionChanged.Invoke(this, EventArgs.Empty);
+            tcsManager.Controller.ConnectionStateChanged += Controller_ConnectionStateChanged;
+
         }
+
+        void IDisposable.Dispose()
+            => this.Dispose();
+
+        public void Dispose()
+            => Disconnect();
 
         public void Connect(string ipAddress = "192.168.0.1")
         {
@@ -96,7 +97,11 @@ namespace Brooks_TCS_Demo
             }
         }
 
-        public void Init() => RobotTcsCmds.RobotInit(tcsManager);
+        private void Controller_ConnectionStateChanged(bool obj)
+            => ConnectionChanged.Invoke(this, EventArgs.Empty);
+
+        public void Init() 
+            => RobotTcsCmds.RobotInit(tcsManager);
         
         public void SetPower(bool powerState = true)
         {
@@ -104,14 +109,20 @@ namespace Brooks_TCS_Demo
             Thread.Sleep(250);
         }
 
-        public void SetAttach(bool attach = true) => RobotTcsCmds.AttachRobot(tcsManager, attach);
-        public void SetFreeMode(bool freeAllJoints = true) => RobotTcsCmds.SetFreeMode(tcsManager, freeAllJoints);
+        public void SetAttach(bool attach = true) 
+            => RobotTcsCmds.AttachRobot(tcsManager, attach);
 
-        public void LoadTCS() => TcsHelper.LoadTCS(tcsManager);
-        public void CompileTCS() => throw new NotImplementedException();
-        public void StartTCS() => TcsHelper.StartTCS(tcsManager);
-        public void StopTCS() => TcsHelper.StopTCS(tcsManager);
+        public void SetFreeMode(bool freeAllJoints = true) 
+            => RobotTcsCmds.SetFreeMode(tcsManager, freeAllJoints);
 
+        public void LoadTCS() 
+            => TcsHelper.LoadTCS(tcsManager);
+
+        public void StartTCS() 
+            => TcsHelper.StartTCS(tcsManager);
+
+        public void StopTCS() 
+            => TcsHelper.StopTCS(tcsManager);
 
     }
 }

@@ -11,7 +11,7 @@ namespace Brooks_TCS_Demo
     public static class RobotTcsCmds
     {
 
-        public static bool RobotInit(TCSManager tcsManager)
+        public static bool RobotInit(TCSManager tcsManager, bool homeRobot = false)
         {
             if (tcsManager.Controller.IsActive == false) return false;
 
@@ -20,7 +20,8 @@ namespace Brooks_TCS_Demo
             {
                 status &= SetHighPower(tcsManager);
                 status &= AttachRobot(tcsManager);
-                status &= HomeRobot(tcsManager);
+                if(homeRobot)
+                    status &= HomeRobot(tcsManager);
             }
             catch (Exception ex)
             {
@@ -30,14 +31,15 @@ namespace Brooks_TCS_Demo
             return status;
         }
 
-        public static bool SetHighPower(TCSManager tcsManager, bool state = true)
+        public static bool SetHighPower(TCSManager tcsManager, bool state = true, bool waitForResponse = true)
         {
             if (tcsManager.Controller.IsActive == false) return false;
 
             if (state)
             {
                 TcsHelper.SendSingleCommand(tcsManager, "hp 1");
-                return WaitForRobotPowerState(tcsManager, PowerAutoExecStates.GPLReady, 10 * 1000);
+               return !waitForResponse || WaitForRobotPowerState(tcsManager, PowerAutoExecStates.GPLReady, 10 * 1000);
+
             }
             else
             {
@@ -46,14 +48,14 @@ namespace Brooks_TCS_Demo
             }
             return false;
         }
-        public static bool AttachRobot(TCSManager tcsManager, bool state = true)
+        public static bool AttachRobot(TCSManager tcsManager, bool state = true, bool waitForResponse = true)
         {
             if (tcsManager.Controller.IsActive == false) return false;
 
             if (state)
             {
                 TcsHelper.SendSingleCommand(tcsManager, "Attach 1");
-                return WaitForRobotPowerState(tcsManager, PowerAutoExecStates.GPLAttached);
+                return !waitForResponse || WaitForRobotPowerState(tcsManager, PowerAutoExecStates.GPLAttached);
             }
             else
             {
@@ -61,11 +63,13 @@ namespace Brooks_TCS_Demo
                 return true;
             }
         }
-        public static bool HomeRobot(TCSManager tcsManager)
+        public static bool HomeRobot(TCSManager tcsManager, bool waitForResponse = true)
         {
             if (tcsManager.Controller.IsActive == false) return false;
             
             TcsHelper.SendSingleCommand(tcsManager, "homeAll", 1000);
+            if (waitForResponse == false) return true;
+
             if (WaitForRobotPowerState(tcsManager, PowerAutoExecStates.RobotsHoming, 5 * 1000) == false)
                 return false;
             if (WaitForRobotPowerState(tcsManager, PowerAutoExecStates.GPLReady, 30 * 1000) == false)
@@ -101,7 +105,7 @@ namespace Brooks_TCS_Demo
             return false;
         }
 
-        public static bool SetFreeMode(TCSManager tcsManager, bool enable)
+        public static bool SetFreeMode(TCSManager tcsManager, bool enable, bool waitForEnable = true)
         {
             try
             {
@@ -109,14 +113,13 @@ namespace Brooks_TCS_Demo
 
                 if (enable)
                 {
-                    TcsHelper.SendSingleCommand(tcsManager, "Attach 1");
                     TcsHelper.SendSingleCommand(tcsManager, "FreeMode 0");
-                    Thread.Sleep(3000);
+
+                    if(waitForEnable) Thread.Sleep(3000);
                 }
                 else
                 {
                     TcsHelper.SendSingleCommand(tcsManager, "FreeMode -1");
-
                 }
                 
                 return true;
@@ -150,7 +153,7 @@ namespace Brooks_TCS_Demo
 
         public static bool IsRobotInFreeMode(TCSManager tcsManager)
         {
-            // Check
+            // As a work around check the following:
             // Power Enabled == true
             // 3520 == jog mode
             // 12100 == axis is in torque control mode
@@ -185,12 +188,13 @@ namespace Brooks_TCS_Demo
 
         public static int ReadDataID(TCSManager tcsManager, int DataID, int robotNum = 1, int dataUnit = 0, int arrayIndex= 0)
         {
-            DataIDObj dataIDObj = new DataIDObj();
-            dataIDObj.objDataID = DataID;
-            dataIDObj.objDataUnit1 = robotNum;
-            dataIDObj.objDataUnit2 = dataUnit;
-            dataIDObj.objArrayIdx = arrayIndex;
-
+            DataIDObj dataIDObj = new DataIDObj() {
+                objDataID = DataID,
+                objDataUnit1 = robotNum,
+                objDataUnit2 = dataUnit,
+                objArrayIdx = arrayIndex
+            };
+            
             tcsManager.Controller.Handle.DataIdGet(ref dataIDObj);
 
             int result;

@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Precise.Common.Communication.Managers.Projects.Variables;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Brooks_TCS_Demo
 {
     public partial class Form1 : Form
     {
-
-        private VisionServerHandler robot1Vision;
         private RobotServerHandler robot1Controller;
+        private VisionServerHandler robot1Vision;
 
-        private Image cameraImageDisplay;
         private ProgramSettings programSettings;
 
         private string robot1ControllerIP;
@@ -31,8 +31,6 @@ namespace Brooks_TCS_Demo
             robot1Vision.ImageCaptured += Robot1Vision_ImageCaptured;
         }
 
-
-
         private void InitializeSettings()
         {
             string settingsFilePath = "settings.json";
@@ -47,10 +45,6 @@ namespace Brooks_TCS_Demo
 
             robot1ControllerIP = programSettings.Get<string>("Robot1ControllerIP", "192.168.0.1");
             robot1VisionIP = programSettings.Get<string>("Robot1VisionIP", "192.168.0.200");
-
-            //    Example Code:
-            //    int volume = programSettings.Get<int>("volume", 50); // Default to 50 if not found
-            //    string theme = programSettings.Get<string>("theme", "light"); // Default to "light"
         }
 
         private void SaveSettings()
@@ -58,12 +52,7 @@ namespace Brooks_TCS_Demo
             programSettings.Set("Robot1ControllerIP", robot1ControllerIP);
             programSettings.Set("Robot1VisionIP", robot1VisionIP);
             programSettings.SaveSettings();
-
-            //    Example Code: 
-            //    programSettings.Set("volume", 75);
-            //    programSettings.Set("theme", "dark");
         }
-
 
         private void VisionConnect()
         {
@@ -75,11 +64,9 @@ namespace Brooks_TCS_Demo
             }
         }
 
-
         private void VisionDisconnect()
         {
             UpdateVisionConnectionStatusDisplay();
-
         }
 
         private void UpdateVisionConnectionStatusDisplay(bool connected = false)
@@ -93,7 +80,6 @@ namespace Brooks_TCS_Demo
             {
                 toolStripStatusLabel_VisionConnection.Text = "Disconnected";
                 toolStripStatusLabel_VisionConnection.ForeColor = Color.Red;
-
             }
         }
 
@@ -104,39 +90,31 @@ namespace Brooks_TCS_Demo
 
 
         private void button_TriggerCamera_Click(object sender, EventArgs e)
-        {
-            VisionAquireSingle();
-        }
+        => VisionAquireSingle();
 
         private void RobotConnect()
-        {
-            robot1Controller.Connect(robot1ControllerIP);
-        }
+        => robot1Controller.Connect(robot1ControllerIP);
+
         private void RobotDisconnect()
-        {
-            robot1Controller.Disconnect();
-        }
+        => robot1Controller.Disconnect();
+
 
         private void Robot1Controller_ConnectionChanged(object sender, EventArgs e)
         {
-            pictureBox_LiveImage.Invoke(new Action(() => { UpdateRobotConnectionStatus(); }));
+            pictureBox_LiveImage.Invoke(new Action(()
+                =>
+            { UpdateRobotConnectionStatus(); }));
         }
 
         private void Robot1Vision_ImageCaptured(object sender, Image img)
         {
-            pictureBox_LiveImage.Invoke(new Action(() => { UpdateImageDisplay(img); }));
+            pictureBox_LiveImage.Invoke(new Action(()
+                =>
+            { UpdateImageDisplay(img); }));
         }
 
         public void UpdateImageDisplay(Image img)
         {
-
-            // Option 1
-            //pictureBox_LiveImage.Visible = false;
-            //pictureBox_LiveImage.Image?.Dispose();
-            //cameraImageDisplay = img;
-            //pictureBox_LiveImage.Image = cameraImageDisplay;
-
-            // Option 2
             string fileName = "ImageFromCamera.bmp";
             if (pictureBox_LiveImage.Visible)
             {
@@ -187,15 +165,10 @@ namespace Brooks_TCS_Demo
         }
 
         private void initToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            robot1Controller.Init();
-        }
+            => robot1Controller.Init();
 
         private void powerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            robot1Controller.SetPower(true);
-            //throw new NotImplementedException();
-        }
+            => robot1Controller.SetPower(true);
 
         private void TestConnection()
         {
@@ -216,58 +189,86 @@ namespace Brooks_TCS_Demo
         }
 
         private void enableToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            robot1Controller.SetFreeMode(true);
-        }
-
+            => robot1Controller.SetFreeMode(true);
+        
         private void disableToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            robot1Controller.SetFreeMode(false);
-        }
-
+            => robot1Controller.SetFreeMode(false);
+       
         private void loadTCSToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            robot1Controller.LoadTCS();
-        }
+            => robot1Controller.LoadTCS();
 
         private void startTCSToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            robot1Controller.StartTCS();
-        }
+            => robot1Controller.StartTCS();
 
         private void stopTCSToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            robot1Controller.StopTCS();
-        }
+            => robot1Controller.StopTCS();
 
         private void attachToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            robot1Controller.SetAttach(true);
-        }
+            => robot1Controller.SetAttach(true);
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            VisionConnect();
-        }
+            => VisionConnect();
 
         private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            VisionDisconnect();
-        }
+            => VisionDisconnect();
 
         private void singleAquireToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            VisionAquireSingle();
-        }
+            => VisionAquireSingle();
 
         private void liveStartToolStripMenuItem_Click(object sender, EventArgs e)
+            => robot1Vision.LiveVideo(1);
+        private void liveStopToolStripMenuItem_Click(object sender, EventArgs e)
+            => robot1Vision.StopLiveVideo();
+
+
+        private void button_RecordJoint_Click(object sender, EventArgs e)
         {
-            robot1Vision.LiveVideo(1);
+            var name = comboBox_LocName.Text;
+            var loc = robot1Controller.LocationManager.UpdateLocation(name, LocationType.Angles);
+            textBox_LocPosition.Text = loc;
+            var locs = robot1Controller.LocationManager.GetLocationList();
+            comboBox_LocName.Items.Clear();
+            comboBox_LocName.Items.AddRange(locs);
         }
 
-        private void liveStopToolStripMenuItem_Click(object sender, EventArgs e)
+        private void button_RecordCartesian_Click(object sender, EventArgs e)
         {
-            robot1Vision.StopLiveVideo();
+            var name = comboBox_LocName.Text;
+            var loc = robot1Controller.LocationManager.UpdateLocation(name, LocationType.Cartesian);
+            textBox_LocPosition.Text = loc;
+            var locs = robot1Controller.LocationManager.GetLocationList();
+            comboBox_LocName.Items.Clear();
+            comboBox_LocName.Items.AddRange(locs);
+        }
+
+        private void button_MoveToLocation_Click(object sender, EventArgs e)
+        {
+            var name = comboBox_LocName.Text;
+            robot1Controller.LocationManager.MoveToLocation(name);
+        }
+
+        private void comboBox_LocName_DropDownClosed(object sender, EventArgs e)
+        {
+            var name = comboBox_LocName.Text;
+            var loc = robot1Controller.LocationManager.GetLocationString(name);
+            textBox_LocPosition.Text = loc;
+        }
+
+        private void button_SetDefProf_Click(object sender, EventArgs e)
+        {
+            robot1Controller.LocationManager.SetDefaultProfile();
+        }
+
+        private void button_UpdateLocation_Click(object sender, EventArgs e)
+        {
+            var name = comboBox_LocName.Text;
+            var pos = textBox_LocPosition.Text;
+            robot1Controller.LocationManager.UpdateLocation(name, pos);
+        }
+
+        private void button_SetMotionProfile_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
