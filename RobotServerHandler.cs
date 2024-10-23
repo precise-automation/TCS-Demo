@@ -30,12 +30,25 @@ namespace Brooks_TCS_Demo
             }
         }
 
+        public ProfileManager ProfileManager
+        {
+            get
+            {
+                if (profileManager == null)
+                {
+                    profileManager = new ProfileManager(tcsManager);
+                }
+                return profileManager;
+            }
+        }
+
         private LogService logService;
         private LanguageService languageService;
         private Communications commHandle;
         private ControllerHelper controllerHelper;
         private TCSManager tcsManager;
         private LocationManager locationManager;
+        private ProfileManager profileManager;
 
 
         public RobotServerHandler()

@@ -71,11 +71,12 @@ namespace Brooks_TCS_Demo
             this.button_MoveToLocation = new System.Windows.Forms.Button();
             this.button_RecordJoint = new System.Windows.Forms.Button();
             this.comboBox_LocName = new System.Windows.Forms.ComboBox();
-            this.button_SetDefProf = new System.Windows.Forms.Button();
             this.button_UpdateLocation = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_MotionProfile = new System.Windows.Forms.TextBox();
             this.button_SetMotionProfile = new System.Windows.Forms.Button();
+            this.comboBox_ProfileName = new System.Windows.Forms.ComboBox();
+            this.button_SendToController = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -376,11 +377,12 @@ namespace Brooks_TCS_Demo
             // 
             // tabPage_Locations
             // 
+            this.tabPage_Locations.Controls.Add(this.button_SendToController);
+            this.tabPage_Locations.Controls.Add(this.comboBox_ProfileName);
             this.tabPage_Locations.Controls.Add(this.button_SetMotionProfile);
             this.tabPage_Locations.Controls.Add(this.textBox_MotionProfile);
             this.tabPage_Locations.Controls.Add(this.label2);
             this.tabPage_Locations.Controls.Add(this.button_UpdateLocation);
-            this.tabPage_Locations.Controls.Add(this.button_SetDefProf);
             this.tabPage_Locations.Controls.Add(this.button_RecordCartesian);
             this.tabPage_Locations.Controls.Add(this.textBox_LocPosition);
             this.tabPage_Locations.Controls.Add(this.label1);
@@ -450,16 +452,6 @@ namespace Brooks_TCS_Demo
             this.comboBox_LocName.TabIndex = 11;
             this.comboBox_LocName.DropDownClosed += new System.EventHandler(this.comboBox_LocName_DropDownClosed);
             // 
-            // button_SetDefProf
-            // 
-            this.button_SetDefProf.Location = new System.Drawing.Point(300, 152);
-            this.button_SetDefProf.Name = "button_SetDefProf";
-            this.button_SetDefProf.Size = new System.Drawing.Size(75, 23);
-            this.button_SetDefProf.TabIndex = 17;
-            this.button_SetDefProf.Text = "Set Default Profile";
-            this.button_SetDefProf.UseVisualStyleBackColor = true;
-            this.button_SetDefProf.Click += new System.EventHandler(this.button_SetDefProf_Click);
-            // 
             // button_UpdateLocation
             // 
             this.button_UpdateLocation.Location = new System.Drawing.Point(300, 78);
@@ -481,7 +473,7 @@ namespace Brooks_TCS_Demo
             // 
             // textBox_MotionProfile
             // 
-            this.textBox_MotionProfile.Location = new System.Drawing.Point(20, 152);
+            this.textBox_MotionProfile.Location = new System.Drawing.Point(20, 177);
             this.textBox_MotionProfile.Name = "textBox_MotionProfile";
             this.textBox_MotionProfile.Size = new System.Drawing.Size(193, 20);
             this.textBox_MotionProfile.TabIndex = 20;
@@ -489,13 +481,32 @@ namespace Brooks_TCS_Demo
             // 
             // button_SetMotionProfile
             // 
-            this.button_SetMotionProfile.Location = new System.Drawing.Point(219, 152);
+            this.button_SetMotionProfile.Location = new System.Drawing.Point(219, 177);
             this.button_SetMotionProfile.Name = "button_SetMotionProfile";
             this.button_SetMotionProfile.Size = new System.Drawing.Size(75, 23);
             this.button_SetMotionProfile.TabIndex = 21;
             this.button_SetMotionProfile.Text = "Set";
             this.button_SetMotionProfile.UseVisualStyleBackColor = true;
             this.button_SetMotionProfile.Click += new System.EventHandler(this.button_SetMotionProfile_Click);
+            // 
+            // comboBox_ProfileName
+            // 
+            this.comboBox_ProfileName.FormattingEnabled = true;
+            this.comboBox_ProfileName.Location = new System.Drawing.Point(20, 150);
+            this.comboBox_ProfileName.Name = "comboBox_ProfileName";
+            this.comboBox_ProfileName.Size = new System.Drawing.Size(193, 21);
+            this.comboBox_ProfileName.TabIndex = 22;
+            this.comboBox_ProfileName.DropDownClosed += new System.EventHandler(this.comboBox_ProfileName_DropDownClosed);
+            // 
+            // button_SendToController
+            // 
+            this.button_SendToController.Location = new System.Drawing.Point(300, 177);
+            this.button_SendToController.Name = "button_SendToController";
+            this.button_SendToController.Size = new System.Drawing.Size(108, 23);
+            this.button_SendToController.TabIndex = 23;
+            this.button_SendToController.Text = "Send To Controller";
+            this.button_SendToController.UseVisualStyleBackColor = true;
+            this.button_SendToController.Click += new System.EventHandler(this.button_SendToController_Click);
             // 
             // Form1
             // 
@@ -567,11 +578,12 @@ namespace Brooks_TCS_Demo
         private System.Windows.Forms.Button button_MoveToLocation;
         private System.Windows.Forms.Button button_RecordJoint;
         private System.Windows.Forms.ComboBox comboBox_LocName;
-        private System.Windows.Forms.Button button_SetDefProf;
         private System.Windows.Forms.Button button_UpdateLocation;
         private System.Windows.Forms.Button button_SetMotionProfile;
         private System.Windows.Forms.TextBox textBox_MotionProfile;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button_SendToController;
+        private System.Windows.Forms.ComboBox comboBox_ProfileName;
     }
 }
 

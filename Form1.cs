@@ -254,10 +254,6 @@ namespace Brooks_TCS_Demo
             textBox_LocPosition.Text = loc;
         }
 
-        private void button_SetDefProf_Click(object sender, EventArgs e)
-        {
-            robot1Controller.LocationManager.SetDefaultProfile();
-        }
 
         private void button_UpdateLocation_Click(object sender, EventArgs e)
         {
@@ -268,7 +264,26 @@ namespace Brooks_TCS_Demo
 
         private void button_SetMotionProfile_Click(object sender, EventArgs e)
         {
+            var name = comboBox_ProfileName.Text;
+            var prof = textBox_MotionProfile.Text;
+            robot1Controller.ProfileManager.UpdateProfile(name, prof);
 
+            var profs = robot1Controller.ProfileManager.GetProfileList();
+            comboBox_ProfileName.Items.Clear();
+            comboBox_ProfileName.Items.AddRange(profs);
+        }
+
+        private void comboBox_ProfileName_DropDownClosed(object sender, EventArgs e)
+        {
+            var name = comboBox_ProfileName.Text;
+            var prof = robot1Controller.ProfileManager.GetProfileString(name);
+            textBox_MotionProfile.Text = prof;
+        }
+
+        private void button_SendToController_Click(object sender, EventArgs e)
+        {
+            var name = comboBox_ProfileName.Text;
+            robot1Controller.ProfileManager.SendProfileToController(name);
         }
     }
 }

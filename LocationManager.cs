@@ -121,11 +121,9 @@ namespace Brooks_TCS_Demo
 
         }
 
-        public void MoveToLocation(string name, int profile = 1, bool appro = false)
+        public void MoveToLocation(string name, int station = 1,  int profile = 1, bool appro = false)
         {
             string locType, pos, response = string.Empty;
-            string prof = profile.ToString();
-            string station = "1";
 
 
             if (Exists(name) == false) return;
@@ -147,26 +145,18 @@ namespace Brooks_TCS_Demo
             if (response.StartsWith("0") == false)
                 MessageBox.Show(response, "Error Returned");
 
-            // Set the profile
-            //TcsHelper.SendSingleCommand(tcsManager, $"Profile {prof}");
-
             // Approach Location
             if (appro)
             {
-                response = TcsHelper.SendSingleCommand(tcsManager, $"MoveAppro {station} {prof}");
+                response = TcsHelper.SendSingleCommand(tcsManager, $"MoveAppro {station} {profile}");
                 if (response.StartsWith("0") == false)
                     MessageBox.Show(response, "Error Returned");
             }
 
             // Move to Location
-            response = TcsHelper.SendSingleCommand(tcsManager, $"Move {station} {prof}");
+            response = TcsHelper.SendSingleCommand(tcsManager, $"Move {station} {profile}");
             if (response.StartsWith("0") == false)
                 MessageBox.Show(response, "Error Returned");
-        }
-
-        public void SetDefaultProfile()
-        {
-            string response = TcsHelper.SendSingleCommand(tcsManager, "Profile 1 50 50 50 50 0.1 0.1 10 0");
         }
     }
 }
