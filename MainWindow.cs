@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Brooks_TCS_Demo
 {
-    public partial class Form1 : Form
+    public partial class MainWindow : Form
     {
         private RobotServerHandler robot1Controller;
         private VisionServerHandler robot1Vision;
@@ -17,7 +17,7 @@ namespace Brooks_TCS_Demo
         private string robot1ControllerIP;
         private string robot1VisionIP;
 
-        public Form1()
+        public MainWindow()
         {
             InitializeComponent();
             InitializeSettings();

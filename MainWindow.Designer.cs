@@ -2,7 +2,7 @@
 
 namespace Brooks_TCS_Demo
 {
-    partial class Form1
+    partial class MainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -65,12 +65,12 @@ namespace Brooks_TCS_Demo
             this.pictureBox_LiveImage = new System.Windows.Forms.PictureBox();
             this.button_TriggerCamera = new System.Windows.Forms.Button();
             this.tabPage_Locations = new System.Windows.Forms.TabPage();
-            this.button_RecordCartesian = new System.Windows.Forms.Button();
-            this.textBox_LocPosition = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button_MoveToLocation = new System.Windows.Forms.Button();
-            this.button_RecordJoint = new System.Windows.Forms.Button();
             this.comboBox_LocName = new System.Windows.Forms.ComboBox();
+            this.button_RecordJoint = new System.Windows.Forms.Button();
+            this.button_MoveToLocation = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox_LocPosition = new System.Windows.Forms.TextBox();
+            this.button_RecordCartesian = new System.Windows.Forms.Button();
             this.button_UpdateLocation = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_MotionProfile = new System.Windows.Forms.TextBox();
@@ -96,14 +96,14 @@ namespace Brooks_TCS_Demo
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // controllerToolStripMenuItem
@@ -115,7 +115,7 @@ namespace Brooks_TCS_Demo
             this.attachToolStripMenuItem,
             this.freeModeToolStripMenuItem});
             this.controllerToolStripMenuItem.Name = "controllerToolStripMenuItem";
-            this.controllerToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            this.controllerToolStripMenuItem.Size = new System.Drawing.Size(89, 24);
             this.controllerToolStripMenuItem.Text = "Controller";
             // 
             // manageTCSToolStripMenuItem
@@ -125,48 +125,48 @@ namespace Brooks_TCS_Demo
             this.startTCSToolStripMenuItem,
             this.stopTCSToolStripMenuItem});
             this.manageTCSToolStripMenuItem.Name = "manageTCSToolStripMenuItem";
-            this.manageTCSToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.manageTCSToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
             this.manageTCSToolStripMenuItem.Text = "ManageTCS";
             // 
             // loadTCSToolStripMenuItem
             // 
             this.loadTCSToolStripMenuItem.Name = "loadTCSToolStripMenuItem";
-            this.loadTCSToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.loadTCSToolStripMenuItem.Size = new System.Drawing.Size(153, 26);
             this.loadTCSToolStripMenuItem.Text = "Load TCS";
             this.loadTCSToolStripMenuItem.Click += new System.EventHandler(this.loadTCSToolStripMenuItem_Click);
             // 
             // startTCSToolStripMenuItem
             // 
             this.startTCSToolStripMenuItem.Name = "startTCSToolStripMenuItem";
-            this.startTCSToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.startTCSToolStripMenuItem.Size = new System.Drawing.Size(153, 26);
             this.startTCSToolStripMenuItem.Text = "Start TCS";
             this.startTCSToolStripMenuItem.Click += new System.EventHandler(this.startTCSToolStripMenuItem_Click);
             // 
             // stopTCSToolStripMenuItem
             // 
             this.stopTCSToolStripMenuItem.Name = "stopTCSToolStripMenuItem";
-            this.stopTCSToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.stopTCSToolStripMenuItem.Size = new System.Drawing.Size(153, 26);
             this.stopTCSToolStripMenuItem.Text = "Stop TCS";
             this.stopTCSToolStripMenuItem.Click += new System.EventHandler(this.stopTCSToolStripMenuItem_Click);
             // 
             // initToolStripMenuItem
             // 
             this.initToolStripMenuItem.Name = "initToolStripMenuItem";
-            this.initToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.initToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
             this.initToolStripMenuItem.Text = "Init";
             this.initToolStripMenuItem.Click += new System.EventHandler(this.initToolStripMenuItem_Click);
             // 
             // powerToolStripMenuItem
             // 
             this.powerToolStripMenuItem.Name = "powerToolStripMenuItem";
-            this.powerToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.powerToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
             this.powerToolStripMenuItem.Text = "Power";
             this.powerToolStripMenuItem.Click += new System.EventHandler(this.powerToolStripMenuItem_Click);
             // 
             // attachToolStripMenuItem
             // 
             this.attachToolStripMenuItem.Name = "attachToolStripMenuItem";
-            this.attachToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.attachToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
             this.attachToolStripMenuItem.Text = "Attach";
             this.attachToolStripMenuItem.Click += new System.EventHandler(this.attachToolStripMenuItem_Click);
             // 
@@ -176,21 +176,21 @@ namespace Brooks_TCS_Demo
             this.enableToolStripMenuItem,
             this.disableToolStripMenuItem});
             this.freeModeToolStripMenuItem.Name = "freeModeToolStripMenuItem";
-            this.freeModeToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.freeModeToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
             this.freeModeToolStripMenuItem.Text = "Free Mode";
             this.freeModeToolStripMenuItem.Click += new System.EventHandler(this.freeModeToolStripMenuItem_Click);
             // 
             // enableToolStripMenuItem
             // 
             this.enableToolStripMenuItem.Name = "enableToolStripMenuItem";
-            this.enableToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.enableToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
             this.enableToolStripMenuItem.Text = "Enable";
             this.enableToolStripMenuItem.Click += new System.EventHandler(this.enableToolStripMenuItem_Click);
             // 
             // disableToolStripMenuItem
             // 
             this.disableToolStripMenuItem.Name = "disableToolStripMenuItem";
-            this.disableToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.disableToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
             this.disableToolStripMenuItem.Text = "Disable";
             this.disableToolStripMenuItem.Click += new System.EventHandler(this.disableToolStripMenuItem_Click);
             // 
@@ -200,7 +200,7 @@ namespace Brooks_TCS_Demo
             this.connectionToolStripMenuItem,
             this.aquireToolStripMenuItem});
             this.visionToolStripMenuItem.Name = "visionToolStripMenuItem";
-            this.visionToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.visionToolStripMenuItem.Size = new System.Drawing.Size(63, 24);
             this.visionToolStripMenuItem.Text = "Vision";
             // 
             // connectionToolStripMenuItem
@@ -209,20 +209,20 @@ namespace Brooks_TCS_Demo
             this.connectToolStripMenuItem,
             this.disconnectToolStripMenuItem});
             this.connectionToolStripMenuItem.Name = "connectionToolStripMenuItem";
-            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
             this.connectionToolStripMenuItem.Text = "Connection";
             // 
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
             // disconnectToolStripMenuItem
             // 
             this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.disconnectToolStripMenuItem.Text = "Disconnect";
             this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.disconnectToolStripMenuItem_Click);
             // 
@@ -233,27 +233,27 @@ namespace Brooks_TCS_Demo
             this.liveStartToolStripMenuItem,
             this.liveStopToolStripMenuItem});
             this.aquireToolStripMenuItem.Name = "aquireToolStripMenuItem";
-            this.aquireToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.aquireToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
             this.aquireToolStripMenuItem.Text = "Aquire";
             // 
             // singleAquireToolStripMenuItem
             // 
             this.singleAquireToolStripMenuItem.Name = "singleAquireToolStripMenuItem";
-            this.singleAquireToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.singleAquireToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.singleAquireToolStripMenuItem.Text = "Single Aquire";
             this.singleAquireToolStripMenuItem.Click += new System.EventHandler(this.singleAquireToolStripMenuItem_Click);
             // 
             // liveStartToolStripMenuItem
             // 
             this.liveStartToolStripMenuItem.Name = "liveStartToolStripMenuItem";
-            this.liveStartToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.liveStartToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.liveStartToolStripMenuItem.Text = "Live Start";
             this.liveStartToolStripMenuItem.Click += new System.EventHandler(this.liveStartToolStripMenuItem_Click);
             // 
             // liveStopToolStripMenuItem
             // 
             this.liveStopToolStripMenuItem.Name = "liveStopToolStripMenuItem";
-            this.liveStopToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.liveStopToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.liveStopToolStripMenuItem.Text = "Live Stop";
             this.liveStopToolStripMenuItem.Click += new System.EventHandler(this.liveStopToolStripMenuItem_Click);
             // 
@@ -266,40 +266,40 @@ namespace Brooks_TCS_Demo
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3,
             this.toolStripStatusLabel_VisionConnection});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 424);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(800, 26);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(50, 20);
             this.toolStripStatusLabel1.Text = "Robot";
             // 
             // toolStripStatusLabel_RobotConnection
             // 
             this.toolStripStatusLabel_RobotConnection.Name = "toolStripStatusLabel_RobotConnection";
-            this.toolStripStatusLabel_RobotConnection.Size = new System.Drawing.Size(211, 17);
+            this.toolStripStatusLabel_RobotConnection.Size = new System.Drawing.Size(265, 20);
             this.toolStripStatusLabel_RobotConnection.Text = "toolStripStatusLabel_RobotConnection";
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(16, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(21, 20);
             this.toolStripStatusLabel2.Text = " | ";
             // 
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(49, 20);
             this.toolStripStatusLabel3.Text = "Vision";
             // 
             // toolStripStatusLabel_VisionConnection
             // 
             this.toolStripStatusLabel_VisionConnection.Name = "toolStripStatusLabel_VisionConnection";
-            this.toolStripStatusLabel_VisionConnection.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel_VisionConnection.Size = new System.Drawing.Size(151, 20);
             this.toolStripStatusLabel_VisionConnection.Text = "toolStripStatusLabel4";
             // 
             // button_ConnectDisconnect
@@ -397,41 +397,14 @@ namespace Brooks_TCS_Demo
             this.tabPage_Locations.Text = "Locations";
             this.tabPage_Locations.UseVisualStyleBackColor = true;
             // 
-            // button_RecordCartesian
+            // comboBox_LocName
             // 
-            this.button_RecordCartesian.Location = new System.Drawing.Point(300, 44);
-            this.button_RecordCartesian.Name = "button_RecordCartesian";
-            this.button_RecordCartesian.Size = new System.Drawing.Size(108, 23);
-            this.button_RecordCartesian.TabIndex = 16;
-            this.button_RecordCartesian.Text = "Record Cartesian";
-            this.button_RecordCartesian.UseVisualStyleBackColor = true;
-            this.button_RecordCartesian.Click += new System.EventHandler(this.button_RecordCartesian_Click);
-            // 
-            // textBox_LocPosition
-            // 
-            this.textBox_LocPosition.Location = new System.Drawing.Point(20, 78);
-            this.textBox_LocPosition.Name = "textBox_LocPosition";
-            this.textBox_LocPosition.Size = new System.Drawing.Size(193, 20);
-            this.textBox_LocPosition.TabIndex = 15;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 13);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "Location:";
-            // 
-            // button_MoveToLocation
-            // 
-            this.button_MoveToLocation.Location = new System.Drawing.Point(219, 78);
-            this.button_MoveToLocation.Name = "button_MoveToLocation";
-            this.button_MoveToLocation.Size = new System.Drawing.Size(75, 23);
-            this.button_MoveToLocation.TabIndex = 13;
-            this.button_MoveToLocation.Text = "Move To";
-            this.button_MoveToLocation.UseVisualStyleBackColor = true;
-            this.button_MoveToLocation.Click += new System.EventHandler(this.button_MoveToLocation_Click);
+            this.comboBox_LocName.FormattingEnabled = true;
+            this.comboBox_LocName.Location = new System.Drawing.Point(20, 46);
+            this.comboBox_LocName.Name = "comboBox_LocName";
+            this.comboBox_LocName.Size = new System.Drawing.Size(193, 21);
+            this.comboBox_LocName.TabIndex = 11;
+            this.comboBox_LocName.DropDownClosed += new System.EventHandler(this.comboBox_LocName_DropDownClosed);
             // 
             // button_RecordJoint
             // 
@@ -443,14 +416,41 @@ namespace Brooks_TCS_Demo
             this.button_RecordJoint.UseVisualStyleBackColor = true;
             this.button_RecordJoint.Click += new System.EventHandler(this.button_RecordJoint_Click);
             // 
-            // comboBox_LocName
+            // button_MoveToLocation
             // 
-            this.comboBox_LocName.FormattingEnabled = true;
-            this.comboBox_LocName.Location = new System.Drawing.Point(20, 46);
-            this.comboBox_LocName.Name = "comboBox_LocName";
-            this.comboBox_LocName.Size = new System.Drawing.Size(193, 21);
-            this.comboBox_LocName.TabIndex = 11;
-            this.comboBox_LocName.DropDownClosed += new System.EventHandler(this.comboBox_LocName_DropDownClosed);
+            this.button_MoveToLocation.Location = new System.Drawing.Point(219, 78);
+            this.button_MoveToLocation.Name = "button_MoveToLocation";
+            this.button_MoveToLocation.Size = new System.Drawing.Size(75, 23);
+            this.button_MoveToLocation.TabIndex = 13;
+            this.button_MoveToLocation.Text = "Move To";
+            this.button_MoveToLocation.UseVisualStyleBackColor = true;
+            this.button_MoveToLocation.Click += new System.EventHandler(this.button_MoveToLocation_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 30);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 15);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Location:";
+            // 
+            // textBox_LocPosition
+            // 
+            this.textBox_LocPosition.Location = new System.Drawing.Point(20, 78);
+            this.textBox_LocPosition.Name = "textBox_LocPosition";
+            this.textBox_LocPosition.Size = new System.Drawing.Size(193, 20);
+            this.textBox_LocPosition.TabIndex = 15;
+            // 
+            // button_RecordCartesian
+            // 
+            this.button_RecordCartesian.Location = new System.Drawing.Point(300, 44);
+            this.button_RecordCartesian.Name = "button_RecordCartesian";
+            this.button_RecordCartesian.Size = new System.Drawing.Size(108, 23);
+            this.button_RecordCartesian.TabIndex = 16;
+            this.button_RecordCartesian.Text = "Record Cartesian";
+            this.button_RecordCartesian.UseVisualStyleBackColor = true;
+            this.button_RecordCartesian.Click += new System.EventHandler(this.button_RecordCartesian_Click);
             // 
             // button_UpdateLocation
             // 
@@ -467,7 +467,7 @@ namespace Brooks_TCS_Demo
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(17, 135);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 10);
+            this.label2.Size = new System.Drawing.Size(86, 15);
             this.label2.TabIndex = 19;
             this.label2.Text = "Motion Profile:";
             // 
@@ -508,7 +508,7 @@ namespace Brooks_TCS_Demo
             this.button_SendToController.UseVisualStyleBackColor = true;
             this.button_SendToController.Click += new System.EventHandler(this.button_SendToController_Click);
             // 
-            // Form1
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -517,7 +517,7 @@ namespace Brooks_TCS_Demo
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MainWindow";
             this.Text = "Brooks TCS Demo";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.menuStrip1.ResumeLayout(false);
@@ -572,18 +572,18 @@ namespace Brooks_TCS_Demo
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_VisionConnection;
         private System.Windows.Forms.Button button_Free_RB1;
         private System.Windows.Forms.TabPage tabPage_Locations;
+        private System.Windows.Forms.Button button_SendToController;
+        private System.Windows.Forms.ComboBox comboBox_ProfileName;
+        private System.Windows.Forms.Button button_SetMotionProfile;
+        private System.Windows.Forms.TextBox textBox_MotionProfile;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button_UpdateLocation;
         private System.Windows.Forms.Button button_RecordCartesian;
         private System.Windows.Forms.TextBox textBox_LocPosition;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button_MoveToLocation;
         private System.Windows.Forms.Button button_RecordJoint;
         private System.Windows.Forms.ComboBox comboBox_LocName;
-        private System.Windows.Forms.Button button_UpdateLocation;
-        private System.Windows.Forms.Button button_SetMotionProfile;
-        private System.Windows.Forms.TextBox textBox_MotionProfile;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button_SendToController;
-        private System.Windows.Forms.ComboBox comboBox_ProfileName;
     }
 }
 
