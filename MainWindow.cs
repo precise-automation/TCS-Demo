@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Brooks_TCS_Demo
 {
@@ -60,12 +61,17 @@ namespace Brooks_TCS_Demo
             {
                 robot1Vision.Connect(robot1VisionIP);
                 UpdateVisionConnectionStatusDisplay(true);
+                comboBox_VisionProjects.Items.Clear();
+                var projects = robot1Vision.GetVisionProjects();
+                comboBox_VisionProjects.Items.AddRange(projects);
             }
         }
 
         private void VisionDisconnect()
         {
             UpdateVisionConnectionStatusDisplay();
+            comboBox_VisionProjects.Items.Clear();
+            comboBox_VisionProcesses.Items.Clear();
         }
 
         private void UpdateVisionConnectionStatusDisplay(bool connected = false)
@@ -283,6 +289,56 @@ namespace Brooks_TCS_Demo
         {
             var name = comboBox_ProfileName.Text;
             robot1Controller.ProfileManager.SendProfileToController(name);
+        }
+
+        private void button_LoadVisionProject_Click(object sender, EventArgs e)
+        {
+            var name = comboBox_VisionProjects.Text;
+            var processes = robot1Vision.LoadVisionProject(name);
+            comboBox_VisionProcesses.Items.Clear();
+            comboBox_VisionProcesses.Items.AddRange(processes);
+            comboBox_VisionProcesses.Text = comboBox_VisionProcesses.Items[0].ToString();
+        }
+
+        private void button_SaveVisionProject_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_LoadVisionProcess_Click(object sender, EventArgs e)
+        {
+            var name = comboBox_VisionProcesses.Text;
+            var root = robot1Vision.GetVisionProcessTreeNodes(name);
+            treeView_VisionProcess.Nodes.Clear();
+            if(root != null)
+            {
+                treeView_VisionProcess.Nodes.AddRange(root);
+            }
+
+            comboBox_VisionToolType.Items.Clear();
+            comboBox_VisionToolType.Items.AddRange(robot1Vision.GetToolTypes());
+        }
+
+        private void button_SaveVisionProcess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_AddVisionTool_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_RunVisionProcess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_SearchForVisionProjects_Click(object sender, EventArgs e)
+        {
+            comboBox_VisionProjects.Items.Clear();
+            var projects = robot1Vision.GetVisionProjects();
+            comboBox_VisionProjects.Items.AddRange(projects);
         }
     }
 }

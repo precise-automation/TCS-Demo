@@ -4,6 +4,7 @@ using Precise.Common.Communication.VisionEngineComm.Vision.Results;
 using Precise.Common.Core.Language;
 using Precise.Common.Core.Logging;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -101,11 +102,62 @@ namespace Brooks_TCS_Demo
             }
         }
 
-        internal void LiveVideo(int camera)
+        public void LiveVideo(int camera)
             => visionEngineClientService.LiveVideo(camera);
         
-        internal void StopLiveVideo()
+        public void StopLiveVideo()
             => visionEngineClientService.StopLiveVideo();
+
+        public string[] GetVisionProjects()
+        {
+            return visionEngineClientService.AvailableProjects;
+        }
+
+        public string[] LoadVisionProject (string name)
+        {
+            visionEngineClientService.LoadProject(name);
+            visionEngineClientService.RunVisionProcess(name);
+            return visionEngineClientService.VisionProcesses.Select(v => v.ProcessName).ToArray();
+        }
+
+        public TreeNode[] GetVisionProcessTreeNodes(string name)
+        {
+            
+            var process = visionEngineClientService.VisionProcesses.Where(p => p.ProcessName ==  name).FirstOrDefault();
+            if (process == null) return null;
+
+            process.Check(); // Required for Connects Process with the Tool Instances (visionEngineClientService.VisionToolInstances)
+
+            var nodes = new List<TreeNode>();
+            foreach (var tool in process.VisionTools)
+            {
+                nodes.Add(new TreeNode(tool.VisionTool.InstanceName));
+            }
+            return nodes.ToArray();
+        }
+
+        public string[] GetToolTypes()
+        { 
+            return visionEngineClientService.VisionToolTypes.Select(t => t.DisplayName).ToArray();
+        }
+        //visionEngineClientService.VisionToolTypes
+        //visionEngineClientService.CreateVisionTool
+        //visionEngineClientService.CreateVisionProcess
+        //visionEngineClientService.UpdateProcess
+        //visionEngineClientService.SaveProject
+
+
+        //public void CreateArUcosForSteroLocate()
+        //{
+        //    var service = visionEngineClientService;
+        //    string targetName = "StereoLocate";
+        //    if (service.AvailableProjects.Any(s => s == targetName))
+        //        service.DeleteProject(targetName);
+        //    service.ClearProject();
+        //    service.CreateVisionProcess("Cam1");
+        //    service.VisionProcesses[]
+        //    service.CreateVisionProcess("Cam2");
+        //}
     }
 
 }
