@@ -396,9 +396,10 @@ namespace Brooks_TCS_Demo
 
         private void button_NewProcess_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(comboBox_VisionProjects.Text))
+            string projectName = comboBox_VisionProjects.Text;
+            if (string.IsNullOrEmpty(projectName))
                 return;
-
+            robot1Vision.CreateNewVisionProject(projectName);
         }
     }
 }
