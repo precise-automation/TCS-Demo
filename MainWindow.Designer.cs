@@ -32,7 +32,11 @@ namespace Brooks_TCS_Demo
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controllerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.disconnectToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.manageTCSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadTCSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startTCSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,10 +61,8 @@ namespace Brooks_TCS_Demo
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_VisionConnection = new System.Windows.Forms.ToolStripStatusLabel();
-            this.button_ConnectDisconnect = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_Robot1 = new System.Windows.Forms.TabPage();
-            this.button_Free_RB1 = new System.Windows.Forms.Button();
             this.tabPage_Vision1 = new System.Windows.Forms.TabPage();
             this.pictureBox_LiveImage = new System.Windows.Forms.PictureBox();
             this.button_TriggerCamera = new System.Windows.Forms.Button();
@@ -77,29 +79,31 @@ namespace Brooks_TCS_Demo
             this.button_MoveToLocation = new System.Windows.Forms.Button();
             this.button_RecordJoint = new System.Windows.Forms.Button();
             this.comboBox_LocName = new System.Windows.Forms.ComboBox();
-            this.tabPage_VisionProgramming = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.treeView_VisionProcess = new System.Windows.Forms.TreeView();
-            this.label5 = new System.Windows.Forms.Label();
-            this.button_LoadVisionProject = new System.Windows.Forms.Button();
-            this.button_SaveVisionProject = new System.Windows.Forms.Button();
-            this.button_LoadVisionProcess = new System.Windows.Forms.Button();
-            this.button_SaveVisionProcess = new System.Windows.Forms.Button();
-            this.button_AddVisionTool = new System.Windows.Forms.Button();
-            this.comboBox_VisionToolType = new System.Windows.Forms.ComboBox();
-            this.button_RunVisionProcess = new System.Windows.Forms.Button();
-            this.comboBox_VisionProcesses = new System.Windows.Forms.ComboBox();
-            this.comboBox_VisionProjects = new System.Windows.Forms.ComboBox();
+            this.tabPage_VisionProcess = new System.Windows.Forms.TabPage();
             this.button_SearchForVisionProjects = new System.Windows.Forms.Button();
+            this.comboBox_VisionProjects = new System.Windows.Forms.ComboBox();
+            this.comboBox_VisionProcesses = new System.Windows.Forms.ComboBox();
+            this.button_RunVisionProcess = new System.Windows.Forms.Button();
+            this.comboBox_VisionToolType = new System.Windows.Forms.ComboBox();
+            this.button_AddVisionTool = new System.Windows.Forms.Button();
+            this.button_LoadVisionProcess = new System.Windows.Forms.Button();
+            this.button_SaveVisionProject = new System.Windows.Forms.Button();
+            this.button_LoadVisionProject = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.treeView_VisionProcess = new System.Windows.Forms.TreeView();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.treeView_ToolInstances = new System.Windows.Forms.TreeView();
+            this.comboBox_CameraNumbers = new System.Windows.Forms.ComboBox();
+            this.button_AddVisionToolToVisionProcess = new System.Windows.Forms.Button();
+            this.button_NewProcess = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage_Robot1.SuspendLayout();
             this.tabPage_Vision1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_LiveImage)).BeginInit();
             this.tabPage_Locations.SuspendLayout();
-            this.tabPage_VisionProgramming.SuspendLayout();
+            this.tabPage_VisionProcess.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -118,13 +122,23 @@ namespace Brooks_TCS_Demo
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(145, 26);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
             // controllerToolStripMenuItem
             // 
             this.controllerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.connectionToolStripMenuItem1,
             this.manageTCSToolStripMenuItem,
             this.initToolStripMenuItem,
             this.powerToolStripMenuItem,
@@ -134,6 +148,29 @@ namespace Brooks_TCS_Demo
             this.controllerToolStripMenuItem.Size = new System.Drawing.Size(89, 26);
             this.controllerToolStripMenuItem.Text = "Controller";
             // 
+            // connectionToolStripMenuItem1
+            // 
+            this.connectionToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.connectToolStripMenuItem1,
+            this.disconnectToolStripMenuItem1});
+            this.connectionToolStripMenuItem1.Name = "connectionToolStripMenuItem1";
+            this.connectionToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.connectionToolStripMenuItem1.Text = "Connection";
+            // 
+            // connectToolStripMenuItem1
+            // 
+            this.connectToolStripMenuItem1.Name = "connectToolStripMenuItem1";
+            this.connectToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.connectToolStripMenuItem1.Text = "Connect";
+            this.connectToolStripMenuItem1.Click += new System.EventHandler(this.connectToolStripMenuItem1_Click);
+            // 
+            // disconnectToolStripMenuItem1
+            // 
+            this.disconnectToolStripMenuItem1.Name = "disconnectToolStripMenuItem1";
+            this.disconnectToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.disconnectToolStripMenuItem1.Text = "Disconnect";
+            this.disconnectToolStripMenuItem1.Click += new System.EventHandler(this.disconnectToolStripMenuItem1_Click);
+            // 
             // manageTCSToolStripMenuItem
             // 
             this.manageTCSToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -141,7 +178,7 @@ namespace Brooks_TCS_Demo
             this.startTCSToolStripMenuItem,
             this.stopTCSToolStripMenuItem});
             this.manageTCSToolStripMenuItem.Name = "manageTCSToolStripMenuItem";
-            this.manageTCSToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
+            this.manageTCSToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.manageTCSToolStripMenuItem.Text = "ManageTCS";
             // 
             // loadTCSToolStripMenuItem
@@ -168,21 +205,21 @@ namespace Brooks_TCS_Demo
             // initToolStripMenuItem
             // 
             this.initToolStripMenuItem.Name = "initToolStripMenuItem";
-            this.initToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
+            this.initToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.initToolStripMenuItem.Text = "Init";
             this.initToolStripMenuItem.Click += new System.EventHandler(this.initToolStripMenuItem_Click);
             // 
             // powerToolStripMenuItem
             // 
             this.powerToolStripMenuItem.Name = "powerToolStripMenuItem";
-            this.powerToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
+            this.powerToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.powerToolStripMenuItem.Text = "Power";
             this.powerToolStripMenuItem.Click += new System.EventHandler(this.powerToolStripMenuItem_Click);
             // 
             // attachToolStripMenuItem
             // 
             this.attachToolStripMenuItem.Name = "attachToolStripMenuItem";
-            this.attachToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
+            this.attachToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.attachToolStripMenuItem.Text = "Attach";
             this.attachToolStripMenuItem.Click += new System.EventHandler(this.attachToolStripMenuItem_Click);
             // 
@@ -192,7 +229,7 @@ namespace Brooks_TCS_Demo
             this.enableToolStripMenuItem,
             this.disableToolStripMenuItem});
             this.freeModeToolStripMenuItem.Name = "freeModeToolStripMenuItem";
-            this.freeModeToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
+            this.freeModeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.freeModeToolStripMenuItem.Text = "Free Mode";
             this.freeModeToolStripMenuItem.Click += new System.EventHandler(this.freeModeToolStripMenuItem_Click);
             // 
@@ -319,25 +356,14 @@ namespace Brooks_TCS_Demo
             this.toolStripStatusLabel_VisionConnection.Size = new System.Drawing.Size(151, 20);
             this.toolStripStatusLabel_VisionConnection.Text = "toolStripStatusLabel4";
             // 
-            // button_ConnectDisconnect
-            // 
-            this.button_ConnectDisconnect.Location = new System.Drawing.Point(8, 7);
-            this.button_ConnectDisconnect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button_ConnectDisconnect.Name = "button_ConnectDisconnect";
-            this.button_ConnectDisconnect.Size = new System.Drawing.Size(100, 28);
-            this.button_ConnectDisconnect.TabIndex = 2;
-            this.button_ConnectDisconnect.Text = "Connect";
-            this.button_ConnectDisconnect.UseVisualStyleBackColor = true;
-            this.button_ConnectDisconnect.Click += new System.EventHandler(this.button_ConnectDisconnect_Click);
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage_Robot1);
             this.tabControl1.Controls.Add(this.tabPage_Vision1);
             this.tabControl1.Controls.Add(this.tabPage_Locations);
-            this.tabControl1.Controls.Add(this.tabPage_VisionProgramming);
+            this.tabControl1.Controls.Add(this.tabPage_VisionProcess);
             this.tabControl1.Location = new System.Drawing.Point(16, 33);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1035, 490);
@@ -345,34 +371,21 @@ namespace Brooks_TCS_Demo
             // 
             // tabPage_Robot1
             // 
-            this.tabPage_Robot1.Controls.Add(this.button_Free_RB1);
-            this.tabPage_Robot1.Controls.Add(this.button_ConnectDisconnect);
             this.tabPage_Robot1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage_Robot1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage_Robot1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage_Robot1.Name = "tabPage_Robot1";
-            this.tabPage_Robot1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage_Robot1.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage_Robot1.Size = new System.Drawing.Size(1027, 461);
             this.tabPage_Robot1.TabIndex = 0;
             this.tabPage_Robot1.Text = "Robot";
             this.tabPage_Robot1.UseVisualStyleBackColor = true;
-            // 
-            // button_Free_RB1
-            // 
-            this.button_Free_RB1.Location = new System.Drawing.Point(8, 43);
-            this.button_Free_RB1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button_Free_RB1.Name = "button_Free_RB1";
-            this.button_Free_RB1.Size = new System.Drawing.Size(100, 28);
-            this.button_Free_RB1.TabIndex = 4;
-            this.button_Free_RB1.Text = "Free";
-            this.button_Free_RB1.UseVisualStyleBackColor = true;
-            this.button_Free_RB1.Click += new System.EventHandler(this.button_Free_RB1_Click);
             // 
             // tabPage_Vision1
             // 
             this.tabPage_Vision1.Controls.Add(this.pictureBox_LiveImage);
             this.tabPage_Vision1.Controls.Add(this.button_TriggerCamera);
             this.tabPage_Vision1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage_Vision1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage_Vision1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage_Vision1.Name = "tabPage_Vision1";
             this.tabPage_Vision1.Size = new System.Drawing.Size(1027, 461);
             this.tabPage_Vision1.TabIndex = 2;
@@ -382,7 +395,7 @@ namespace Brooks_TCS_Demo
             // pictureBox_LiveImage
             // 
             this.pictureBox_LiveImage.Location = new System.Drawing.Point(4, 4);
-            this.pictureBox_LiveImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox_LiveImage.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox_LiveImage.Name = "pictureBox_LiveImage";
             this.pictureBox_LiveImage.Size = new System.Drawing.Size(755, 450);
             this.pictureBox_LiveImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -392,7 +405,7 @@ namespace Brooks_TCS_Demo
             // button_TriggerCamera
             // 
             this.button_TriggerCamera.Location = new System.Drawing.Point(832, 407);
-            this.button_TriggerCamera.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_TriggerCamera.Margin = new System.Windows.Forms.Padding(4);
             this.button_TriggerCamera.Name = "button_TriggerCamera";
             this.button_TriggerCamera.Size = new System.Drawing.Size(100, 28);
             this.button_TriggerCamera.TabIndex = 1;
@@ -415,9 +428,9 @@ namespace Brooks_TCS_Demo
             this.tabPage_Locations.Controls.Add(this.button_RecordJoint);
             this.tabPage_Locations.Controls.Add(this.comboBox_LocName);
             this.tabPage_Locations.Location = new System.Drawing.Point(4, 25);
-            this.tabPage_Locations.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage_Locations.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage_Locations.Name = "tabPage_Locations";
-            this.tabPage_Locations.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage_Locations.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage_Locations.Size = new System.Drawing.Size(1027, 461);
             this.tabPage_Locations.TabIndex = 3;
             this.tabPage_Locations.Text = "Locations";
@@ -426,7 +439,7 @@ namespace Brooks_TCS_Demo
             // button_SendToController
             // 
             this.button_SendToController.Location = new System.Drawing.Point(400, 218);
-            this.button_SendToController.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_SendToController.Margin = new System.Windows.Forms.Padding(4);
             this.button_SendToController.Name = "button_SendToController";
             this.button_SendToController.Size = new System.Drawing.Size(144, 28);
             this.button_SendToController.TabIndex = 23;
@@ -438,7 +451,7 @@ namespace Brooks_TCS_Demo
             // 
             this.comboBox_ProfileName.FormattingEnabled = true;
             this.comboBox_ProfileName.Location = new System.Drawing.Point(27, 185);
-            this.comboBox_ProfileName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_ProfileName.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox_ProfileName.Name = "comboBox_ProfileName";
             this.comboBox_ProfileName.Size = new System.Drawing.Size(256, 24);
             this.comboBox_ProfileName.TabIndex = 22;
@@ -447,7 +460,7 @@ namespace Brooks_TCS_Demo
             // button_SetMotionProfile
             // 
             this.button_SetMotionProfile.Location = new System.Drawing.Point(292, 218);
-            this.button_SetMotionProfile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_SetMotionProfile.Margin = new System.Windows.Forms.Padding(4);
             this.button_SetMotionProfile.Name = "button_SetMotionProfile";
             this.button_SetMotionProfile.Size = new System.Drawing.Size(100, 28);
             this.button_SetMotionProfile.TabIndex = 21;
@@ -458,7 +471,7 @@ namespace Brooks_TCS_Demo
             // textBox_MotionProfile
             // 
             this.textBox_MotionProfile.Location = new System.Drawing.Point(27, 218);
-            this.textBox_MotionProfile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox_MotionProfile.Margin = new System.Windows.Forms.Padding(4);
             this.textBox_MotionProfile.Name = "textBox_MotionProfile";
             this.textBox_MotionProfile.Size = new System.Drawing.Size(256, 22);
             this.textBox_MotionProfile.TabIndex = 20;
@@ -477,7 +490,7 @@ namespace Brooks_TCS_Demo
             // button_UpdateLocation
             // 
             this.button_UpdateLocation.Location = new System.Drawing.Point(400, 96);
-            this.button_UpdateLocation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_UpdateLocation.Margin = new System.Windows.Forms.Padding(4);
             this.button_UpdateLocation.Name = "button_UpdateLocation";
             this.button_UpdateLocation.Size = new System.Drawing.Size(144, 28);
             this.button_UpdateLocation.TabIndex = 18;
@@ -488,7 +501,7 @@ namespace Brooks_TCS_Demo
             // button_RecordCartesian
             // 
             this.button_RecordCartesian.Location = new System.Drawing.Point(400, 54);
-            this.button_RecordCartesian.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_RecordCartesian.Margin = new System.Windows.Forms.Padding(4);
             this.button_RecordCartesian.Name = "button_RecordCartesian";
             this.button_RecordCartesian.Size = new System.Drawing.Size(144, 28);
             this.button_RecordCartesian.TabIndex = 16;
@@ -499,7 +512,7 @@ namespace Brooks_TCS_Demo
             // textBox_LocPosition
             // 
             this.textBox_LocPosition.Location = new System.Drawing.Point(27, 96);
-            this.textBox_LocPosition.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox_LocPosition.Margin = new System.Windows.Forms.Padding(4);
             this.textBox_LocPosition.Name = "textBox_LocPosition";
             this.textBox_LocPosition.Size = new System.Drawing.Size(256, 22);
             this.textBox_LocPosition.TabIndex = 15;
@@ -517,7 +530,7 @@ namespace Brooks_TCS_Demo
             // button_MoveToLocation
             // 
             this.button_MoveToLocation.Location = new System.Drawing.Point(292, 96);
-            this.button_MoveToLocation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_MoveToLocation.Margin = new System.Windows.Forms.Padding(4);
             this.button_MoveToLocation.Name = "button_MoveToLocation";
             this.button_MoveToLocation.Size = new System.Drawing.Size(100, 28);
             this.button_MoveToLocation.TabIndex = 13;
@@ -528,7 +541,7 @@ namespace Brooks_TCS_Demo
             // button_RecordJoint
             // 
             this.button_RecordJoint.Location = new System.Drawing.Point(292, 54);
-            this.button_RecordJoint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_RecordJoint.Margin = new System.Windows.Forms.Padding(4);
             this.button_RecordJoint.Name = "button_RecordJoint";
             this.button_RecordJoint.Size = new System.Drawing.Size(100, 28);
             this.button_RecordJoint.TabIndex = 12;
@@ -540,60 +553,132 @@ namespace Brooks_TCS_Demo
             // 
             this.comboBox_LocName.FormattingEnabled = true;
             this.comboBox_LocName.Location = new System.Drawing.Point(27, 57);
-            this.comboBox_LocName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_LocName.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox_LocName.Name = "comboBox_LocName";
             this.comboBox_LocName.Size = new System.Drawing.Size(256, 24);
             this.comboBox_LocName.TabIndex = 11;
             this.comboBox_LocName.DropDownClosed += new System.EventHandler(this.comboBox_LocName_DropDownClosed);
             // 
-            // tabPage_VisionProgramming
+            // tabPage_VisionProcess
             // 
-            this.tabPage_VisionProgramming.Controls.Add(this.button_SearchForVisionProjects);
-            this.tabPage_VisionProgramming.Controls.Add(this.comboBox_VisionProjects);
-            this.tabPage_VisionProgramming.Controls.Add(this.comboBox_VisionProcesses);
-            this.tabPage_VisionProgramming.Controls.Add(this.button_RunVisionProcess);
-            this.tabPage_VisionProgramming.Controls.Add(this.comboBox_VisionToolType);
-            this.tabPage_VisionProgramming.Controls.Add(this.button_AddVisionTool);
-            this.tabPage_VisionProgramming.Controls.Add(this.button_SaveVisionProcess);
-            this.tabPage_VisionProgramming.Controls.Add(this.button_LoadVisionProcess);
-            this.tabPage_VisionProgramming.Controls.Add(this.button_SaveVisionProject);
-            this.tabPage_VisionProgramming.Controls.Add(this.button_LoadVisionProject);
-            this.tabPage_VisionProgramming.Controls.Add(this.label5);
-            this.tabPage_VisionProgramming.Controls.Add(this.treeView_VisionProcess);
-            this.tabPage_VisionProgramming.Controls.Add(this.label4);
-            this.tabPage_VisionProgramming.Controls.Add(this.label3);
-            this.tabPage_VisionProgramming.Location = new System.Drawing.Point(4, 25);
-            this.tabPage_VisionProgramming.Name = "tabPage_VisionProgramming";
-            this.tabPage_VisionProgramming.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_VisionProgramming.Size = new System.Drawing.Size(1027, 461);
-            this.tabPage_VisionProgramming.TabIndex = 4;
-            this.tabPage_VisionProgramming.Text = "Vision Programming";
-            this.tabPage_VisionProgramming.UseVisualStyleBackColor = true;
+            this.tabPage_VisionProcess.Controls.Add(this.button_NewProcess);
+            this.tabPage_VisionProcess.Controls.Add(this.button_AddVisionToolToVisionProcess);
+            this.tabPage_VisionProcess.Controls.Add(this.comboBox_CameraNumbers);
+            this.tabPage_VisionProcess.Controls.Add(this.treeView_ToolInstances);
+            this.tabPage_VisionProcess.Controls.Add(this.button_SearchForVisionProjects);
+            this.tabPage_VisionProcess.Controls.Add(this.comboBox_VisionProjects);
+            this.tabPage_VisionProcess.Controls.Add(this.comboBox_VisionProcesses);
+            this.tabPage_VisionProcess.Controls.Add(this.button_RunVisionProcess);
+            this.tabPage_VisionProcess.Controls.Add(this.comboBox_VisionToolType);
+            this.tabPage_VisionProcess.Controls.Add(this.button_AddVisionTool);
+            this.tabPage_VisionProcess.Controls.Add(this.button_LoadVisionProcess);
+            this.tabPage_VisionProcess.Controls.Add(this.button_SaveVisionProject);
+            this.tabPage_VisionProcess.Controls.Add(this.button_LoadVisionProject);
+            this.tabPage_VisionProcess.Controls.Add(this.label5);
+            this.tabPage_VisionProcess.Controls.Add(this.treeView_VisionProcess);
+            this.tabPage_VisionProcess.Controls.Add(this.label4);
+            this.tabPage_VisionProcess.Controls.Add(this.label3);
+            this.tabPage_VisionProcess.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_VisionProcess.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage_VisionProcess.Name = "tabPage_VisionProcess";
+            this.tabPage_VisionProcess.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage_VisionProcess.Size = new System.Drawing.Size(1027, 461);
+            this.tabPage_VisionProcess.TabIndex = 4;
+            this.tabPage_VisionProcess.Text = "Vision Process";
+            this.tabPage_VisionProcess.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // button_SearchForVisionProjects
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 22);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 16);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Project Name";
+            this.button_SearchForVisionProjects.Location = new System.Drawing.Point(158, 14);
+            this.button_SearchForVisionProjects.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button_SearchForVisionProjects.Name = "button_SearchForVisionProjects";
+            this.button_SearchForVisionProjects.Size = new System.Drawing.Size(75, 23);
+            this.button_SearchForVisionProjects.TabIndex = 15;
+            this.button_SearchForVisionProjects.Text = "Search";
+            this.button_SearchForVisionProjects.UseVisualStyleBackColor = true;
+            this.button_SearchForVisionProjects.Click += new System.EventHandler(this.button_SearchForVisionProjects_Click);
             // 
-            // label4
+            // comboBox_VisionProjects
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 70);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(97, 16);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Process Name";
+            this.comboBox_VisionProjects.FormattingEnabled = true;
+            this.comboBox_VisionProjects.Location = new System.Drawing.Point(27, 41);
+            this.comboBox_VisionProjects.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox_VisionProjects.Name = "comboBox_VisionProjects";
+            this.comboBox_VisionProjects.Size = new System.Drawing.Size(207, 24);
+            this.comboBox_VisionProjects.TabIndex = 14;
             // 
-            // treeView_VisionProcess
+            // comboBox_VisionProcesses
             // 
-            this.treeView_VisionProcess.Location = new System.Drawing.Point(24, 155);
-            this.treeView_VisionProcess.Name = "treeView_VisionProcess";
-            this.treeView_VisionProcess.Size = new System.Drawing.Size(209, 218);
-            this.treeView_VisionProcess.TabIndex = 4;
+            this.comboBox_VisionProcesses.FormattingEnabled = true;
+            this.comboBox_VisionProcesses.Location = new System.Drawing.Point(27, 90);
+            this.comboBox_VisionProcesses.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox_VisionProcesses.Name = "comboBox_VisionProcesses";
+            this.comboBox_VisionProcesses.Size = new System.Drawing.Size(207, 24);
+            this.comboBox_VisionProcesses.TabIndex = 13;
+            // 
+            // button_RunVisionProcess
+            // 
+            this.button_RunVisionProcess.Location = new System.Drawing.Point(159, 386);
+            this.button_RunVisionProcess.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button_RunVisionProcess.Name = "button_RunVisionProcess";
+            this.button_RunVisionProcess.Size = new System.Drawing.Size(75, 23);
+            this.button_RunVisionProcess.TabIndex = 12;
+            this.button_RunVisionProcess.Text = "Run";
+            this.button_RunVisionProcess.UseVisualStyleBackColor = true;
+            this.button_RunVisionProcess.Click += new System.EventHandler(this.button_RunVisionProcess_Click);
+            // 
+            // comboBox_VisionToolType
+            // 
+            this.comboBox_VisionToolType.FormattingEnabled = true;
+            this.comboBox_VisionToolType.Location = new System.Drawing.Point(269, 155);
+            this.comboBox_VisionToolType.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox_VisionToolType.Name = "comboBox_VisionToolType";
+            this.comboBox_VisionToolType.Size = new System.Drawing.Size(195, 24);
+            this.comboBox_VisionToolType.TabIndex = 11;
+            // 
+            // button_AddVisionTool
+            // 
+            this.button_AddVisionTool.Location = new System.Drawing.Point(389, 193);
+            this.button_AddVisionTool.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button_AddVisionTool.Name = "button_AddVisionTool";
+            this.button_AddVisionTool.Size = new System.Drawing.Size(75, 23);
+            this.button_AddVisionTool.TabIndex = 10;
+            this.button_AddVisionTool.Text = "Add";
+            this.button_AddVisionTool.UseVisualStyleBackColor = true;
+            this.button_AddVisionTool.Click += new System.EventHandler(this.button_AddVisionTool_Click);
+            // 
+            // button_LoadVisionProcess
+            // 
+            this.button_LoadVisionProcess.Location = new System.Drawing.Point(269, 91);
+            this.button_LoadVisionProcess.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button_LoadVisionProcess.Name = "button_LoadVisionProcess";
+            this.button_LoadVisionProcess.Size = new System.Drawing.Size(75, 23);
+            this.button_LoadVisionProcess.TabIndex = 8;
+            this.button_LoadVisionProcess.Text = "Load";
+            this.button_LoadVisionProcess.UseVisualStyleBackColor = true;
+            this.button_LoadVisionProcess.Click += new System.EventHandler(this.button_LoadVisionProcess_Click);
+            // 
+            // button_SaveVisionProject
+            // 
+            this.button_SaveVisionProject.Location = new System.Drawing.Point(389, 41);
+            this.button_SaveVisionProject.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button_SaveVisionProject.Name = "button_SaveVisionProject";
+            this.button_SaveVisionProject.Size = new System.Drawing.Size(75, 23);
+            this.button_SaveVisionProject.TabIndex = 7;
+            this.button_SaveVisionProject.Text = "Save";
+            this.button_SaveVisionProject.UseVisualStyleBackColor = true;
+            this.button_SaveVisionProject.Click += new System.EventHandler(this.button_SaveVisionProject_Click);
+            // 
+            // button_LoadVisionProject
+            // 
+            this.button_LoadVisionProject.Location = new System.Drawing.Point(269, 41);
+            this.button_LoadVisionProject.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button_LoadVisionProject.Name = "button_LoadVisionProject";
+            this.button_LoadVisionProject.Size = new System.Drawing.Size(75, 23);
+            this.button_LoadVisionProject.TabIndex = 6;
+            this.button_LoadVisionProject.Text = "Load";
+            this.button_LoadVisionProject.UseVisualStyleBackColor = true;
+            this.button_LoadVisionProject.Click += new System.EventHandler(this.button_LoadVisionProject_Click);
             // 
             // label5
             // 
@@ -604,99 +689,66 @@ namespace Brooks_TCS_Demo
             this.label5.TabIndex = 5;
             this.label5.Text = "Process";
             // 
-            // button_LoadVisionProject
+            // treeView_VisionProcess
             // 
-            this.button_LoadVisionProject.Location = new System.Drawing.Point(270, 41);
-            this.button_LoadVisionProject.Name = "button_LoadVisionProject";
-            this.button_LoadVisionProject.Size = new System.Drawing.Size(75, 23);
-            this.button_LoadVisionProject.TabIndex = 6;
-            this.button_LoadVisionProject.Text = "Load";
-            this.button_LoadVisionProject.UseVisualStyleBackColor = true;
-            this.button_LoadVisionProject.Click += new System.EventHandler(this.button_LoadVisionProject_Click);
+            this.treeView_VisionProcess.Location = new System.Drawing.Point(24, 155);
+            this.treeView_VisionProcess.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.treeView_VisionProcess.Name = "treeView_VisionProcess";
+            this.treeView_VisionProcess.Size = new System.Drawing.Size(209, 218);
+            this.treeView_VisionProcess.TabIndex = 4;
             // 
-            // button_SaveVisionProject
+            // label4
             // 
-            this.button_SaveVisionProject.Location = new System.Drawing.Point(390, 40);
-            this.button_SaveVisionProject.Name = "button_SaveVisionProject";
-            this.button_SaveVisionProject.Size = new System.Drawing.Size(75, 23);
-            this.button_SaveVisionProject.TabIndex = 7;
-            this.button_SaveVisionProject.Text = "Save";
-            this.button_SaveVisionProject.UseVisualStyleBackColor = true;
-            this.button_SaveVisionProject.Click += new System.EventHandler(this.button_SaveVisionProject_Click);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(21, 70);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(97, 16);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Process Name";
             // 
-            // button_LoadVisionProcess
+            // label3
             // 
-            this.button_LoadVisionProcess.Location = new System.Drawing.Point(270, 87);
-            this.button_LoadVisionProcess.Name = "button_LoadVisionProcess";
-            this.button_LoadVisionProcess.Size = new System.Drawing.Size(75, 23);
-            this.button_LoadVisionProcess.TabIndex = 8;
-            this.button_LoadVisionProcess.Text = "Load";
-            this.button_LoadVisionProcess.UseVisualStyleBackColor = true;
-            this.button_LoadVisionProcess.Click += new System.EventHandler(this.button_LoadVisionProcess_Click);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(21, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 16);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Project Name";
             // 
-            // button_SaveVisionProcess
+            // treeView_ToolInstances
             // 
-            this.button_SaveVisionProcess.Location = new System.Drawing.Point(390, 87);
-            this.button_SaveVisionProcess.Name = "button_SaveVisionProcess";
-            this.button_SaveVisionProcess.Size = new System.Drawing.Size(75, 23);
-            this.button_SaveVisionProcess.TabIndex = 9;
-            this.button_SaveVisionProcess.Text = "Save";
-            this.button_SaveVisionProcess.UseVisualStyleBackColor = true;
-            this.button_SaveVisionProcess.Click += new System.EventHandler(this.button_SaveVisionProcess_Click);
+            this.treeView_ToolInstances.Location = new System.Drawing.Point(269, 238);
+            this.treeView_ToolInstances.Name = "treeView_ToolInstances";
+            this.treeView_ToolInstances.Size = new System.Drawing.Size(195, 135);
+            this.treeView_ToolInstances.TabIndex = 16;
             // 
-            // button_AddVisionTool
+            // comboBox_CameraNumbers
             // 
-            this.button_AddVisionTool.Location = new System.Drawing.Point(390, 183);
-            this.button_AddVisionTool.Name = "button_AddVisionTool";
-            this.button_AddVisionTool.Size = new System.Drawing.Size(75, 23);
-            this.button_AddVisionTool.TabIndex = 10;
-            this.button_AddVisionTool.Text = "Add";
-            this.button_AddVisionTool.UseVisualStyleBackColor = true;
-            this.button_AddVisionTool.Click += new System.EventHandler(this.button_AddVisionTool_Click);
+            this.comboBox_CameraNumbers.FormattingEnabled = true;
+            this.comboBox_CameraNumbers.Location = new System.Drawing.Point(269, 193);
+            this.comboBox_CameraNumbers.Name = "comboBox_CameraNumbers";
+            this.comboBox_CameraNumbers.Size = new System.Drawing.Size(114, 24);
+            this.comboBox_CameraNumbers.TabIndex = 17;
             // 
-            // comboBox_VisionToolType
+            // button_AddVisionToolToVisionProcess
             // 
-            this.comboBox_VisionToolType.FormattingEnabled = true;
-            this.comboBox_VisionToolType.Location = new System.Drawing.Point(270, 155);
-            this.comboBox_VisionToolType.Name = "comboBox_VisionToolType";
-            this.comboBox_VisionToolType.Size = new System.Drawing.Size(195, 24);
-            this.comboBox_VisionToolType.TabIndex = 11;
+            this.button_AddVisionToolToVisionProcess.Location = new System.Drawing.Point(389, 380);
+            this.button_AddVisionToolToVisionProcess.Name = "button_AddVisionToolToVisionProcess";
+            this.button_AddVisionToolToVisionProcess.Size = new System.Drawing.Size(75, 23);
+            this.button_AddVisionToolToVisionProcess.TabIndex = 18;
+            this.button_AddVisionToolToVisionProcess.Text = "Add";
+            this.button_AddVisionToolToVisionProcess.UseVisualStyleBackColor = true;
+            this.button_AddVisionToolToVisionProcess.Click += new System.EventHandler(this.button_AddVisionToolToVisionProcess_Click);
             // 
-            // button_RunVisionProcess
+            // button_NewProcess
             // 
-            this.button_RunVisionProcess.Location = new System.Drawing.Point(390, 349);
-            this.button_RunVisionProcess.Name = "button_RunVisionProcess";
-            this.button_RunVisionProcess.Size = new System.Drawing.Size(75, 23);
-            this.button_RunVisionProcess.TabIndex = 12;
-            this.button_RunVisionProcess.Text = "Run";
-            this.button_RunVisionProcess.UseVisualStyleBackColor = true;
-            this.button_RunVisionProcess.Click += new System.EventHandler(this.button_RunVisionProcess_Click);
-            // 
-            // comboBox_VisionProcesses
-            // 
-            this.comboBox_VisionProcesses.FormattingEnabled = true;
-            this.comboBox_VisionProcesses.Location = new System.Drawing.Point(27, 90);
-            this.comboBox_VisionProcesses.Name = "comboBox_VisionProcesses";
-            this.comboBox_VisionProcesses.Size = new System.Drawing.Size(206, 24);
-            this.comboBox_VisionProcesses.TabIndex = 13;
-            // 
-            // comboBox_VisionProjects
-            // 
-            this.comboBox_VisionProjects.FormattingEnabled = true;
-            this.comboBox_VisionProjects.Location = new System.Drawing.Point(27, 41);
-            this.comboBox_VisionProjects.Name = "comboBox_VisionProjects";
-            this.comboBox_VisionProjects.Size = new System.Drawing.Size(206, 24);
-            this.comboBox_VisionProjects.TabIndex = 14;
-            // 
-            // button_SearchForVisionProjects
-            // 
-            this.button_SearchForVisionProjects.Location = new System.Drawing.Point(503, 39);
-            this.button_SearchForVisionProjects.Name = "button_SearchForVisionProjects";
-            this.button_SearchForVisionProjects.Size = new System.Drawing.Size(75, 23);
-            this.button_SearchForVisionProjects.TabIndex = 15;
-            this.button_SearchForVisionProjects.Text = "Search";
-            this.button_SearchForVisionProjects.UseVisualStyleBackColor = true;
-            this.button_SearchForVisionProjects.Click += new System.EventHandler(this.button_SearchForVisionProjects_Click);
+            this.button_NewProcess.Location = new System.Drawing.Point(493, 41);
+            this.button_NewProcess.Name = "button_NewProcess";
+            this.button_NewProcess.Size = new System.Drawing.Size(75, 23);
+            this.button_NewProcess.TabIndex = 19;
+            this.button_NewProcess.Text = "New";
+            this.button_NewProcess.UseVisualStyleBackColor = true;
+            this.button_NewProcess.Click += new System.EventHandler(this.button_NewProcess_Click);
             // 
             // MainWindow
             // 
@@ -707,7 +759,7 @@ namespace Brooks_TCS_Demo
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainWindow";
             this.Text = "Brooks TCS Demo";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -716,13 +768,12 @@ namespace Brooks_TCS_Demo
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage_Robot1.ResumeLayout(false);
             this.tabPage_Vision1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_LiveImage)).EndInit();
             this.tabPage_Locations.ResumeLayout(false);
             this.tabPage_Locations.PerformLayout();
-            this.tabPage_VisionProgramming.ResumeLayout(false);
-            this.tabPage_VisionProgramming.PerformLayout();
+            this.tabPage_VisionProcess.ResumeLayout(false);
+            this.tabPage_VisionProcess.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -733,7 +784,6 @@ namespace Brooks_TCS_Demo
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.Button button_ConnectDisconnect;
         private System.Windows.Forms.ToolStripMenuItem controllerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem initToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem powerToolStripMenuItem;
@@ -763,7 +813,6 @@ namespace Brooks_TCS_Demo
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_VisionConnection;
-        private System.Windows.Forms.Button button_Free_RB1;
         private System.Windows.Forms.TabPage tabPage_Locations;
         private System.Windows.Forms.Button button_SendToController;
         private System.Windows.Forms.ComboBox comboBox_ProfileName;
@@ -777,10 +826,9 @@ namespace Brooks_TCS_Demo
         private System.Windows.Forms.Button button_MoveToLocation;
         private System.Windows.Forms.Button button_RecordJoint;
         private System.Windows.Forms.ComboBox comboBox_LocName;
-        private System.Windows.Forms.TabPage tabPage_VisionProgramming;
+        private System.Windows.Forms.TabPage tabPage_VisionProcess;
         private System.Windows.Forms.ComboBox comboBox_VisionToolType;
         private System.Windows.Forms.Button button_AddVisionTool;
-        private System.Windows.Forms.Button button_SaveVisionProcess;
         private System.Windows.Forms.Button button_LoadVisionProcess;
         private System.Windows.Forms.Button button_SaveVisionProject;
         private System.Windows.Forms.Button button_LoadVisionProject;
@@ -792,6 +840,14 @@ namespace Brooks_TCS_Demo
         private System.Windows.Forms.ComboBox comboBox_VisionProcesses;
         private System.Windows.Forms.ComboBox comboBox_VisionProjects;
         private System.Windows.Forms.Button button_SearchForVisionProjects;
+        private System.Windows.Forms.ToolStripMenuItem connectionToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.TreeView treeView_ToolInstances;
+        private System.Windows.Forms.ComboBox comboBox_CameraNumbers;
+        private System.Windows.Forms.Button button_AddVisionToolToVisionProcess;
+        private System.Windows.Forms.Button button_NewProcess;
     }
 }
 

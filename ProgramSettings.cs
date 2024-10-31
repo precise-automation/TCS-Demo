@@ -1,60 +1,41 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
+﻿using Precise.Common.Core.Settings;
 
 namespace Brooks_TCS_Demo
 {
     public class ProgramSettings
     {
 
-        // Dictionary to hold all settings
-        private Dictionary<string, object> settings;
+        public string Robot1IP = "127.0.0.1";
+        public string Vision1IP = "127.0.0.1";
+
+        public bool ApplySettngs = false;
 
         private readonly string settingsFilePath;
+
+        private SettingsFilePersister settingsPersister;
+        public SettingsService settingsService { get; private set; }
 
         // Constructor to initialize the settings and file path
         public ProgramSettings(string filePath)
         {
             settingsFilePath = filePath;
-            settings = new Dictionary<string, object>();
-
-            // Try loading settings from file, if it exists
-            LoadSettings();
+            settingsPersister = new SettingsFilePersister(settingsFilePath);
+            settingsService = new SettingsService(settingsPersister);
+            GetSettings();
         }
 
-        // Function to get a setting with a fallback to a default value
-        public T Get<T>(string key, T defaultValue = default)
+        public void GetSettings()
         {
-            if (settings.ContainsKey(key) && settings[key] is T)
-            {
-                return (T)settings[key];
-            }
-            return defaultValue; // Return default if the key doesn't exist
+            Robot1IP = settingsService.GetSetting<string>("Robot1ControllerIP", "192.168.0.1");
+            Vision1IP = settingsService.GetSetting<string>("Robot1VisionIP", "192.168.0.200");
         }
 
-        // Function to set or update a setting
-        public void Set<T>(string key, T value)
-        {
-            settings[key] = value;
-        }
-
-        // Save settings to file
+        // Update Variable and Save Varible File if Varaible Has Changed
         public void SaveSettings()
         {
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string json = JsonSerializer.Serialize(settings, options);
-            File.WriteAllText(settingsFilePath, json);
+            settingsService.UpdateSetting<string>("Robot1ControllerIP", Robot1IP);
+            settingsService.UpdateSetting<string>("Robot1VisionIP", Vision1IP);
         }
 
-        // Load settings from file
-        public void LoadSettings()
-        {
-            if (File.Exists(settingsFilePath))
-            {
-                string json = File.ReadAllText(settingsFilePath);
-                settings = JsonSerializer.Deserialize<Dictionary<string, object>>(json)
-                            ?? new Dictionary<string, object>();
-            }
-        }
     }
 }

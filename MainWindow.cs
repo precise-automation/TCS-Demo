@@ -3,8 +3,8 @@ using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace Brooks_TCS_Demo
 {
@@ -14,6 +14,7 @@ namespace Brooks_TCS_Demo
         private VisionServerHandler robot1Vision;
 
         private ProgramSettings programSettings;
+        private SettingsWindow settingsWindow;
 
         private string robot1ControllerIP;
         private string robot1VisionIP;
@@ -31,27 +32,25 @@ namespace Brooks_TCS_Demo
             robot1Vision.ImageCaptured += Robot1Vision_ImageCaptured;
         }
 
+
         private void InitializeSettings()
         {
-            string settingsFilePath = "settings.json";
+            var strExeFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            var strWorkPath = Path.GetDirectoryName(strExeFilePath);
+            var settingsFilePath = Path.Combine(strWorkPath, "program.settings");
             programSettings = new ProgramSettings(settingsFilePath);
-            LoadSettings();
+            ApplySettings(true);
         }
 
-        private void LoadSettings(bool forceReload = false)
+        private void ApplySettings(bool force = false)
         {
-            if (forceReload)
-                programSettings.LoadSettings();
-
-            robot1ControllerIP = programSettings.Get<string>("Robot1ControllerIP", "192.168.0.1");
-            robot1VisionIP = programSettings.Get<string>("Robot1VisionIP", "192.168.0.200");
-        }
-
-        private void SaveSettings()
-        {
-            programSettings.Set("Robot1ControllerIP", robot1ControllerIP);
-            programSettings.Set("Robot1VisionIP", robot1VisionIP);
-            programSettings.SaveSettings();
+            if (programSettings.ApplySettngs || force)
+            {
+                programSettings.SaveSettings();
+                robot1ControllerIP = programSettings.Robot1IP;
+                robot1VisionIP = programSettings.Vision1IP;
+            }
+            programSettings.ApplySettngs = false;
         }
 
         private void VisionConnect()
@@ -138,13 +137,11 @@ namespace Brooks_TCS_Demo
         {
             if (robot1Controller?.IsConnected == true)
             {
-                button_ConnectDisconnect.Text = "Disconnect";
                 toolStripStatusLabel_RobotConnection.Text = "Connected";
                 toolStripStatusLabel_RobotConnection.ForeColor = Color.Green;
             }
             else
             {
-                button_ConnectDisconnect.Text = "Connect";
                 toolStripStatusLabel_RobotConnection.Text = "Disconnected";
                 toolStripStatusLabel_RobotConnection.ForeColor = Color.Red;
             }
@@ -158,15 +155,23 @@ namespace Brooks_TCS_Demo
                 RobotConnect();
         }
 
-        private void button_Test_Click(object sender, EventArgs e)
+        private void connectToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            TestConnection();
+            if (robot1Controller.IsConnected)
+                RobotConnect();
+        }
+
+        private void disconnectToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (robot1Controller.IsConnected == false)
+                RobotDisconnect();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            robot1Controller.Dispose();
-            robot1Vision.Dispose();
+            settingsWindow?.Close();
+            robot1Controller?.Dispose();
+            robot1Vision?.Dispose();
         }
 
         private void initToolStripMenuItem_Click(object sender, EventArgs e)
@@ -175,17 +180,7 @@ namespace Brooks_TCS_Demo
         private void powerToolStripMenuItem_Click(object sender, EventArgs e)
             => robot1Controller.SetPower(true);
 
-        private void TestConnection()
-        {
-            throw new NotImplementedException();
-        }
-
         private bool FreeModeState = false;
-        private void button_Free_RB1_Click(object sender, EventArgs e)
-        {
-            FreeModeState = !FreeModeState;
-            robot1Controller.SetFreeMode(FreeModeState);
-        }
 
         private void freeModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -298,19 +293,25 @@ namespace Brooks_TCS_Demo
             comboBox_VisionProcesses.Items.Clear();
             comboBox_VisionProcesses.Items.AddRange(processes);
             comboBox_VisionProcesses.Text = comboBox_VisionProcesses.Items[0].ToString();
-        }
 
-        private void button_SaveVisionProject_Click(object sender, EventArgs e)
-        {
-
+            var cameraNumbers = robot1Vision.GetCameraNumbers().Select(c => c.ToString()).ToArray();
+            comboBox_CameraNumbers.Items.Clear();
+            comboBox_CameraNumbers.Items.AddRange(cameraNumbers);
         }
 
         private void button_LoadVisionProcess_Click(object sender, EventArgs e)
         {
+            UpdateProcessTree();
+            UpdateToolInstanceTree();
+        }
+
+        private void UpdateProcessTree()
+        {
             var name = comboBox_VisionProcesses.Text;
+
             var root = robot1Vision.GetVisionProcessTreeNodes(name);
             treeView_VisionProcess.Nodes.Clear();
-            if(root != null)
+            if (root != null)
             {
                 treeView_VisionProcess.Nodes.AddRange(root);
             }
@@ -319,19 +320,48 @@ namespace Brooks_TCS_Demo
             comboBox_VisionToolType.Items.AddRange(robot1Vision.GetToolTypes());
         }
 
+        private void UpdateToolInstanceTree()
+        {
+            treeView_ToolInstances.Nodes.Clear();
+            foreach (var tool in robot1Vision.GetVisionToolInstances())
+                treeView_ToolInstances.Nodes.Add(tool);
+        }
+
+        private void button_SaveVisionProject_Click(object sender, EventArgs e)
+        {
+            string projectName = comboBox_VisionProjects.Text.Trim();
+            robot1Vision.SaveVisionProject(projectName);
+        }
+
         private void button_SaveVisionProcess_Click(object sender, EventArgs e)
         {
-
+            throw new NotImplementedException();
         }
 
         private void button_AddVisionTool_Click(object sender, EventArgs e)
         {
+            int camera;
+            var toolType = comboBox_VisionToolType.Text;
+            bool result = int.TryParse(comboBox_CameraNumbers.Text, out camera);
+            result &= robot1Vision.IsValidToolType(toolType);
 
+            if (result)
+            {
+                robot1Vision.AddVisionTool(toolType, camera);
+            }
+            else
+            {
+                MessageBox.Show("Invalid Tool Type or Camera Number", "Error: Add Vision Tool");
+            }
+            System.Threading.Thread.Sleep(1000);
+            UpdateProcessTree();
+            UpdateToolInstanceTree();
         }
 
         private void button_RunVisionProcess_Click(object sender, EventArgs e)
         {
-
+            string process = comboBox_VisionProcesses.Text.Trim();
+            robot1Vision.Execute(process);
         }
 
         private void button_SearchForVisionProjects_Click(object sender, EventArgs e)
@@ -339,6 +369,36 @@ namespace Brooks_TCS_Demo
             comboBox_VisionProjects.Items.Clear();
             var projects = robot1Vision.GetVisionProjects();
             comboBox_VisionProjects.Items.AddRange(projects);
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            settingsWindow = new SettingsWindow(programSettings);
+            settingsWindow.Show();
+            settingsWindow.FormClosing += SettingsWindow_FormClosing;
+        }
+        private void SettingsWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ApplySettings();
+        }
+
+        private void button_AddVisionToolToVisionProcess_Click(object sender, EventArgs e)
+        {
+            if (treeView_ToolInstances.SelectedNode == null)
+                return;
+            var instanceName = treeView_ToolInstances.SelectedNode.Text;
+            var processName = comboBox_VisionProcesses.Text;
+            robot1Vision.AddToolToProcess(instanceName, processName);
+
+            UpdateProcessTree();
+            UpdateToolInstanceTree();
+        }
+
+        private void button_NewProcess_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(comboBox_VisionProjects.Text))
+                return;
+
         }
     }
 }

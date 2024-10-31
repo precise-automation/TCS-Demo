@@ -22,5 +22,29 @@ namespace Brooks_TCS_Demo.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Robot1ControllerIP {
+            get {
+                return ((string)(this["Robot1ControllerIP"]));
+            }
+            set {
+                this["Robot1ControllerIP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Robot1VisionIP {
+            get {
+                return ((string)(this["Robot1VisionIP"]));
+            }
+            set {
+                this["Robot1VisionIP"] = value;
+            }
+        }
     }
 }

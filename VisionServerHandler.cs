@@ -1,4 +1,5 @@
-﻿using Precise.Common.Communication.Protocols.VisionStream.Server;
+﻿using Precise.Common.Communication.Processes;
+using Precise.Common.Communication.Protocols.VisionStream.Server;
 using Precise.Common.Communication.Vision.VisionEngineComm;
 using Precise.Common.Communication.VisionEngineComm.Vision.Results;
 using Precise.Common.Core.Language;
@@ -15,6 +16,7 @@ namespace Brooks_TCS_Demo
     public class VisionServerHandler : IDisposable
     {
         public event EventHandler<Image> ImageCaptured;
+        public event EventHandler<EventArgs> VisionProcessUpdated;
 
         public bool IsConnected
         {
@@ -140,13 +142,100 @@ namespace Brooks_TCS_Demo
         { 
             return visionEngineClientService.VisionToolTypes.Select(t => t.DisplayName).ToArray();
         }
-        //visionEngineClientService.VisionToolTypes
-        //visionEngineClientService.CreateVisionTool
+
+        public string[] GetVisionToolInstances()
+        {
+            var tools = visionEngineClientService.VisionToolInstances;
+            var toolNames = tools.Select(t => t.InstanceName).ToArray();
+            return toolNames;
+        }
+
+        public int[] GetCameraNumbers()
+        {
+            var cameras = visionEngineClientService.Cameras.Select(c=> c.CameraNumber).ToArray();
+            return cameras;
+        }
+
+        public void AddVisionTool(string toolTypeName, int camera)
+        {
+            var toolType = GetToolType(toolTypeName);
+            if (toolType == null) {
+                MessageBox.Show("Unrecognized Tool Type", "Error: AddVisionTool()");
+                return;
+            }
+            string toolName = toolType.DisplayName;
+            int ii = 1;
+            while (GetToolInstance( toolName + ii.ToString()) != null) {
+                ii++;
+            }
+            toolName = toolName + ii.ToString();
+
+            visionEngineClientService.CreateVisionTool(toolType.TypeName, camera, toolName);
+        }
+
+        public void AddToolToProcess(string toolName, string processName)
+        {
+            var process = GetVisionProcess(processName);
+            var tool = GetToolInstance(toolName);
+
+            if (process == null)
+            {
+                MessageBox.Show("Invalid Process Selected", "Error: AddToolToProcess");
+                return;
+            }
+            if (tool == null)
+            {
+                MessageBox.Show("Invalid Tool Selected", "Error: AddToolToProcess");
+                return;
+            }
+            
+            var tools = process.VisionTools.Select(t => t.VisionTool.InstanceName).ToList();
+            tools.Add(toolName);
+            visionEngineClientService.UpdateProcess(processName, tools.ToArray());
+        }
+
+        private VisionProcess GetVisionProcess(string processName)
+        {
+            return visionEngineClientService.VisionProcesses.FirstOrDefault(p => p.ProcessName == processName);
+        }
+
+        private VisionToolInstance GetToolInstance(string toolName)
+        {
+            return visionEngineClientService.VisionToolInstances.FirstOrDefault(t => t.InstanceName == toolName);
+        }
+        private VisionToolType GetToolType(string toolTypeName)
+        {
+            return visionEngineClientService.VisionToolTypes.FirstOrDefault(t => t.DisplayName == toolTypeName);
+        }
+
         //visionEngineClientService.CreateVisionProcess
-        //visionEngineClientService.UpdateProcess
-        //visionEngineClientService.SaveProject
 
+        public void SaveVisionProject(string projectName)
+        {
+            if(visionEngineClientService.ActiveProjectName == projectName) 
+                visionEngineClientService.SaveProject();
+        }
 
+        public void Execute(string process)
+        {
+            visionEngineClientService.RunVisionProcess(process);
+        }
+
+        public bool IsValidToolType(string toolType)
+        {
+            return visionEngineClientService.VisionToolTypes.Any(t=> t.DisplayName == toolType);
+        }
+        
+        public void CreateNewVisionProject(string name)
+        {
+            visionEngineClientService.ClearProject();
+            System.Threading.Thread.Sleep(2000);
+            visionEngineClientService.CreateVisionProcess("Process 1");
+            System.Threading.Thread.Sleep(2000);
+            visionEngineClientService.SaveProjectAs(name);
+        }
+
+        //tool.Properties.FirstOrDefault(p => p.DisplayName == "LEft AruCo");
         //public void CreateArUcosForSteroLocate()
         //{
         //    var service = visionEngineClientService;
