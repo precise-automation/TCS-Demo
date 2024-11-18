@@ -1,5 +1,4 @@
-﻿using Precise.Common.Communication.Processes;
-using Precise.Common.Communication.Protocols.VisionStream.Server;
+﻿using Precise.Common.Communication.Protocols.VisionStream.Server;
 using Precise.Common.Communication.Vision.VisionEngineComm;
 using Precise.Common.Communication.VisionEngineComm.Vision.Results;
 using Precise.Common.Core.Language;
@@ -51,6 +50,7 @@ namespace Brooks_TCS_Demo
         {
             Dispose();
         }
+
         public void Dispose()
         {
             visionEngineClientService.Disconnect();
@@ -73,8 +73,7 @@ namespace Brooks_TCS_Demo
         }
 
         private void VisionEngineClientService_ErrorDetected(Exception exception)
-            => MessageBox.Show(exception.Message, 
-                "Vision Engine Client Service Error Detected");
+            => MessageBox.Show(exception.Message, "Vision Engine Client Service Error Detected");
 
         private void VisionEngineClientService_ImageUpdated(object sender, ImageUpdatedArguments e)
         {
@@ -235,7 +234,7 @@ namespace Brooks_TCS_Demo
             visionEngineClientService.SaveProjectAs(name);
         }
 
-        //tool.Properties.FirstOrDefault(p => p.DisplayName == "LEft AruCo");
+        //tool.Properties.FirstOrDefault(p => p.DisplayName == "Left AruCo");
         //public void CreateArUcosForSteroLocate()
         //{
         //    var service = visionEngineClientService;
