@@ -14,6 +14,7 @@ namespace Tcs.Core
 {
     public class VisionServerHandler : IDisposable
     {
+        public event EventHandler ConnectionChanged;
         public event EventHandler<Image> ImageCaptured;
         public event EventHandler<EventArgs> VisionProcessUpdated;
 
@@ -44,6 +45,14 @@ namespace Tcs.Core
 
             visionEngineClientService.ErrorDetected += VisionEngineClientService_ErrorDetected;
             visionEngineClientService.ImageUpdated += VisionEngineClientService_ImageUpdated;
+            visionEngineClientService.PropertyChanged += VisionEngineClientService_PropertyChanged;
+
+        }
+
+        private void VisionEngineClientService_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == "IsConnected")
+                ConnectionChanged?.Invoke(this, EventArgs.Empty);
         }
 
         void IDisposable.Dispose()

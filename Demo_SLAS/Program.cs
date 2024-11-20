@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Demo_AllFeatures
+namespace Demo_SLAS
 {
     internal static class Program
     {

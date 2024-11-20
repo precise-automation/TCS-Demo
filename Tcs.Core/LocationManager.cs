@@ -51,10 +51,9 @@ namespace Tcs.Core
             }
         }
 
-
-        public string UpdateLocation (string name, bool isCartesian)
+        public string UpdateLocation(string name, bool isCartesian)
         {
-            LocationType locationType = isCartesian ? LocationType.Cartesian: LocationType.Angles;
+            LocationType locationType = isCartesian ? LocationType.Cartesian : LocationType.Angles;
 
             // Create new location if it doesn't exist
             if (Exists(name) ==false) 

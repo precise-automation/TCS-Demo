@@ -7,6 +7,8 @@ namespace Tcs.Core
 
         public string Robot1IP = "127.0.0.1";
         public string Vision1IP = "127.0.0.1";
+        public string Robot2IP = "127.0.0.1";
+        public string Vision2IP = "127.0.0.1";
 
         public bool ApplySettngs = false;
 
@@ -28,6 +30,8 @@ namespace Tcs.Core
         {
             Robot1IP = settingsService.GetSetting<string>("Robot1ControllerIP", "192.168.0.1");
             Vision1IP = settingsService.GetSetting<string>("Robot1VisionIP", "192.168.0.200");
+            Robot2IP = settingsService.GetSetting<string>("Robot2ControllerIP", "192.168.0.1");
+            Vision2IP = settingsService.GetSetting<string>("Robot2VisionIP", "192.168.0.200");
         }
 
         // Update Variable and Save Varible File if Varaible Has Changed
@@ -35,6 +39,8 @@ namespace Tcs.Core
         {
             settingsService.UpdateSetting<string>("Robot1ControllerIP", Robot1IP);
             settingsService.UpdateSetting<string>("Robot1VisionIP", Vision1IP);
+            settingsService.UpdateSetting<string>("Robot2ControllerIP", Robot2IP);
+            settingsService.UpdateSetting<string>("Robot2VisionIP", Vision2IP);
         }
 
     }

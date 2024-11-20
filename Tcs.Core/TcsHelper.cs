@@ -9,28 +9,68 @@ namespace Tcs.Core
 {
     public static class TcsHelper
     {
-        private static string Tcp_Project_Name = "Tcp_cmd_server_pa";
+        private static string Tcp_Project_SearchName = "Tcp_cmd_server";
         private static string Tcp_Project_Path = "/flash/projects/";
+        private static string Memory_Project_Path = "/GPL/";
 
         public static bool IsTcsRunning(TCSManager tcsManager)
         {
             var executionDetails = tcsManager.Controller.GetExecutionDetails();
-            bool result = executionDetails.ThreadNames.Any(t => t.Contains("Tcp_cmd_server"));
+            bool result = executionDetails.ThreadNames.Any(t => t.Contains(Tcp_Project_SearchName));
+            return result;
+        }
+
+        public static string GetTcsProjectName(TCSManager tcsManager)
+        {
+            var folders = tcsManager.Controller.FileSystem.GetDirectories(Tcp_Project_Path);
+            string result = folders.First(f => f.EntryType == "dir" && f.EntryName.Contains(Tcp_Project_SearchName)).EntryName;
+            return result ?? Tcp_Project_SearchName;
+        }
+
+        public static string GetTcsThreadName(TCSManager tcsManager)
+        {
+            var executionDetails = tcsManager.Controller.GetExecutionDetails();
+            string result = executionDetails.ThreadNames.FirstOrDefault(t => t.Contains(Tcp_Project_SearchName));
+            return result;
+        }
+
+        public static bool IsTcsInMemory(TCSManager tcsManager)
+        {
+            var folders = tcsManager.Controller.FileSystem.GetDirectories(Memory_Project_Path);
+
+            bool result = folders.Any(f => f.EntryType == "dir" && f.EntryName.Contains(Tcp_Project_SearchName));
             return result;
         }
         
-        public static void LoadTCS(TCSManager tcsManager)
+        public static void LoadTCS(TCSManager tcsManager, string projectName = "Tcp_cmd_server")
         {
             if (tcsManager.Controller.IsActive)
-                tcsManager.Controller.LoadProject(Tcp_Project_Path, Tcp_Project_Name);
+                if (IsTcsRunning(tcsManager) == false)
+                    if (IsTcsInMemory(tcsManager) == false)
+                    {
+                        tcsManager.Controller.LoadProject(Tcp_Project_Path, projectName);
+
+                        // Wait for TCS to Load
+                        int count = 0;
+                        do
+                        {
+                            Thread.Sleep(250);
+                            count++;
+                        } while (IsTcsInMemory(tcsManager) == false && count < 4 * 10);
+                    }
         }
 
         public static void StartTCS(TCSManager tcsManager)
         {
             if (tcsManager.Controller.IsActive)
             {
-                tcsManager.Controller.CompileProject(Tcp_Project_Name);
-                tcsManager.Controller.RunProject(Tcp_Project_Name, false);
+                if (IsTcsRunning(tcsManager) == false)
+                {
+                    string projectName = GetTcsProjectName(tcsManager);
+                    LoadTCS(tcsManager, projectName);
+                    tcsManager.Controller.CompileProject(projectName);
+                    tcsManager.Controller.RunProject(projectName, false);
+                }
             }
         }
 
@@ -38,8 +78,13 @@ namespace Tcs.Core
         {
             if (tcsManager.Controller.IsActive)
             {
-                tcsManager.Controller.ThreadStopAll();
-                tcsManager.Controller.UnloadProject(Tcp_Project_Name);
+                if (IsTcsRunning(tcsManager))
+                {
+                    string thread = GetTcsThreadName(tcsManager);
+                    tcsManager.Controller.ThreadStop(thread);
+                    //tcsManager.Controller.ThreadStopAll();
+                    //tcsManager.Controller.UnloadProject(Tcp_Project_Name);
+                }
             }
         }
 
@@ -69,7 +114,6 @@ namespace Tcs.Core
                 Thread.Sleep(10);
             }
         }
-
 
         public static string SendSingleCommand(TCSManager tcsManager, string command, int sleep = 100, int timeout = 5000)
         {

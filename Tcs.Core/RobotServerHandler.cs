@@ -13,6 +13,7 @@ namespace Tcs.Core
     public class RobotServerHandler : IDisposable
     {
         public event EventHandler ConnectionChanged;
+        public event EventHandler PowerStateChanged;
         public bool IsConnected
         {
             get => tcsManager.IsConnected ;
@@ -42,15 +43,13 @@ namespace Tcs.Core
             }
         }
 
-
-        public TCSManager tcsManager { get; private set; }
-        private LocationManager locationManager;
-        private ProfileManager profileManager;
-        private ControllerHelper controllerHelper;
-
         private LogService logService;
         private LanguageService languageService;
         private Communications commHandle;
+        private ControllerHelper controllerHelper;
+        private TCSManager tcsManager;
+        private LocationManager locationManager;
+        private ProfileManager profileManager;
 
 
         public RobotServerHandler()
@@ -69,7 +68,7 @@ namespace Tcs.Core
                                         tcsMacroDirectory);
 
             tcsManager.Controller.ConnectionStateChanged += Controller_ConnectionStateChanged;
-
+            tcsManager.Controller.PowerStateGplEvent += Controller_PowerStateGplEvent;
         }
 
         void IDisposable.Dispose()
@@ -88,6 +87,8 @@ namespace Tcs.Core
                     if (TcsHelper.IsTcsRunning(tcsManager) == false)
                         MessageBox.Show("TCS Not Running On Target Controller", "Warning");
                 }
+
+                ConnectionChanged.Invoke(this, EventArgs.Empty);
             }
             catch (Exception ex)
             {
@@ -99,12 +100,17 @@ namespace Tcs.Core
         {
             try
             {
+                tcsManager.Controller.ConnectionStateChanged -= Controller_ConnectionStateChanged;
+                tcsManager.Controller.PowerStateGplEvent -= Controller_PowerStateGplEvent;
+
                 if (tcsManager.IsConnected == true)
                 {
                     tcsManager.Controller.Disconnect();
                     tcsManager.Disconnect();
                     
                 }
+
+                ConnectionChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception ex)
             {
@@ -113,7 +119,7 @@ namespace Tcs.Core
         }
 
         private void Controller_ConnectionStateChanged(bool obj)
-            => ConnectionChanged.Invoke(this, EventArgs.Empty);
+            => ConnectionChanged?.Invoke(this, EventArgs.Empty);
 
         public void Init() 
             => RobotTcsCmds.RobotInit(tcsManager);
@@ -139,5 +145,13 @@ namespace Tcs.Core
         public void StopTCS() 
             => TcsHelper.StopTCS(tcsManager);
 
+        public void SendCommand(string command)
+            => TcsHelper.SendSingleCommand(tcsManager, command);
+
+        private void Controller_PowerStateGplEvent(GPLEventObj obj)
+        {
+            if(obj.EventCode == GPLEventObj.GPLEvents.EventPowerState)
+                PowerStateChanged.Invoke(this, EventArgs.Empty);
+        }
     }
 }
