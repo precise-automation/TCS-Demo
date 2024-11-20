@@ -6,3 +6,5 @@ Demo-AllFeatures - [Under Development] - Example of every possible feature, quit
     - Vision programming not yet working
 Demo_SLAS - [Beta] - Program for SLAS Show
 Demo_Example4 - [Exploration] - Example using Jog Control for Fine Point Location Teaching
+
+Current GDS DLLs: 5.2.2.2
