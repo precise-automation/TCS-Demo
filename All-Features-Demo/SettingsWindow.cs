@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
+using Tcs.Core;
 
-namespace Brooks_TCS_Demo
+namespace Demo_AllFeatures
 {
     public partial class SettingsWindow : Form
     {

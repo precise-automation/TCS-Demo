@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 
-namespace Brooks_TCS_Demo
+namespace Tcs.Core
 {
     public static class TcsHelper
     {

@@ -1,4 +1,4 @@
-﻿using Precise.Common.Communication.Managers.Projects.Variables;
+﻿using Tcs.Core;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Brooks_TCS_Demo
+namespace Demo_AllFeatures
 {
     public partial class MainWindow : Form
     {
@@ -224,7 +224,7 @@ namespace Brooks_TCS_Demo
         private void button_RecordJoint_Click(object sender, EventArgs e)
         {
             var name = comboBox_LocName.Text;
-            var loc = robot1Controller.LocationManager.UpdateLocation(name, LocationType.Angles);
+            var loc = robot1Controller.LocationManager.UpdateLocation(name, false);
             textBox_LocPosition.Text = loc;
             var locs = robot1Controller.LocationManager.GetLocationList();
             comboBox_LocName.Items.Clear();
@@ -234,7 +234,7 @@ namespace Brooks_TCS_Demo
         private void button_RecordCartesian_Click(object sender, EventArgs e)
         {
             var name = comboBox_LocName.Text;
-            var loc = robot1Controller.LocationManager.UpdateLocation(name, LocationType.Cartesian);
+            var loc = robot1Controller.LocationManager.UpdateLocation(name, true);
             textBox_LocPosition.Text = loc;
             var locs = robot1Controller.LocationManager.GetLocationList();
             comboBox_LocName.Items.Clear();

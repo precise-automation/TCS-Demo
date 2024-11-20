@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Brooks_TCS_Demo
+namespace Tcs.Core
 {
     public static class RobotTcsCmds
     {

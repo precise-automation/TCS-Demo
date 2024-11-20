@@ -8,7 +8,7 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Brooks_TCS_Demo
+namespace Tcs.Core
 {
     public class RobotServerHandler : IDisposable
     {
@@ -42,13 +42,15 @@ namespace Brooks_TCS_Demo
             }
         }
 
+
+        public TCSManager tcsManager { get; private set; }
+        private LocationManager locationManager;
+        private ProfileManager profileManager;
+        private ControllerHelper controllerHelper;
+
         private LogService logService;
         private LanguageService languageService;
         private Communications commHandle;
-        private ControllerHelper controllerHelper;
-        private TCSManager tcsManager;
-        private LocationManager locationManager;
-        private ProfileManager profileManager;
 
 
         public RobotServerHandler()

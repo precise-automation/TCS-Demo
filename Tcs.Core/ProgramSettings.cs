@@ -1,6 +1,6 @@
 ﻿using Precise.Common.Core.Settings;
 
-namespace Brooks_TCS_Demo
+namespace Tcs.Core
 {
     public class ProgramSettings
     {

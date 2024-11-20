@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Brooks_TCS_Demo
+namespace Demo_AllFeatures
 {
     partial class MainWindow
     {

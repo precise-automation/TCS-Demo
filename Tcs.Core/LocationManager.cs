@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Brooks_TCS_Demo
+namespace Tcs.Core
 {
     public class LocationManager
     {
@@ -51,8 +51,11 @@ namespace Brooks_TCS_Demo
             }
         }
 
-        public string UpdateLocation (string name, LocationType locationType)
+
+        public string UpdateLocation (string name, bool isCartesian)
         {
+            LocationType locationType = isCartesian ? LocationType.Cartesian: LocationType.Angles;
+
             // Create new location if it doesn't exist
             if (Exists(name) ==false) 
             {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Brooks_TCS_Demo
+namespace Tcs.Core
 {
     public class ProfileManager
     {
