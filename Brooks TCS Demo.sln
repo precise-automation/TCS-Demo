@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo_AllFeatures", "All-Fea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo_SLAS", "Demo_SLAS\Demo_SLAS.csproj", "{528859A1-E84F-451A-9F08-97C59DD69791}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo_Example4", "Demo_Example4\Demo_Example4.csproj", "{B07F17CD-2D5B-4B56-9FB0-FFC9A7615310}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{528859A1-E84F-451A-9F08-97C59DD69791}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{528859A1-E84F-451A-9F08-97C59DD69791}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{528859A1-E84F-451A-9F08-97C59DD69791}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B07F17CD-2D5B-4B56-9FB0-FFC9A7615310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B07F17CD-2D5B-4B56-9FB0-FFC9A7615310}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B07F17CD-2D5B-4B56-9FB0-FFC9A7615310}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B07F17CD-2D5B-4B56-9FB0-FFC9A7615310}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
