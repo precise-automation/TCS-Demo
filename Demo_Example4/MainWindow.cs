@@ -12,17 +12,12 @@ namespace Demo_Example4
         private RobotServerHandler robot1Controller;
         private VisionServerHandler robot1Vision;
 
-        private RobotServerHandler robot2Controller;
-        private VisionServerHandler robot2Vision;
-
         private ProgramSettings programSettings;
         private SettingsWindow settingsWindow;
 
         private string robot1ControllerIP;
         private string robot1VisionIP;
 
-        private string robot2ControllerIP;
-        private string robot2VisionIP;
 
         public MainWindow()
         {
@@ -38,13 +33,6 @@ namespace Demo_Example4
             robot1Vision.ConnectionChanged += Event_ConnectionStatusChanged;
             robot1Vision.ImageCaptured += RB1_Vision_ImageCaptured;
 
-            robot2Controller = new RobotServerHandler();
-            robot2Controller.ConnectionChanged += Event_ConnectionStatusChanged;
-            //robot2Controller.ConnectionChanged += Event_PowerStateChanged;
-
-            robot2Vision = new VisionServerHandler();
-            robot2Vision.ConnectionChanged += Event_ConnectionStatusChanged;
-            robot2Vision.ImageCaptured += RB2_Vision_ImageCaptured;
         }
 
         private void InitializeSettings()
@@ -63,8 +51,6 @@ namespace Demo_Example4
                 programSettings.SaveSettings();
                 robot1ControllerIP = programSettings.Robot1IP;
                 robot1VisionIP = programSettings.Vision1IP;
-                robot2ControllerIP = programSettings.Robot2IP;
-                robot2VisionIP = programSettings.Vision2IP;
             }
             programSettings.ApplySettngs = false;
         }
@@ -79,39 +65,19 @@ namespace Demo_Example4
             }
         }
 
-        private void RB2_Vision_Connect()
-        {
-            UpdateConnectionStatusDisplays();
-            if (robot2Vision.IsConnected == false)
-            {
-                robot2Vision.Connect(robot2VisionIP);
-                UpdateConnectionStatusDisplays();
-            }
-        }
-
         private void RB1_Vision_Disconnect()
         {
             robot1Vision.Disconnect();
             UpdateConnectionStatusDisplays();
         }
 
-        private void RB2_Vision_Disconnect()
-        {
-            robot2Vision.Disconnect();
-            UpdateConnectionStatusDisplays();
-        }
 
         private void RB1_Vision_AquireSingle(int camera = 1)
             => robot1Vision.TriggerCamera(camera);
 
-        private void RB2_Vision_AquireSingle(int camera = 1)
-            => robot2Vision.TriggerCamera(camera);
 
         private void button_RB1_TriggerCamera_Click(object sender, EventArgs e)
             => RB1_Vision_AquireSingle();
-
-        private void button_RB2_TriggerCamera_Click(object sender, EventArgs e)
-            => RB2_Vision_AquireSingle();
 
         private void button_RB1_Connect_Click(object sender, EventArgs e)
             => RB1_Controller_Connect();
@@ -125,11 +91,6 @@ namespace Demo_Example4
         private void RB1_Controller_Connect()
             => robot1Controller.Connect(robot1ControllerIP);
 
-        private void RB2_Controller_Disconnect()
-            => robot2Controller.Disconnect();
-
-        private void RB2_Controller_Connect()
-            => robot2Controller.Connect(robot2ControllerIP);
 
         private void button_RB1_StartCycle_Click(object sender, EventArgs e)
             => robot1Controller.SendCommand("StartProcess");
@@ -137,27 +98,9 @@ namespace Demo_Example4
         private void button_RB1_StopProcess_Click(object sender, EventArgs e)
             => robot1Controller.SendCommand("StopProcess");
 
-        private void button_RB2_Connect_Click(object sender, EventArgs e)
-            => RB2_Controller_Connect();
-
-        private void button_RB2_Disconnect_Click(object sender, EventArgs e)
-            => RB2_Controller_Disconnect();
-
-        private void button_RB2_HighPower_Click(object sender, EventArgs e)
-            => robot1Controller.SetPower(true);
-
-        private void button_RB2_PartCycle_Click(object sender, EventArgs e)
-            => robot2Controller.SendCommand("StartProcess");
-
 
         private void button_RB1_FreeMode_Click(object sender, EventArgs e)
             => robot1Controller.SetFreeMode(true);
-
-        private void button_RB2_FreeMode_Click(object sender, EventArgs e)
-            => robot2Controller.SetFreeMode(true);
-
-        private void button_RB2_StopCycle_Click(object sender, EventArgs e)
-            => robot2Controller.SendCommand("StopProcess");
 
 
         private void Event_ConnectionStatusChanged(object sender, EventArgs e)
@@ -175,12 +118,6 @@ namespace Demo_Example4
             }));
         }
 
-        private void RB2_Vision_ImageCaptured(object sender, Image img)
-        {
-            pictureBox_RB1_LiveImage.Invoke(new Action(() =>{ 
-                RB2_Vision_UpdateImageDisplay(img); 
-            }));
-        }
 
         public void RB1_Vision_UpdateImageDisplay(Image img)
         {
@@ -201,31 +138,11 @@ namespace Demo_Example4
             pictureBox_RB1_LiveImage.Visible = true;
         }
 
-        public void RB2_Vision_UpdateImageDisplay(Image img)
-        {
-            if (tabControl1.SelectedTab.Text.Contains("Vision 2") == false)
-                return;
-
-            string fileName = "ImageFromCamera2.bmp";
-            if (pictureBox_RB2_LiveImage.Visible)
-            {
-                pictureBox_RB2_LiveImage.Visible = false;
-                pictureBox_RB2_LiveImage.Image?.Dispose();
-                File.Delete(fileName);
-            }
-            img.Save(fileName, ImageFormat.Bmp);
-            img.Dispose();
-            pictureBox_RB2_LiveImage.Image = Image.FromFile(fileName);
-
-            pictureBox_RB2_LiveImage.Visible = true;
-        }
 
         public void UpdateConnectionStatusDisplays()
         {
             bool RB1Ctrl = (robot1Controller?.IsConnected)??false;
-            bool RB2Ctrl = (robot2Controller?.IsConnected) ?? false;
             bool RB1Vis = (robot1Vision?.IsConnected) ?? false;
-            bool RB2Vis = (robot2Vision?.IsConnected) ?? false;
 
             // RB 1 Controller
             label_RB1_ConnectionStatus.Text = RB1Ctrl ? "Connected" : "Disconnected";
@@ -236,16 +153,6 @@ namespace Demo_Example4
             // RB 1 Vision
             toolStripStatusLabel_RB1_Vision_Status.Text = RB1Vis ? "Connected" : "Disconnected";
             toolStripStatusLabel_RB1_Vision_Status.ForeColor = RB1Vis ? Color.Green : Color.Red;
-
-            // RB 2 Controller
-            label_RB2_ConnectionStatus.Text = RB2Ctrl ? "Connected" : "Disconnected";
-            label_RB2_ConnectionStatus.ForeColor = RB2Ctrl ? Color.Green : Color.Red;
-            toolStripStatusLabel_RB2_Controller_Status.Text = RB2Ctrl ? "Connected" : "Disconnected";
-            toolStripStatusLabel_RB2_Controller_Status.ForeColor = RB2Ctrl ? Color.Green : Color.Red;
-
-            // RB 2 Vision
-            toolStripStatusLabel_RB2_Vision_Status.Text = RB2Vis ? "Connected" : "Disconnected";
-            toolStripStatusLabel_RB2_Vision_Status.ForeColor = RB2Vis ? Color.Green : Color.Red;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -256,19 +163,10 @@ namespace Demo_Example4
             robot1Vision.ConnectionChanged -= Event_ConnectionStatusChanged;
             robot1Vision.ImageCaptured -= RB1_Vision_ImageCaptured;
 
-            robot2Controller.ConnectionChanged -= Event_ConnectionStatusChanged;
-            //robot2Controller.ConnectionChanged -= Event_PowerStateChanged;
-
-            robot2Vision.ConnectionChanged -= Event_ConnectionStatusChanged;
-            robot2Vision.ImageCaptured -= RB2_Vision_ImageCaptured;
-
             settingsWindow?.Close();
 
             robot1Controller?.Dispose();
             robot1Vision?.Dispose();
-
-            robot2Controller?.Dispose();
-            robot2Vision?.Dispose();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -318,66 +216,6 @@ namespace Demo_Example4
         
         private void disconnectToolStripMenuItem1_Click(object sender, EventArgs e)
             => RB1_Vision_Disconnect();
-        
-
-        // RB2
-        private void connectToolStripMenuItem2_Click(object sender, EventArgs e)
-            => RB2_Controller_Connect();
-        
-
-        private void disconnectToolStripMenuItem2_Click(object sender, EventArgs e)
-            => RB2_Vision_Disconnect();
-        
-        private void startupToolStripMenuItem1_Click(object sender, EventArgs e)
-            => robot2Controller.StartTCS();
-
-        private void initToolStripMenuItem1_Click(object sender, EventArgs e)
-            => robot2Controller.Init();
-        
-        private void attachToolStripMenuItem1_Click(object sender, EventArgs e)
-            => robot2Controller.SetAttach(true);
-        
-        private void toolStripMenuItem_PowerEnable_Click(object sender, EventArgs e)
-            => robot2Controller.SetPower(true);
-        
-        private void toolStripMenuItem_PowerDisable_Click(object sender, EventArgs e)
-            => robot2Controller.SetPower(false);
-        
-        private void toolStripMenuItem_FreeModeOn_Click(object sender, EventArgs e)
-            => robot2Controller.SetFreeMode(true);
-        
-        private void toolStripMenuItem_FreeModeOff_Click(object sender, EventArgs e)
-            => robot2Controller.SetFreeMode(false);
-        
-        private void connectToolStripMenuItem3_Click(object sender, EventArgs e)
-            => RB2_Vision_Connect();
-        
-        private void disconnectToolStripMenuItem3_Click(object sender, EventArgs e)
-            => RB2_Vision_Disconnect();
-        
-
-        private void startToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RB1_Controller_Connect();
-            RB2_Controller_Connect();
-            RB1_Vision_Connect();
-            RB2_Vision_Connect();
-            robot1Controller.StartTCS();
-            robot2Controller.StartTCS();
-            robot1Controller.Init();
-            robot2Controller.Init();
-        }
-
-        private void stopToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // [TODO] - Stop Process and Disable Power
-            throw new NotImplementedException();
-        }
-
-        private void Event_PowerStateChanged(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-        }
 
     }
 }
