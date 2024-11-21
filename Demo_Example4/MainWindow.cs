@@ -107,18 +107,6 @@ namespace Demo_Example4
         private void RB1_Controller_Connect()
             => robot1Controller.Connect(robot1ControllerIP);
 
-
-        private void button_RB1_StartCycle_Click(object sender, EventArgs e)
-            => robot1Controller.SendCommand("StartProcess");
-
-        private void button_RB1_StopProcess_Click(object sender, EventArgs e)
-            => robot1Controller.SendCommand("StopProcess");
-
-
-        private void button_RB1_FreeMode_Click(object sender, EventArgs e)
-            => robot1Controller.JogFreeMode();
-
-
         private void Event_ConnectionStatusChanged(object sender, EventArgs e)
         {
             pictureBox_RB1_LiveImage.Invoke(new Action(() => { 
