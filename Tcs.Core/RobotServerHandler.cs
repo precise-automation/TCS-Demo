@@ -93,8 +93,9 @@ namespace Tcs.Core
                 }
 
                 ConnectionChanged.Invoke(this, EventArgs.Empty);
-
+                tcsManager.Enable();
                 jogControlManager.SelectedAxisIndex = 1;
+                jogControlManager.Enable();
             }
             catch (Exception ex)
             {
@@ -106,6 +107,7 @@ namespace Tcs.Core
         {
             try
             {
+                jogControlManager.Disable();
                 tcsManager.Controller.ConnectionStateChanged -= Controller_ConnectionStateChanged;
                 tcsManager.Controller.PowerStateGplEvent -= Controller_PowerStateGplEvent;
 
@@ -115,6 +117,7 @@ namespace Tcs.Core
                     tcsManager.Disconnect();
                     
                 }
+                tcsManager.Disable();
 
                 ConnectionChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -189,5 +192,8 @@ namespace Tcs.Core
 
         public void JogPowerOff()
             => jogControlManager.DisablePower();
+
+        public void SetJogFreeMode()
+            => jogControlManager.SetFreeMode();
     }
 }

@@ -116,7 +116,7 @@ namespace Demo_Example4
 
 
         private void button_RB1_FreeMode_Click(object sender, EventArgs e)
-            => robot1Controller.SetFreeMode(true);
+            => robot1Controller.SetJogFreeMode();
 
 
         private void Event_ConnectionStatusChanged(object sender, EventArgs e)
