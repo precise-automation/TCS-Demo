@@ -53,6 +53,16 @@ namespace Demo_Example4
             this.disconnectToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_Robot1 = new System.Windows.Forms.TabPage();
+            this.button_JogPowerOff = new System.Windows.Forms.Button();
+            this.button_JogPowerOn = new System.Windows.Forms.Button();
+            this.button_JogStop = new System.Windows.Forms.Button();
+            this.comboBox_AxisSelection = new System.Windows.Forms.ComboBox();
+            this.buttonJogMinus = new System.Windows.Forms.Button();
+            this.button_JogPlus = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button_CompMode = new System.Windows.Forms.Button();
+            this.button_JogWorldMode = new System.Windows.Forms.Button();
+            this.button_JogJointMode = new System.Windows.Forms.Button();
             this.button_RB1_StopProcess = new System.Windows.Forms.Button();
             this.label_RB1_ConnectionStatus = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -72,12 +82,7 @@ namespace Demo_Example4
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_RB1_Vision_Status = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel_RB2_Controller_Status = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel_RB2_Vision_Status = new System.Windows.Forms.ToolStripStatusLabel();
+            this.button_JogToolMode = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage_Robot1.SuspendLayout();
@@ -130,7 +135,7 @@ namespace Demo_Example4
             this.tCSToolStripMenuItem,
             this.powerToolStripMenuItem});
             this.rB1ControllerToolStripMenuItem.Name = "rB1ControllerToolStripMenuItem";
-            this.rB1ControllerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rB1ControllerToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.rB1ControllerToolStripMenuItem.Text = "RB1 - Controller";
             // 
             // connectionToolStripMenuItem
@@ -139,7 +144,7 @@ namespace Demo_Example4
             this.connectToolStripMenuItem,
             this.disconnectToolStripMenuItem});
             this.connectionToolStripMenuItem.Name = "connectionToolStripMenuItem";
-            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.connectionToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.connectionToolStripMenuItem.Text = "Connection";
             // 
             // connectToolStripMenuItem
@@ -163,7 +168,7 @@ namespace Demo_Example4
             this.initToolStripMenuItem,
             this.attachToolStripMenuItem});
             this.tCSToolStripMenuItem.Name = "tCSToolStripMenuItem";
-            this.tCSToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tCSToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.tCSToolStripMenuItem.Text = "TCS";
             // 
             // startupToolStripMenuItem
@@ -195,7 +200,7 @@ namespace Demo_Example4
             this.freeModeOnToolStripMenuItem,
             this.freeModeOffToolStripMenuItem});
             this.powerToolStripMenuItem.Name = "powerToolStripMenuItem";
-            this.powerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.powerToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.powerToolStripMenuItem.Text = "Power";
             // 
             // enableToolStripMenuItem
@@ -231,7 +236,7 @@ namespace Demo_Example4
             this.rB1VisionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.connectionToolStripMenuItem1});
             this.rB1VisionToolStripMenuItem.Name = "rB1VisionToolStripMenuItem";
-            this.rB1VisionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rB1VisionToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.rB1VisionToolStripMenuItem.Text = "RB1 - Vision";
             // 
             // connectionToolStripMenuItem1
@@ -272,6 +277,17 @@ namespace Demo_Example4
             // 
             // tabPage_Robot1
             // 
+            this.tabPage_Robot1.Controls.Add(this.button_JogToolMode);
+            this.tabPage_Robot1.Controls.Add(this.button_JogPowerOff);
+            this.tabPage_Robot1.Controls.Add(this.button_JogPowerOn);
+            this.tabPage_Robot1.Controls.Add(this.button_JogStop);
+            this.tabPage_Robot1.Controls.Add(this.comboBox_AxisSelection);
+            this.tabPage_Robot1.Controls.Add(this.buttonJogMinus);
+            this.tabPage_Robot1.Controls.Add(this.button_JogPlus);
+            this.tabPage_Robot1.Controls.Add(this.label3);
+            this.tabPage_Robot1.Controls.Add(this.button_CompMode);
+            this.tabPage_Robot1.Controls.Add(this.button_JogWorldMode);
+            this.tabPage_Robot1.Controls.Add(this.button_JogJointMode);
             this.tabPage_Robot1.Controls.Add(this.button_RB1_StopProcess);
             this.tabPage_Robot1.Controls.Add(this.label_RB1_ConnectionStatus);
             this.tabPage_Robot1.Controls.Add(this.label4);
@@ -290,9 +306,111 @@ namespace Demo_Example4
             this.tabPage_Robot1.Text = "Robot 1";
             this.tabPage_Robot1.UseVisualStyleBackColor = true;
             // 
+            // button_JogPowerOff
+            // 
+            this.button_JogPowerOff.Location = new System.Drawing.Point(259, 200);
+            this.button_JogPowerOff.Name = "button_JogPowerOff";
+            this.button_JogPowerOff.Size = new System.Drawing.Size(75, 23);
+            this.button_JogPowerOff.TabIndex = 15;
+            this.button_JogPowerOff.Text = "Power Off";
+            this.button_JogPowerOff.UseVisualStyleBackColor = true;
+            this.button_JogPowerOff.Click += new System.EventHandler(this.button_JogPowerOff_Click);
+            // 
+            // button_JogPowerOn
+            // 
+            this.button_JogPowerOn.Location = new System.Drawing.Point(166, 200);
+            this.button_JogPowerOn.Name = "button_JogPowerOn";
+            this.button_JogPowerOn.Size = new System.Drawing.Size(75, 23);
+            this.button_JogPowerOn.TabIndex = 14;
+            this.button_JogPowerOn.Text = "Power On";
+            this.button_JogPowerOn.UseVisualStyleBackColor = true;
+            this.button_JogPowerOn.Click += new System.EventHandler(this.button_JogPowerOn_Click);
+            // 
+            // button_JogStop
+            // 
+            this.button_JogStop.Location = new System.Drawing.Point(295, 285);
+            this.button_JogStop.Name = "button_JogStop";
+            this.button_JogStop.Size = new System.Drawing.Size(75, 23);
+            this.button_JogStop.TabIndex = 13;
+            this.button_JogStop.Text = "Stop";
+            this.button_JogStop.UseVisualStyleBackColor = true;
+            this.button_JogStop.Click += new System.EventHandler(this.button_JogStop_Click);
+            // 
+            // comboBox_AxisSelection
+            // 
+            this.comboBox_AxisSelection.FormattingEnabled = true;
+            this.comboBox_AxisSelection.Location = new System.Drawing.Point(23, 285);
+            this.comboBox_AxisSelection.Name = "comboBox_AxisSelection";
+            this.comboBox_AxisSelection.Size = new System.Drawing.Size(70, 21);
+            this.comboBox_AxisSelection.TabIndex = 12;
+            this.comboBox_AxisSelection.SelectedIndexChanged += new System.EventHandler(this.comboBox_AxisSelection_SelectedIndexChanged);
+            // 
+            // buttonJogMinus
+            // 
+            this.buttonJogMinus.Location = new System.Drawing.Point(227, 285);
+            this.buttonJogMinus.Name = "buttonJogMinus";
+            this.buttonJogMinus.Size = new System.Drawing.Size(40, 23);
+            this.buttonJogMinus.TabIndex = 11;
+            this.buttonJogMinus.Text = "-";
+            this.buttonJogMinus.UseVisualStyleBackColor = true;
+            this.buttonJogMinus.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonJogMinus_MouseDown);
+            this.buttonJogMinus.MouseLeave += new System.EventHandler(this.buttonJogMinus_MouseLeave);
+            this.buttonJogMinus.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonJogMinus_MouseUp);
+            // 
+            // button_JogPlus
+            // 
+            this.button_JogPlus.Location = new System.Drawing.Point(166, 285);
+            this.button_JogPlus.Name = "button_JogPlus";
+            this.button_JogPlus.Size = new System.Drawing.Size(41, 23);
+            this.button_JogPlus.TabIndex = 11;
+            this.button_JogPlus.Text = "+";
+            this.button_JogPlus.UseVisualStyleBackColor = true;
+            this.button_JogPlus.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_JogPlus_MouseDown);
+            this.button_JogPlus.MouseLeave += new System.EventHandler(this.button_JogPlus_MouseLeave);
+            this.button_JogPlus.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_JogPlus_MouseUp);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(20, 249);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Jogging";
+            // 
+            // button_CompMode
+            // 
+            this.button_CompMode.Location = new System.Drawing.Point(166, 239);
+            this.button_CompMode.Name = "button_CompMode";
+            this.button_CompMode.Size = new System.Drawing.Size(75, 23);
+            this.button_CompMode.TabIndex = 9;
+            this.button_CompMode.Text = "Computer";
+            this.button_CompMode.UseVisualStyleBackColor = true;
+            this.button_CompMode.Click += new System.EventHandler(this.button_CompMode_Click);
+            // 
+            // button_JogWorldMode
+            // 
+            this.button_JogWorldMode.Location = new System.Drawing.Point(340, 239);
+            this.button_JogWorldMode.Name = "button_JogWorldMode";
+            this.button_JogWorldMode.Size = new System.Drawing.Size(75, 23);
+            this.button_JogWorldMode.TabIndex = 8;
+            this.button_JogWorldMode.Text = "Jog World";
+            this.button_JogWorldMode.UseVisualStyleBackColor = true;
+            this.button_JogWorldMode.Click += new System.EventHandler(this.button_JogWorldMode_Click);
+            // 
+            // button_JogJointMode
+            // 
+            this.button_JogJointMode.Location = new System.Drawing.Point(259, 239);
+            this.button_JogJointMode.Name = "button_JogJointMode";
+            this.button_JogJointMode.Size = new System.Drawing.Size(75, 23);
+            this.button_JogJointMode.TabIndex = 8;
+            this.button_JogJointMode.Text = "Joint Mode";
+            this.button_JogJointMode.UseVisualStyleBackColor = true;
+            this.button_JogJointMode.Click += new System.EventHandler(this.button_JogJointMode_Click);
+            // 
             // button_RB1_StopProcess
             // 
-            this.button_RB1_StopProcess.Location = new System.Drawing.Point(166, 201);
+            this.button_RB1_StopProcess.Location = new System.Drawing.Point(259, 153);
             this.button_RB1_StopProcess.Name = "button_RB1_StopProcess";
             this.button_RB1_StopProcess.Size = new System.Drawing.Size(75, 23);
             this.button_RB1_StopProcess.TabIndex = 7;
@@ -348,7 +466,7 @@ namespace Demo_Example4
             // 
             // button_RB1_FreeMode
             // 
-            this.button_RB1_FreeMode.Location = new System.Drawing.Point(259, 153);
+            this.button_RB1_FreeMode.Location = new System.Drawing.Point(502, 239);
             this.button_RB1_FreeMode.Name = "button_RB1_FreeMode";
             this.button_RB1_FreeMode.Size = new System.Drawing.Size(75, 23);
             this.button_RB1_FreeMode.TabIndex = 3;
@@ -418,18 +536,13 @@ namespace Demo_Example4
             // 
             // statusStrip1
             // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel_RB1_Controller_Status,
             this.toolStripStatusLabel4,
             this.toolStripStatusLabel3,
-            this.toolStripStatusLabel_RB1_Vision_Status,
-            this.toolStripStatusLabel2,
-            this.toolStripStatusLabel5,
-            this.toolStripStatusLabel_RB2_Controller_Status,
-            this.toolStripStatusLabel6,
-            this.toolStripStatusLabel7,
-            this.toolStripStatusLabel_RB2_Vision_Status});
+            this.toolStripStatusLabel_RB1_Vision_Status});
             this.statusStrip1.Location = new System.Drawing.Point(0, 428);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(800, 22);
@@ -466,41 +579,15 @@ namespace Demo_Example4
             this.toolStripStatusLabel_RB1_Vision_Status.Size = new System.Drawing.Size(79, 17);
             this.toolStripStatusLabel_RB1_Vision_Status.Text = "Disconnected";
             // 
-            // toolStripStatusLabel2
+            // button_JogToolMode
             // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(16, 17);
-            this.toolStripStatusLabel2.Text = " | ";
-            // 
-            // toolStripStatusLabel5
-            // 
-            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(83, 17);
-            this.toolStripStatusLabel5.Text = "RB2 Controller";
-            // 
-            // toolStripStatusLabel_RB2_Controller_Status
-            // 
-            this.toolStripStatusLabel_RB2_Controller_Status.Name = "toolStripStatusLabel_RB2_Controller_Status";
-            this.toolStripStatusLabel_RB2_Controller_Status.Size = new System.Drawing.Size(79, 17);
-            this.toolStripStatusLabel_RB2_Controller_Status.Text = "Disconnected";
-            // 
-            // toolStripStatusLabel6
-            // 
-            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
-            this.toolStripStatusLabel6.Size = new System.Drawing.Size(16, 17);
-            this.toolStripStatusLabel6.Text = " | ";
-            // 
-            // toolStripStatusLabel7
-            // 
-            this.toolStripStatusLabel7.Name = "toolStripStatusLabel7";
-            this.toolStripStatusLabel7.Size = new System.Drawing.Size(62, 17);
-            this.toolStripStatusLabel7.Text = "RB2 Vision";
-            // 
-            // toolStripStatusLabel_RB2_Vision_Status
-            // 
-            this.toolStripStatusLabel_RB2_Vision_Status.Name = "toolStripStatusLabel_RB2_Vision_Status";
-            this.toolStripStatusLabel_RB2_Vision_Status.Size = new System.Drawing.Size(79, 17);
-            this.toolStripStatusLabel_RB2_Vision_Status.Text = "Disconnected";
+            this.button_JogToolMode.Location = new System.Drawing.Point(421, 239);
+            this.button_JogToolMode.Name = "button_JogToolMode";
+            this.button_JogToolMode.Size = new System.Drawing.Size(75, 23);
+            this.button_JogToolMode.TabIndex = 16;
+            this.button_JogToolMode.Text = "Jog Tool";
+            this.button_JogToolMode.UseVisualStyleBackColor = true;
+            this.button_JogToolMode.Click += new System.EventHandler(this.button_JogToolMode_Click);
             // 
             // MainWindow
             // 
@@ -547,13 +634,7 @@ namespace Demo_Example4
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_RB1_Controller_Status;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_RB1_Vision_Status;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_RB2_Controller_Status;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel7;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_RB2_Vision_Status;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
         private System.Windows.Forms.ToolStripMenuItem controlToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rB1ControllerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem connectionToolStripMenuItem;
@@ -579,6 +660,17 @@ namespace Demo_Example4
         private System.Windows.Forms.Button button_RB1_HighPower;
         private System.Windows.Forms.Button button_RB1_Disconnect;
         private System.Windows.Forms.Button button_RB1_Connect;
+        private System.Windows.Forms.Button button_JogPlus;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button_CompMode;
+        private System.Windows.Forms.Button button_JogJointMode;
+        private System.Windows.Forms.ComboBox comboBox_AxisSelection;
+        private System.Windows.Forms.Button buttonJogMinus;
+        private System.Windows.Forms.Button button_JogStop;
+        private System.Windows.Forms.Button button_JogPowerOff;
+        private System.Windows.Forms.Button button_JogPowerOn;
+        private System.Windows.Forms.Button button_JogWorldMode;
+        private System.Windows.Forms.Button button_JogToolMode;
     }
 }
 

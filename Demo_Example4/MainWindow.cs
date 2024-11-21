@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Precise.Common.Communication.Controllers;
+using Precise.Common.Communication.Managers.JogControl;
+using Precise.Common.Communication.Protocols.GplComm;
+using Precise.Common.Core.Language;
+using Precise.Common.Core.Logging;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -11,12 +16,15 @@ namespace Demo_Example4
     {
         private RobotServerHandler robot1Controller;
         private VisionServerHandler robot1Vision;
+        private JogControlManager jogControlManager;
 
         private ProgramSettings programSettings;
         private SettingsWindow settingsWindow;
 
         private string robot1ControllerIP;
         private string robot1VisionIP;
+
+        private bool isJogging = false;
 
 
         public MainWindow()
@@ -33,6 +41,14 @@ namespace Demo_Example4
             robot1Vision.ConnectionChanged += Event_ConnectionStatusChanged;
             robot1Vision.ImageCaptured += RB1_Vision_ImageCaptured;
 
+            var logService = new LogService();
+            var languageService = new LanguageService(logService);
+            var commHandle = new Communications();
+            var controllerHelper = new ControllerHelper(commHandle);
+            jogControlManager = new JogControlManager(languageService, logService, controllerHelper);
+
+            string[] vals = {"0", "1", "2", "3", "4","5" };
+            comboBox_AxisSelection.Items.AddRange(vals);
         }
 
         private void InitializeSettings()
@@ -216,6 +232,88 @@ namespace Demo_Example4
         
         private void disconnectToolStripMenuItem1_Click(object sender, EventArgs e)
             => RB1_Vision_Disconnect();
+
+
+
+        private void button_JogJointMode_Click(object sender, EventArgs e)
+        {
+            robot1Controller.JogJointMode();
+        }
+        private void button_JogWorldMode_Click(object sender, EventArgs e)
+        {
+            robot1Controller.JogWorldMode();
+        }
+        private void button_JogToolMode_Click(object sender, EventArgs e)
+        {
+            robot1Controller.JogToolMode();
+        }
+
+        private void button_CompMode_Click(object sender, EventArgs e)
+        {
+            robot1Controller.ComputerMode();
+        }
+
+        private void button_JogStop_Click(object sender, EventArgs e)
+        {
+            robot1Controller.JogStop();
+            isJogging = false;
+        }
+
+        private void comboBox_AxisSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool result = int.TryParse(comboBox_AxisSelection.Text, out int axis);
+            if (result)
+                robot1Controller.JogAxisNumber(axis-1);
+        }
+
+        private void button_JogPowerOn_Click(object sender, EventArgs e)
+        {
+            robot1Controller.JogPowerOn();
+        }
+
+        private void button_JogPowerOff_Click(object sender, EventArgs e)
+        {
+            robot1Controller.JogPowerOff();
+        }
+
+        private void button_JogPlus_MouseLeave(object sender, EventArgs e)
+        {
+            stopJogging();
+        }
+
+        private void button_JogPlus_MouseUp(object sender, MouseEventArgs e)
+        {
+            stopJogging();
+        }
+
+        private void buttonJogMinus_MouseLeave(object sender, EventArgs e)
+        {
+            stopJogging();
+        }
+
+        private void buttonJogMinus_MouseUp(object sender, MouseEventArgs e)
+        {
+            stopJogging();
+        }
+
+        private void stopJogging()
+        {
+            if (isJogging)
+                robot1Controller.JogStop();
+            isJogging = false;
+        }
+
+        private void button_JogPlus_MouseDown(object sender, MouseEventArgs e)
+        {
+            robot1Controller.JogPlus();
+            isJogging = true;
+        }
+
+        private void buttonJogMinus_MouseDown(object sender, MouseEventArgs e)
+        {
+            robot1Controller.JogMinus();
+            isJogging = true;
+        }
 
     }
 }

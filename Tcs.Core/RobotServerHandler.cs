@@ -2,6 +2,7 @@
 using Precise.Common.Communication.Managers.TCS;
 using Precise.Common.Communication.Protocols.GplComm;
 using Precise.Common.Communication.Protocols.TCS;
+using Precise.Common.Communication.Managers.JogControl;
 using Precise.Common.Core.Language;
 using Precise.Common.Core.Logging;
 using System;
@@ -50,6 +51,7 @@ namespace Tcs.Core
         private TCSManager tcsManager;
         private LocationManager locationManager;
         private ProfileManager profileManager;
+        public JogControlManager jogControlManager { get; private set; }
 
 
         public RobotServerHandler()
@@ -69,6 +71,8 @@ namespace Tcs.Core
 
             tcsManager.Controller.ConnectionStateChanged += Controller_ConnectionStateChanged;
             tcsManager.Controller.PowerStateGplEvent += Controller_PowerStateGplEvent;
+
+            jogControlManager = new JogControlManager(languageService, logService, controllerHelper);
         }
 
         void IDisposable.Dispose()
@@ -89,6 +93,8 @@ namespace Tcs.Core
                 }
 
                 ConnectionChanged.Invoke(this, EventArgs.Empty);
+
+                jogControlManager.SelectedAxisIndex = 1;
             }
             catch (Exception ex)
             {
@@ -151,7 +157,37 @@ namespace Tcs.Core
         private void Controller_PowerStateGplEvent(GPLEventObj obj)
         {
             if(obj.EventCode == GPLEventObj.GPLEvents.EventPowerState)
-                PowerStateChanged.Invoke(this, EventArgs.Empty);
+                PowerStateChanged?.Invoke(this, EventArgs.Empty);
         }
+
+        public void JogJointMode()
+            => jogControlManager.SetJointMode();
+
+        public void JogWorldMode()
+            => jogControlManager.SetWorldMode();
+
+        public void JogToolMode()
+            => jogControlManager.SetToolMode();
+
+
+        public void ComputerMode()
+            => jogControlManager.SetComputerControl();
+
+        public void JogAxisNumber(int axisNumber)
+            => jogControlManager.SelectedAxisIndex = axisNumber;
+
+        public void JogPlus()
+            => jogControlManager.JogStart_PositiveDirection();
+
+        public void JogMinus()
+            => jogControlManager.JogStart_NegativeDirection();
+        public void JogStop()
+            => jogControlManager.JogStop();
+
+        public void JogPowerOn()
+            => jogControlManager.EnablePower();
+
+        public void JogPowerOff()
+            => jogControlManager.DisablePower();
     }
 }
