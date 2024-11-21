@@ -33,6 +33,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Precise.Code">
+      <HintPath>..\..\..\..\Program Files\Precise GDS UI 5.2\Precise.Code.dll</HintPath>
+    </Reference>
+    <Reference Include="Precise.Communication">
+      <HintPath>..\..\..\..\Program Files\Precise GDS UI 5.2\Precise.Communication.dll</HintPath>
+    </Reference>
+    <Reference Include="Precise.Core">
+      <HintPath>..\..\..\..\Program Files\Precise GDS UI 5.2\Precise.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,12 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
