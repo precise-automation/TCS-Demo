@@ -8,6 +8,7 @@ using Precise.Common.Core.Logging;
 using System;
 using System.Threading;
 using System.Windows.Forms;
+using Precise.Common.Core.Util;
 
 namespace Tcs.Core
 {
@@ -73,6 +74,10 @@ namespace Tcs.Core
             tcsManager.Controller.PowerStateGplEvent += Controller_PowerStateGplEvent;
 
             jogControlManager = new JogControlManager(languageService, logService, controllerHelper);
+
+            LanguageUtils.LoadEmbeddedLanguageFile(languageService,
+                                        typeof(ControllerHelper).Assembly,
+                                        "Precise.Common.Communication", "DefaultLanguageKeys.xml");
         }
 
         void IDisposable.Dispose()
@@ -193,7 +198,12 @@ namespace Tcs.Core
         public void JogPowerOff()
             => jogControlManager.DisablePower();
 
-        public void SetJogFreeMode()
+        public void JogFreeMode()
             => jogControlManager.SetFreeMode();
+
+        public string[] GetJogAxis()
+        {
+            return jogControlManager.AvailableAxes;
+        }
     }
 }

@@ -116,7 +116,7 @@ namespace Demo_Example4
 
 
         private void button_RB1_FreeMode_Click(object sender, EventArgs e)
-            => robot1Controller.SetJogFreeMode();
+            => robot1Controller.JogFreeMode();
 
 
         private void Event_ConnectionStatusChanged(object sender, EventArgs e)
@@ -235,23 +235,7 @@ namespace Demo_Example4
 
 
 
-        private void button_JogJointMode_Click(object sender, EventArgs e)
-        {
-            robot1Controller.JogJointMode();
-        }
-        private void button_JogWorldMode_Click(object sender, EventArgs e)
-        {
-            robot1Controller.JogWorldMode();
-        }
-        private void button_JogToolMode_Click(object sender, EventArgs e)
-        {
-            robot1Controller.JogToolMode();
-        }
 
-        private void button_CompMode_Click(object sender, EventArgs e)
-        {
-            robot1Controller.ComputerMode();
-        }
 
         private void button_JogStop_Click(object sender, EventArgs e)
         {
@@ -261,9 +245,8 @@ namespace Demo_Example4
 
         private void comboBox_AxisSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool result = int.TryParse(comboBox_AxisSelection.Text, out int axis);
-            if (result)
-                robot1Controller.JogAxisNumber(axis-1);
+            int axis = comboBox_AxisSelection.SelectedIndex;
+            robot1Controller.JogAxisNumber(axis);
         }
 
         private void button_JogPowerOn_Click(object sender, EventArgs e)
@@ -315,5 +298,27 @@ namespace Demo_Example4
             isJogging = true;
         }
 
+        private void comboBox_JogMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox_JogMode.Text.ToLower() == "computer")
+                robot1Controller.ComputerMode();
+            else if (comboBox_JogMode.Text.ToLower() == "joint")
+                robot1Controller.JogJointMode();
+            else if (comboBox_JogMode.Text.ToLower() == "world")
+                robot1Controller.JogWorldMode();
+            else if (comboBox_JogMode.Text.ToLower() == "tool")
+                robot1Controller.JogToolMode();
+            else if (comboBox_JogMode.Text.ToLower() == "free")
+                robot1Controller.JogFreeMode();
+
+            System.Threading.Thread.Sleep(250);
+
+            //jogControlManager.PropertyChanged("")
+
+            var axis = robot1Controller.GetJogAxis();
+            comboBox_AxisSelection.Items.Clear();
+            comboBox_AxisSelection.Items.AddRange(axis);
+            comboBox_AxisSelection.SelectedIndex = 0;
+        }
     }
 }
