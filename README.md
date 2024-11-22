@@ -10,8 +10,18 @@ GDS must be installed in C:\Program Files\
 - Demo_Example4 - [Stable] - Example using Jog Control for Fine Point Location Teaching
 
 
+
+
+
+
+
+
+
+
+
+
 Copyright (c) 2024 by Brooks PreciseFlex Collaborative Robotics  All rights reserved.
-=======================================================================
+
 Permission is granted to customers of Brooks Automation to use this
 software for any purpose, including commercial applications, and to
 alter it and redistribute it freely, so long as this notice is included 
@@ -21,4 +31,3 @@ This software is provided "as is," without warranty of any kind, express or
 implied.  In no event shall Brooks Automation be held liable for any
 direct, indirect, incidental, special or consequential damages arising
 out of the use of or inability to use this software.
-=======================================================================
