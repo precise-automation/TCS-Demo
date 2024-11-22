@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo_Example4", "Demo_Examp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo_AllFeatures", "Demo_AllFeatures\Demo_AllFeatures.csproj", "{B8AAC799-B380-40C8-8C57-8C5EEFEE9EBA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo_Modbus", "Demo_Modbus\Demo_Modbus.csproj", "{2004404A-25E4-442D-9730-EF26991B29E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B8AAC799-B380-40C8-8C57-8C5EEFEE9EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8AAC799-B380-40C8-8C57-8C5EEFEE9EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8AAC799-B380-40C8-8C57-8C5EEFEE9EBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2004404A-25E4-442D-9730-EF26991B29E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2004404A-25E4-442D-9730-EF26991B29E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2004404A-25E4-442D-9730-EF26991B29E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2004404A-25E4-442D-9730-EF26991B29E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
