@@ -1,9 +1,4 @@
-﻿using Precise.Common.Communication.Controllers;
-using Precise.Common.Communication.Managers.JogControl;
-using Precise.Common.Communication.Protocols.GplComm;
-using Precise.Common.Core.Language;
-using Precise.Common.Core.Logging;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -16,7 +11,6 @@ namespace Demo_Example4
     {
         private RobotServerHandler robot1Controller;
         private VisionServerHandler robot1Vision;
-        private JogControlManager jogControlManager;
 
         private ProgramSettings programSettings;
         private SettingsWindow settingsWindow;
@@ -41,14 +35,6 @@ namespace Demo_Example4
             robot1Vision.ConnectionChanged += Event_ConnectionStatusChanged;
             robot1Vision.ImageCaptured += RB1_Vision_ImageCaptured;
 
-            var logService = new LogService();
-            var languageService = new LanguageService(logService);
-            var commHandle = new Communications();
-            var controllerHelper = new ControllerHelper(commHandle);
-            jogControlManager = new JogControlManager(languageService, logService, controllerHelper);
-
-            string[] vals = {"0", "1", "2", "3", "4","5" };
-            comboBox_AxisSelection.Items.AddRange(vals);
         }
 
         private void InitializeSettings()
@@ -220,9 +206,6 @@ namespace Demo_Example4
         
         private void disconnectToolStripMenuItem1_Click(object sender, EventArgs e)
             => RB1_Vision_Disconnect();
-
-
-
 
 
         private void button_JogStop_Click(object sender, EventArgs e)
