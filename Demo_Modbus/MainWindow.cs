@@ -4,6 +4,10 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 using Tcs.Core;
+using NModbus.Device;
+using System.Net.Sockets;
+using NModbus;
+using System.Collections.Generic;
 
 namespace Demo_Modbus
 {
@@ -20,6 +24,11 @@ namespace Demo_Modbus
 
         private bool isJogging = false;
 
+        private ModbusIpMaster modbusMaster;
+        private TcpClient tcpClient;
+        private ModbusFactory modbusFactory;
+        private const int modbusPort = 502;
+
 
         public MainWindow()
         {
@@ -34,6 +43,8 @@ namespace Demo_Modbus
             robot1Vision = new VisionServerHandler();
             robot1Vision.ConnectionChanged += Event_ConnectionStatusChanged;
             robot1Vision.ImageCaptured += RB1_Vision_ImageCaptured;
+
+            modbusFactory = new ModbusFactory();
         }
 
         private void InitializeSettings()
@@ -156,6 +167,8 @@ namespace Demo_Modbus
 
             robot1Controller?.Dispose();
             robot1Vision?.Dispose();
+
+            CloseMaster();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -169,6 +182,7 @@ namespace Demo_Modbus
         {
             settingsWindow.FormClosing -= SettingsWindow_FormClosing;
             ApplySettings();
+
         }
 
         // RB 1
@@ -292,6 +306,80 @@ namespace Demo_Modbus
             comboBox_AxisSelection.Items.Clear();
             comboBox_AxisSelection.Items.AddRange(axis);
             comboBox_AxisSelection.SelectedIndex = 0;
+        }
+
+        private ModbusIpMaster GetMaster()
+        {
+            CloseMaster();
+
+            tcpClient = new TcpClient(robot1ControllerIP, modbusPort);
+            return modbusMaster = (ModbusIpMaster)modbusFactory.CreateMaster(tcpClient);
+        }
+
+        private void CloseMaster()
+        {
+            modbusMaster?.Dispose();
+            tcpClient?.Dispose();
+        }
+
+        private ushort[] ModbusReadRobotSlave()
+        {
+            GetMaster();
+
+            try
+            {
+                byte slaveID = 255;
+                ushort startAddr = 0;
+                ushort length = 16;
+                var result = modbusMaster.ReadHoldingRegisters(slaveID, startAddr, length);
+                CloseMaster();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                CloseMaster();
+                return new ushort[] {0};
+            }
+        }
+
+        private void ModbusWriteRobotSlave(ushort[] vals)
+        {
+            if (vals.Length != 16)
+                MessageBox.Show("Invalid Number of Elements");
+            GetMaster();
+
+            try
+            {
+                byte slaveID = 255;
+                ushort startAddr = 0;
+                modbusMaster.WriteMultipleRegisters(slaveID, startAddr, vals);
+            }
+            catch (Exception ex) { 
+                MessageBox.Show(ex.Message);
+            }
+
+            CloseMaster();
+        }
+
+        private void button_ModbusRead_Click(object sender, EventArgs e)
+        {
+            var vals = ModbusReadRobotSlave();
+            dataGridView_Modbus.Rows.Clear();
+
+            for (int i = 0; i<vals.Length; i++)
+                dataGridView_Modbus.Rows.Add(new string[] { i.ToString(), vals[i].ToString() });
+        }
+
+        private void button_ModbusWrite_Click(object sender, EventArgs e)
+        {
+            List<ushort> vals = new List<ushort>();
+            for (int i = 0; i < dataGridView_Modbus.RowCount-1; i++)
+            {
+                vals.Add(ushort.Parse((string)dataGridView_Modbus.Rows[i].Cells[1].Value));
+            }
+            
+            ModbusWriteRobotSlave(vals.ToArray());
         }
     }
 }
