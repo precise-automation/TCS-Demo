@@ -370,12 +370,15 @@ namespace Demo_SLAS
             robot2Controller.StartTCS();
             robot1Controller.Init();
             robot2Controller.Init();
+            System.Threading.Thread.Sleep(5000);
+            robot1Controller.SendCommand("RunProgram");
+            robot2Controller.SendCommand("RunProgram");
         }
 
         private void stopToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // [TODO] - Stop Process and Disable Power
-            throw new NotImplementedException();
+            robot1Controller.SendCommand("StopProgram");
+            robot2Controller.SendCommand("StopProgram");
         }
 
         private void Event_PowerStateChanged(object sender, EventArgs e)
