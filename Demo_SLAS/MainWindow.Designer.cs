@@ -71,16 +71,18 @@ namespace Demo_SLAS
             this.tradeshowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage_Robot1 = new System.Windows.Forms.TabPage();
             this.button_RB1_StopProcess = new System.Windows.Forms.Button();
+            this.label_RB1_ConnectionStatus = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.button_RB1_StartCycle = new System.Windows.Forms.Button();
             this.button_RB1_FreeMode = new System.Windows.Forms.Button();
-            this.tabPage_Vision1 = new System.Windows.Forms.TabPage();
+            this.button_RB1_HighPower = new System.Windows.Forms.Button();
+            this.button_RB1_Disconnect = new System.Windows.Forms.Button();
+            this.button_RB1_Connect = new System.Windows.Forms.Button();
             this.pictureBox_RB1_LiveImage = new System.Windows.Forms.PictureBox();
             this.button_RB1_TriggerCamera = new System.Windows.Forms.Button();
-            this.tabPage_Robot2 = new System.Windows.Forms.TabPage();
             this.button_RB2_StopCycle = new System.Windows.Forms.Button();
             this.label_RB2_ConnectionStatus = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -91,7 +93,6 @@ namespace Demo_SLAS
             this.button_RB2_HighPower = new System.Windows.Forms.Button();
             this.button_RB2_Disconnect = new System.Windows.Forms.Button();
             this.button_RB2_Connect = new System.Windows.Forms.Button();
-            this.tabPage_Vision2 = new System.Windows.Forms.TabPage();
             this.pictureBox_RB2_LiveImage = new System.Windows.Forms.PictureBox();
             this.button_RB2_TriggerCamera = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -106,19 +107,18 @@ namespace Demo_SLAS
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_RB2_Vision_Status = new System.Windows.Forms.ToolStripStatusLabel();
-            this.button_RB1_Connect = new System.Windows.Forms.Button();
-            this.button_RB1_Disconnect = new System.Windows.Forms.Button();
-            this.button_RB1_HighPower = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label_RB1_ConnectionStatus = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.radioButton_SortA = new System.Windows.Forms.RadioButton();
+            this.radioButton_SortB = new System.Windows.Forms.RadioButton();
+            this.button_RB1_PauseProgram = new System.Windows.Forms.Button();
+            this.button_RB2_PauseProgram = new System.Windows.Forms.Button();
+            this.rB1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.teachHotelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rB2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.teachHotelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage_Robot1.SuspendLayout();
-            this.tabPage_Vision1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_RB1_LiveImage)).BeginInit();
-            this.tabPage_Robot2.SuspendLayout();
-            this.tabPage_Vision2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_RB2_LiveImage)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -132,7 +132,7 @@ namespace Demo_SLAS
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1428, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -435,9 +435,11 @@ namespace Demo_SLAS
             // 
             this.tradeshowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startToolStripMenuItem,
-            this.stopToolStripMenuItem});
+            this.stopToolStripMenuItem,
+            this.rB1ToolStripMenuItem,
+            this.rB2ToolStripMenuItem});
             this.tradeshowToolStripMenuItem.Name = "tradeshowToolStripMenuItem";
-            this.tradeshowToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.tradeshowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.tradeshowToolStripMenuItem.Text = "Tradeshow";
             // 
             // startToolStripMenuItem
@@ -454,44 +456,9 @@ namespace Demo_SLAS
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
-            // tabControl1
-            // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage_Robot1);
-            this.tabControl1.Controls.Add(this.tabPage_Vision1);
-            this.tabControl1.Controls.Add(this.tabPage_Robot2);
-            this.tabControl1.Controls.Add(this.tabPage_Vision2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 27);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(776, 398);
-            this.tabControl1.TabIndex = 4;
-            // 
-            // tabPage_Robot1
-            // 
-            this.tabPage_Robot1.Controls.Add(this.button_RB1_StopProcess);
-            this.tabPage_Robot1.Controls.Add(this.label_RB1_ConnectionStatus);
-            this.tabPage_Robot1.Controls.Add(this.label4);
-            this.tabPage_Robot1.Controls.Add(this.label2);
-            this.tabPage_Robot1.Controls.Add(this.label1);
-            this.tabPage_Robot1.Controls.Add(this.button_RB1_StartCycle);
-            this.tabPage_Robot1.Controls.Add(this.button_RB1_FreeMode);
-            this.tabPage_Robot1.Controls.Add(this.button_RB1_HighPower);
-            this.tabPage_Robot1.Controls.Add(this.button_RB1_Disconnect);
-            this.tabPage_Robot1.Controls.Add(this.button_RB1_Connect);
-            this.tabPage_Robot1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_Robot1.Name = "tabPage_Robot1";
-            this.tabPage_Robot1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Robot1.Size = new System.Drawing.Size(768, 372);
-            this.tabPage_Robot1.TabIndex = 0;
-            this.tabPage_Robot1.Text = "Robot 1";
-            this.tabPage_Robot1.UseVisualStyleBackColor = true;
-            // 
             // button_RB1_StopProcess
             // 
-            this.button_RB1_StopProcess.Location = new System.Drawing.Point(166, 201);
+            this.button_RB1_StopProcess.Location = new System.Drawing.Point(290, 304);
             this.button_RB1_StopProcess.Name = "button_RB1_StopProcess";
             this.button_RB1_StopProcess.Size = new System.Drawing.Size(75, 23);
             this.button_RB1_StopProcess.TabIndex = 7;
@@ -499,18 +466,45 @@ namespace Demo_SLAS
             this.button_RB1_StopProcess.UseVisualStyleBackColor = true;
             this.button_RB1_StopProcess.Click += new System.EventHandler(this.button_RB1_StopProcess_Click);
             // 
+            // label_RB1_ConnectionStatus
+            // 
+            this.label_RB1_ConnectionStatus.AutoSize = true;
+            this.label_RB1_ConnectionStatus.Location = new System.Drawing.Point(180, 134);
+            this.label_RB1_ConnectionStatus.Name = "label_RB1_ConnectionStatus";
+            this.label_RB1_ConnectionStatus.Size = new System.Drawing.Size(35, 13);
+            this.label_RB1_ConnectionStatus.TabIndex = 5;
+            this.label_RB1_ConnectionStatus.Text = "label3";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 158);
+            this.label4.Location = new System.Drawing.Point(51, 254);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "Operational Modes:";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(51, 173);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(73, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Power Status:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(51, 134);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(97, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Connection Status:";
+            // 
             // button_RB1_StartCycle
             // 
-            this.button_RB1_StartCycle.Location = new System.Drawing.Point(166, 153);
+            this.button_RB1_StartCycle.Location = new System.Drawing.Point(197, 249);
             this.button_RB1_StartCycle.Name = "button_RB1_StartCycle";
             this.button_RB1_StartCycle.Size = new System.Drawing.Size(75, 23);
             this.button_RB1_StartCycle.TabIndex = 3;
@@ -520,7 +514,7 @@ namespace Demo_SLAS
             // 
             // button_RB1_FreeMode
             // 
-            this.button_RB1_FreeMode.Location = new System.Drawing.Point(259, 153);
+            this.button_RB1_FreeMode.Location = new System.Drawing.Point(290, 249);
             this.button_RB1_FreeMode.Name = "button_RB1_FreeMode";
             this.button_RB1_FreeMode.Size = new System.Drawing.Size(75, 23);
             this.button_RB1_FreeMode.TabIndex = 3;
@@ -528,30 +522,48 @@ namespace Demo_SLAS
             this.button_RB1_FreeMode.UseVisualStyleBackColor = true;
             this.button_RB1_FreeMode.Click += new System.EventHandler(this.button_RB1_FreeMode_Click);
             // 
-            // tabPage_Vision1
+            // button_RB1_HighPower
             // 
-            this.tabPage_Vision1.Controls.Add(this.pictureBox_RB1_LiveImage);
-            this.tabPage_Vision1.Controls.Add(this.button_RB1_TriggerCamera);
-            this.tabPage_Vision1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_Vision1.Name = "tabPage_Vision1";
-            this.tabPage_Vision1.Size = new System.Drawing.Size(768, 372);
-            this.tabPage_Vision1.TabIndex = 2;
-            this.tabPage_Vision1.Text = "Vision 1";
-            this.tabPage_Vision1.UseVisualStyleBackColor = true;
+            this.button_RB1_HighPower.Location = new System.Drawing.Point(315, 168);
+            this.button_RB1_HighPower.Name = "button_RB1_HighPower";
+            this.button_RB1_HighPower.Size = new System.Drawing.Size(75, 23);
+            this.button_RB1_HighPower.TabIndex = 2;
+            this.button_RB1_HighPower.Text = "High Power";
+            this.button_RB1_HighPower.UseVisualStyleBackColor = true;
+            // 
+            // button_RB1_Disconnect
+            // 
+            this.button_RB1_Disconnect.Location = new System.Drawing.Point(408, 129);
+            this.button_RB1_Disconnect.Name = "button_RB1_Disconnect";
+            this.button_RB1_Disconnect.Size = new System.Drawing.Size(75, 23);
+            this.button_RB1_Disconnect.TabIndex = 1;
+            this.button_RB1_Disconnect.Text = "Disconnect";
+            this.button_RB1_Disconnect.UseVisualStyleBackColor = true;
+            this.button_RB1_Disconnect.Click += new System.EventHandler(this.button_RB1_Disconnect_Click);
+            // 
+            // button_RB1_Connect
+            // 
+            this.button_RB1_Connect.Location = new System.Drawing.Point(315, 129);
+            this.button_RB1_Connect.Name = "button_RB1_Connect";
+            this.button_RB1_Connect.Size = new System.Drawing.Size(75, 23);
+            this.button_RB1_Connect.TabIndex = 0;
+            this.button_RB1_Connect.Text = "Connect";
+            this.button_RB1_Connect.UseVisualStyleBackColor = true;
+            this.button_RB1_Connect.Click += new System.EventHandler(this.button_RB1_Connect_Click);
             // 
             // pictureBox_RB1_LiveImage
             // 
             this.pictureBox_RB1_LiveImage.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pictureBox_RB1_LiveImage.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox_RB1_LiveImage.Location = new System.Drawing.Point(769, 426);
             this.pictureBox_RB1_LiveImage.Name = "pictureBox_RB1_LiveImage";
-            this.pictureBox_RB1_LiveImage.Size = new System.Drawing.Size(566, 366);
+            this.pictureBox_RB1_LiveImage.Size = new System.Drawing.Size(647, 393);
             this.pictureBox_RB1_LiveImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_RB1_LiveImage.TabIndex = 2;
             this.pictureBox_RB1_LiveImage.TabStop = false;
             // 
             // button_RB1_TriggerCamera
             // 
-            this.button_RB1_TriggerCamera.Location = new System.Drawing.Point(624, 331);
+            this.button_RB1_TriggerCamera.Location = new System.Drawing.Point(688, 443);
             this.button_RB1_TriggerCamera.Name = "button_RB1_TriggerCamera";
             this.button_RB1_TriggerCamera.Size = new System.Drawing.Size(75, 23);
             this.button_RB1_TriggerCamera.TabIndex = 1;
@@ -559,28 +571,9 @@ namespace Demo_SLAS
             this.button_RB1_TriggerCamera.UseVisualStyleBackColor = true;
             this.button_RB1_TriggerCamera.Click += new System.EventHandler(this.button_RB1_TriggerCamera_Click);
             // 
-            // tabPage_Robot2
-            // 
-            this.tabPage_Robot2.Controls.Add(this.button_RB2_StopCycle);
-            this.tabPage_Robot2.Controls.Add(this.label_RB2_ConnectionStatus);
-            this.tabPage_Robot2.Controls.Add(this.label5);
-            this.tabPage_Robot2.Controls.Add(this.label6);
-            this.tabPage_Robot2.Controls.Add(this.label7);
-            this.tabPage_Robot2.Controls.Add(this.button_RB2_PartCycle);
-            this.tabPage_Robot2.Controls.Add(this.button_RB2_FreeMode);
-            this.tabPage_Robot2.Controls.Add(this.button_RB2_HighPower);
-            this.tabPage_Robot2.Controls.Add(this.button_RB2_Disconnect);
-            this.tabPage_Robot2.Controls.Add(this.button_RB2_Connect);
-            this.tabPage_Robot2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_Robot2.Name = "tabPage_Robot2";
-            this.tabPage_Robot2.Size = new System.Drawing.Size(768, 372);
-            this.tabPage_Robot2.TabIndex = 3;
-            this.tabPage_Robot2.Text = "Robot 2";
-            this.tabPage_Robot2.UseVisualStyleBackColor = true;
-            // 
             // button_RB2_StopCycle
             // 
-            this.button_RB2_StopCycle.Location = new System.Drawing.Point(174, 188);
+            this.button_RB2_StopCycle.Location = new System.Drawing.Point(290, 650);
             this.button_RB2_StopCycle.Name = "button_RB2_StopCycle";
             this.button_RB2_StopCycle.Size = new System.Drawing.Size(75, 23);
             this.button_RB2_StopCycle.TabIndex = 17;
@@ -591,7 +584,7 @@ namespace Demo_SLAS
             // label_RB2_ConnectionStatus
             // 
             this.label_RB2_ConnectionStatus.AutoSize = true;
-            this.label_RB2_ConnectionStatus.Location = new System.Drawing.Point(157, 25);
+            this.label_RB2_ConnectionStatus.Location = new System.Drawing.Point(180, 488);
             this.label_RB2_ConnectionStatus.Name = "label_RB2_ConnectionStatus";
             this.label_RB2_ConnectionStatus.Size = new System.Drawing.Size(35, 13);
             this.label_RB2_ConnectionStatus.TabIndex = 16;
@@ -600,7 +593,7 @@ namespace Demo_SLAS
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(28, 145);
+            this.label5.Location = new System.Drawing.Point(51, 608);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(99, 13);
             this.label5.TabIndex = 13;
@@ -609,7 +602,7 @@ namespace Demo_SLAS
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(28, 64);
+            this.label6.Location = new System.Drawing.Point(51, 527);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 13);
             this.label6.TabIndex = 14;
@@ -618,7 +611,7 @@ namespace Demo_SLAS
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(28, 25);
+            this.label7.Location = new System.Drawing.Point(51, 488);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(97, 13);
             this.label7.TabIndex = 15;
@@ -626,7 +619,7 @@ namespace Demo_SLAS
             // 
             // button_RB2_PartCycle
             // 
-            this.button_RB2_PartCycle.Location = new System.Drawing.Point(174, 140);
+            this.button_RB2_PartCycle.Location = new System.Drawing.Point(197, 603);
             this.button_RB2_PartCycle.Name = "button_RB2_PartCycle";
             this.button_RB2_PartCycle.Size = new System.Drawing.Size(75, 23);
             this.button_RB2_PartCycle.TabIndex = 11;
@@ -636,7 +629,7 @@ namespace Demo_SLAS
             // 
             // button_RB2_FreeMode
             // 
-            this.button_RB2_FreeMode.Location = new System.Drawing.Point(267, 140);
+            this.button_RB2_FreeMode.Location = new System.Drawing.Point(290, 603);
             this.button_RB2_FreeMode.Name = "button_RB2_FreeMode";
             this.button_RB2_FreeMode.Size = new System.Drawing.Size(75, 23);
             this.button_RB2_FreeMode.TabIndex = 12;
@@ -646,7 +639,7 @@ namespace Demo_SLAS
             // 
             // button_RB2_HighPower
             // 
-            this.button_RB2_HighPower.Location = new System.Drawing.Point(292, 59);
+            this.button_RB2_HighPower.Location = new System.Drawing.Point(315, 522);
             this.button_RB2_HighPower.Name = "button_RB2_HighPower";
             this.button_RB2_HighPower.Size = new System.Drawing.Size(75, 23);
             this.button_RB2_HighPower.TabIndex = 10;
@@ -656,7 +649,7 @@ namespace Demo_SLAS
             // 
             // button_RB2_Disconnect
             // 
-            this.button_RB2_Disconnect.Location = new System.Drawing.Point(385, 20);
+            this.button_RB2_Disconnect.Location = new System.Drawing.Point(408, 483);
             this.button_RB2_Disconnect.Name = "button_RB2_Disconnect";
             this.button_RB2_Disconnect.Size = new System.Drawing.Size(75, 23);
             this.button_RB2_Disconnect.TabIndex = 9;
@@ -666,7 +659,7 @@ namespace Demo_SLAS
             // 
             // button_RB2_Connect
             // 
-            this.button_RB2_Connect.Location = new System.Drawing.Point(292, 20);
+            this.button_RB2_Connect.Location = new System.Drawing.Point(315, 483);
             this.button_RB2_Connect.Name = "button_RB2_Connect";
             this.button_RB2_Connect.Size = new System.Drawing.Size(75, 23);
             this.button_RB2_Connect.TabIndex = 8;
@@ -674,30 +667,19 @@ namespace Demo_SLAS
             this.button_RB2_Connect.UseVisualStyleBackColor = true;
             this.button_RB2_Connect.Click += new System.EventHandler(this.button_RB2_Connect_Click);
             // 
-            // tabPage_Vision2
-            // 
-            this.tabPage_Vision2.Controls.Add(this.pictureBox_RB2_LiveImage);
-            this.tabPage_Vision2.Controls.Add(this.button_RB2_TriggerCamera);
-            this.tabPage_Vision2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_Vision2.Name = "tabPage_Vision2";
-            this.tabPage_Vision2.Size = new System.Drawing.Size(768, 372);
-            this.tabPage_Vision2.TabIndex = 4;
-            this.tabPage_Vision2.Text = "Vision 2";
-            this.tabPage_Vision2.UseVisualStyleBackColor = true;
-            // 
             // pictureBox_RB2_LiveImage
             // 
             this.pictureBox_RB2_LiveImage.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pictureBox_RB2_LiveImage.Location = new System.Drawing.Point(0, 3);
+            this.pictureBox_RB2_LiveImage.Location = new System.Drawing.Point(769, 27);
             this.pictureBox_RB2_LiveImage.Name = "pictureBox_RB2_LiveImage";
-            this.pictureBox_RB2_LiveImage.Size = new System.Drawing.Size(566, 366);
+            this.pictureBox_RB2_LiveImage.Size = new System.Drawing.Size(647, 393);
             this.pictureBox_RB2_LiveImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_RB2_LiveImage.TabIndex = 4;
             this.pictureBox_RB2_LiveImage.TabStop = false;
             // 
             // button_RB2_TriggerCamera
             // 
-            this.button_RB2_TriggerCamera.Location = new System.Drawing.Point(621, 331);
+            this.button_RB2_TriggerCamera.Location = new System.Drawing.Point(688, 379);
             this.button_RB2_TriggerCamera.Name = "button_RB2_TriggerCamera";
             this.button_RB2_TriggerCamera.Size = new System.Drawing.Size(75, 23);
             this.button_RB2_TriggerCamera.TabIndex = 3;
@@ -719,9 +701,9 @@ namespace Demo_SLAS
             this.toolStripStatusLabel6,
             this.toolStripStatusLabel7,
             this.toolStripStatusLabel_RB2_Vision_Status});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 822);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1428, 22);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -791,70 +773,137 @@ namespace Demo_SLAS
             this.toolStripStatusLabel_RB2_Vision_Status.Size = new System.Drawing.Size(79, 17);
             this.toolStripStatusLabel_RB2_Vision_Status.Text = "Disconnected";
             // 
-            // button_RB1_Connect
+            // label3
             // 
-            this.button_RB1_Connect.Location = new System.Drawing.Point(284, 33);
-            this.button_RB1_Connect.Name = "button_RB1_Connect";
-            this.button_RB1_Connect.Size = new System.Drawing.Size(75, 23);
-            this.button_RB1_Connect.TabIndex = 0;
-            this.button_RB1_Connect.Text = "Connect";
-            this.button_RB1_Connect.UseVisualStyleBackColor = true;
-            this.button_RB1_Connect.Click += new System.EventHandler(this.button_RB1_Connect_Click);
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(26, 62);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(226, 24);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "PreciseFlex c10 - Robot 1";
             // 
-            // button_RB1_Disconnect
+            // label8
             // 
-            this.button_RB1_Disconnect.Location = new System.Drawing.Point(377, 33);
-            this.button_RB1_Disconnect.Name = "button_RB1_Disconnect";
-            this.button_RB1_Disconnect.Size = new System.Drawing.Size(75, 23);
-            this.button_RB1_Disconnect.TabIndex = 1;
-            this.button_RB1_Disconnect.Text = "Disconnect";
-            this.button_RB1_Disconnect.UseVisualStyleBackColor = true;
-            this.button_RB1_Disconnect.Click += new System.EventHandler(this.button_RB1_Disconnect_Click);
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(26, 443);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(216, 24);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "PreciseFlex c3 - Robot 2";
             // 
-            // button_RB1_HighPower
+            // radioButton_SortA
             // 
-            this.button_RB1_HighPower.Location = new System.Drawing.Point(284, 72);
-            this.button_RB1_HighPower.Name = "button_RB1_HighPower";
-            this.button_RB1_HighPower.Size = new System.Drawing.Size(75, 23);
-            this.button_RB1_HighPower.TabIndex = 2;
-            this.button_RB1_HighPower.Text = "High Power";
-            this.button_RB1_HighPower.UseVisualStyleBackColor = true;
+            this.radioButton_SortA.AutoSize = true;
+            this.radioButton_SortA.Location = new System.Drawing.Point(408, 304);
+            this.radioButton_SortA.Name = "radioButton_SortA";
+            this.radioButton_SortA.Size = new System.Drawing.Size(160, 17);
+            this.radioButton_SortA.TabIndex = 20;
+            this.radioButton_SortA.TabStop = true;
+            this.radioButton_SortA.Text = "Sort Ascending / Decending";
+            this.radioButton_SortA.UseVisualStyleBackColor = true;
+            this.radioButton_SortA.CheckedChanged += new System.EventHandler(this.radioButton_SortA_CheckedChanged);
             // 
-            // label1
+            // radioButton_SortB
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Connection Status:";
+            this.radioButton_SortB.AutoSize = true;
+            this.radioButton_SortB.Location = new System.Drawing.Point(408, 327);
+            this.radioButton_SortB.Name = "radioButton_SortB";
+            this.radioButton_SortB.Size = new System.Drawing.Size(113, 17);
+            this.radioButton_SortB.TabIndex = 21;
+            this.radioButton_SortB.TabStop = true;
+            this.radioButton_SortB.Text = "Sort Evens / Odds";
+            this.radioButton_SortB.UseVisualStyleBackColor = true;
+            this.radioButton_SortB.CheckedChanged += new System.EventHandler(this.radioButton_SortB_CheckedChanged);
             // 
-            // label2
+            // button_RB1_PauseProgram
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 77);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Power Status:";
+            this.button_RB1_PauseProgram.Location = new System.Drawing.Point(197, 304);
+            this.button_RB1_PauseProgram.Name = "button_RB1_PauseProgram";
+            this.button_RB1_PauseProgram.Size = new System.Drawing.Size(75, 23);
+            this.button_RB1_PauseProgram.TabIndex = 22;
+            this.button_RB1_PauseProgram.Text = "Pause";
+            this.button_RB1_PauseProgram.UseVisualStyleBackColor = true;
+            this.button_RB1_PauseProgram.Click += new System.EventHandler(this.button_RB1_PauseProgram_Click);
             // 
-            // label_RB1_ConnectionStatus
+            // button_RB2_PauseProgram
             // 
-            this.label_RB1_ConnectionStatus.AutoSize = true;
-            this.label_RB1_ConnectionStatus.Location = new System.Drawing.Point(149, 38);
-            this.label_RB1_ConnectionStatus.Name = "label_RB1_ConnectionStatus";
-            this.label_RB1_ConnectionStatus.Size = new System.Drawing.Size(35, 13);
-            this.label_RB1_ConnectionStatus.TabIndex = 5;
-            this.label_RB1_ConnectionStatus.Text = "label3";
+            this.button_RB2_PauseProgram.Location = new System.Drawing.Point(197, 650);
+            this.button_RB2_PauseProgram.Name = "button_RB2_PauseProgram";
+            this.button_RB2_PauseProgram.Size = new System.Drawing.Size(75, 23);
+            this.button_RB2_PauseProgram.TabIndex = 23;
+            this.button_RB2_PauseProgram.Text = "Pause";
+            this.button_RB2_PauseProgram.UseVisualStyleBackColor = true;
+            this.button_RB2_PauseProgram.Click += new System.EventHandler(this.button_RB2_PauseProgram_Click);
+            // 
+            // rB1ToolStripMenuItem
+            // 
+            this.rB1ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.teachHotelToolStripMenuItem});
+            this.rB1ToolStripMenuItem.Name = "rB1ToolStripMenuItem";
+            this.rB1ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rB1ToolStripMenuItem.Text = "RB1 ";
+            // 
+            // teachHotelToolStripMenuItem
+            // 
+            this.teachHotelToolStripMenuItem.Name = "teachHotelToolStripMenuItem";
+            this.teachHotelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.teachHotelToolStripMenuItem.Text = "Teach Hotel";
+            this.teachHotelToolStripMenuItem.Click += new System.EventHandler(this.teachHotelRB2_ToolStripMenuItem_Click);
+            // 
+            // rB2ToolStripMenuItem
+            // 
+            this.rB2ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.teachHotelToolStripMenuItem1});
+            this.rB2ToolStripMenuItem.Name = "rB2ToolStripMenuItem";
+            this.rB2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rB2ToolStripMenuItem.Text = "RB2";
+            // 
+            // teachHotelToolStripMenuItem1
+            // 
+            this.teachHotelToolStripMenuItem1.Name = "teachHotelToolStripMenuItem1";
+            this.teachHotelToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.teachHotelToolStripMenuItem1.Text = "Teach Hotel";
+            this.teachHotelToolStripMenuItem1.Click += new System.EventHandler(this.teachHotelRB2_ToolStripMenuItem1_Click);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1428, 844);
+            this.Controls.Add(this.button_RB2_PauseProgram);
+            this.Controls.Add(this.button_RB1_PauseProgram);
+            this.Controls.Add(this.radioButton_SortB);
+            this.Controls.Add(this.radioButton_SortA);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.button_RB1_StopProcess);
+            this.Controls.Add(this.button_RB2_StopCycle);
+            this.Controls.Add(this.label_RB1_ConnectionStatus);
+            this.Controls.Add(this.button_RB2_TriggerCamera);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label_RB2_ConnectionStatus);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.pictureBox_RB2_LiveImage);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.button_RB1_StartCycle);
+            this.Controls.Add(this.button_RB1_TriggerCamera);
+            this.Controls.Add(this.button_RB1_FreeMode);
+            this.Controls.Add(this.button_RB1_HighPower);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.button_RB1_Disconnect);
+            this.Controls.Add(this.pictureBox_RB1_LiveImage);
+            this.Controls.Add(this.button_RB1_Connect);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.button_RB2_PartCycle);
+            this.Controls.Add(this.button_RB2_FreeMode);
+            this.Controls.Add(this.button_RB2_HighPower);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.button_RB2_Disconnect);
+            this.Controls.Add(this.button_RB2_Connect);
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "MainWindow";
@@ -862,14 +911,7 @@ namespace Demo_SLAS
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage_Robot1.ResumeLayout(false);
-            this.tabPage_Robot1.PerformLayout();
-            this.tabPage_Vision1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_RB1_LiveImage)).EndInit();
-            this.tabPage_Robot2.ResumeLayout(false);
-            this.tabPage_Robot2.PerformLayout();
-            this.tabPage_Vision2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_RB2_LiveImage)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -882,17 +924,12 @@ namespace Demo_SLAS
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage_Robot1;
-        private System.Windows.Forms.TabPage tabPage_Vision1;
         private System.Windows.Forms.Button button_RB1_TriggerCamera;
         private System.Windows.Forms.PictureBox pictureBox_RB1_LiveImage;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button_RB1_StartCycle;
         private System.Windows.Forms.Button button_RB1_FreeMode;
-        private System.Windows.Forms.TabPage tabPage_Robot2;
-        private System.Windows.Forms.TabPage tabPage_Vision2;
         private System.Windows.Forms.PictureBox pictureBox_RB2_LiveImage;
         private System.Windows.Forms.Button button_RB2_TriggerCamera;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -962,6 +999,16 @@ namespace Demo_SLAS
         private System.Windows.Forms.Button button_RB1_HighPower;
         private System.Windows.Forms.Button button_RB1_Disconnect;
         private System.Windows.Forms.Button button_RB1_Connect;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.RadioButton radioButton_SortA;
+        private System.Windows.Forms.RadioButton radioButton_SortB;
+        private System.Windows.Forms.Button button_RB1_PauseProgram;
+        private System.Windows.Forms.Button button_RB2_PauseProgram;
+        private System.Windows.Forms.ToolStripMenuItem rB1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem teachHotelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rB2ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem teachHotelToolStripMenuItem1;
     }
 }
 

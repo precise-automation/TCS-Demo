@@ -21,12 +21,16 @@ namespace Demo_SLAS
         {
             textBox_Controller1IP.Text = settings.Robot1IP;
             textBox_VisionServer1IP.Text = settings.Vision1IP;
+            textBox_Controller2IP.Text = settings.Robot2IP;
+            textBox_VisionServer2IP.Text = settings.Vision2IP;
         }
 
         private void button_Apply_Click(object sender, EventArgs e)
         {
             settings.Robot1IP = textBox_Controller1IP.Text;
             settings.Vision1IP = textBox_VisionServer1IP.Text;
+            settings.Robot2IP = textBox_Controller2IP.Text;
+            settings.Vision2IP = textBox_VisionServer2IP.Text;
             settings.ApplySettngs = true;
             this.Close();
         }

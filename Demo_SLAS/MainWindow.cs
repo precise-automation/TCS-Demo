@@ -101,18 +101,8 @@ namespace Demo_SLAS
             UpdateConnectionStatusDisplays();
         }
 
-        private void RB1_Vision_AquireSingle(int camera = 1)
-            => robot1Vision.TriggerCamera(camera);
 
-        private void RB2_Vision_AquireSingle(int camera = 1)
-            => robot2Vision.TriggerCamera(camera);
-
-        private void button_RB1_TriggerCamera_Click(object sender, EventArgs e)
-            => RB1_Vision_AquireSingle();
-
-        private void button_RB2_TriggerCamera_Click(object sender, EventArgs e)
-            => RB2_Vision_AquireSingle();
-
+        // Robot 1
         private void button_RB1_Connect_Click(object sender, EventArgs e)
             => RB1_Controller_Connect();
 
@@ -132,11 +122,19 @@ namespace Demo_SLAS
             => robot2Controller.Connect(robot2ControllerIP);
 
         private void button_RB1_StartCycle_Click(object sender, EventArgs e)
-            => robot1Controller.SendCommand("StartProcess");
+            => robot1Controller.SendCommand("RunProgram");
+
+        private void button_RB1_PauseProgram_Click(object sender, EventArgs e)
+            => robot1Controller.SendCommand("PauseProgram");
 
         private void button_RB1_StopProcess_Click(object sender, EventArgs e)
-            => robot1Controller.SendCommand("StopProcess");
+            => robot1Controller.SendCommand("StopProgram");
 
+        private void button_RB1_FreeMode_Click(object sender, EventArgs e)
+            => robot1Controller.SetFreeMode(true);
+
+
+        // Robot 2
         private void button_RB2_Connect_Click(object sender, EventArgs e)
             => RB2_Controller_Connect();
 
@@ -147,17 +145,29 @@ namespace Demo_SLAS
             => robot1Controller.SetPower(true);
 
         private void button_RB2_PartCycle_Click(object sender, EventArgs e)
-            => robot2Controller.SendCommand("StartProcess");
+            => robot2Controller.SendCommand("RunProgram");
 
+        private void button_RB2_PauseProgram_Click(object sender, EventArgs e)
+            => robot2Controller.SendCommand("PauseProgram");
 
-        private void button_RB1_FreeMode_Click(object sender, EventArgs e)
-            => robot1Controller.SetFreeMode(true);
+        private void button_RB2_StopCycle_Click(object sender, EventArgs e)
+            => robot2Controller.SendCommand("StopProgram");
 
         private void button_RB2_FreeMode_Click(object sender, EventArgs e)
             => robot2Controller.SetFreeMode(true);
 
-        private void button_RB2_StopCycle_Click(object sender, EventArgs e)
-            => robot2Controller.SendCommand("StopProcess");
+        // Vision
+        private void RB1_Vision_AquireSingle(int camera = 1)
+            => robot1Vision.TriggerCamera(camera);
+
+        private void RB2_Vision_AquireSingle(int camera = 1)
+            => robot2Vision.TriggerCamera(camera);
+
+        private void button_RB1_TriggerCamera_Click(object sender, EventArgs e)
+            => RB1_Vision_AquireSingle();
+
+        private void button_RB2_TriggerCamera_Click(object sender, EventArgs e)
+            => RB2_Vision_AquireSingle();
 
 
         private void Event_ConnectionStatusChanged(object sender, EventArgs e)
@@ -184,9 +194,6 @@ namespace Demo_SLAS
 
         public void RB1_Vision_UpdateImageDisplay(Image img)
         {
-            if (tabControl1.SelectedTab.Text.Contains("Vision 1") == false)
-                return;
-
             string fileName = "ImageFromCamera1.bmp";
             if (pictureBox_RB1_LiveImage.Visible)
             {
@@ -203,9 +210,6 @@ namespace Demo_SLAS
 
         public void RB2_Vision_UpdateImageDisplay(Image img)
         {
-            if (tabControl1.SelectedTab.Text.Contains("Vision 2") == false)
-                return;
-
             string fileName = "ImageFromCamera2.bmp";
             if (pictureBox_RB2_LiveImage.Visible)
             {
@@ -379,5 +383,30 @@ namespace Demo_SLAS
             //throw new NotImplementedException();
         }
 
+        private void radioButton_SortA_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_SortA.Checked)
+            {
+                robot1Controller.SendCommand("ChangeSortA");
+            }
+        }
+
+        private void radioButton_SortB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_SortB.Checked)
+            {
+                robot1Controller.SendCommand("ChangeSortB");
+            }
+        }
+
+        private void teachHotelRB2_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            robot1Controller.SendCommand("TeachHotel");
+        }
+
+        private void teachHotelRB2_ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            robot2Controller.SendCommand("TeachHotel");
+        }
     }
 }
