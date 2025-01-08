@@ -24,6 +24,8 @@ namespace Demo_SLAS
         private string robot2ControllerIP;
         private string robot2VisionIP;
 
+        private bool UiLocked = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -45,6 +47,8 @@ namespace Demo_SLAS
             robot2Vision = new VisionServerHandler();
             robot2Vision.ConnectionChanged += Event_ConnectionStatusChanged;
             robot2Vision.ImageCaptured += RB2_Vision_ImageCaptured;
+
+            radioButton_SortA.Checked = true;
         }
 
         private void InitializeSettings()
@@ -124,14 +128,14 @@ namespace Demo_SLAS
         private void button_RB1_StartCycle_Click(object sender, EventArgs e)
             => robot1Controller.SendCommand("RunProgram");
 
-        private void button_RB1_PauseProgram_Click(object sender, EventArgs e)
+        private void button_RB1_PauseCycle_Click(object sender, EventArgs e)
             => robot1Controller.SendCommand("PauseProgram");
 
-        private void button_RB1_StopProcess_Click(object sender, EventArgs e)
+        private void button_RB1_StopCycle_Click(object sender, EventArgs e)
             => robot1Controller.SendCommand("StopProgram");
 
         private void button_RB1_FreeMode_Click(object sender, EventArgs e)
-            => robot1Controller.SetFreeMode(true);
+            => robot1Controller.ToggleFreeMode();
 
 
         // Robot 2
@@ -142,19 +146,19 @@ namespace Demo_SLAS
             => RB2_Controller_Disconnect();
 
         private void button_RB2_HighPower_Click(object sender, EventArgs e)
-            => robot1Controller.SetPower(true);
+            => robot2Controller.SetPower(true);
 
-        private void button_RB2_PartCycle_Click(object sender, EventArgs e)
+        private void button_RB2_StartCycle_Click(object sender, EventArgs e)
             => robot2Controller.SendCommand("RunProgram");
 
-        private void button_RB2_PauseProgram_Click(object sender, EventArgs e)
+        private void button_RB2_PauseCycle_Click(object sender, EventArgs e)
             => robot2Controller.SendCommand("PauseProgram");
 
         private void button_RB2_StopCycle_Click(object sender, EventArgs e)
             => robot2Controller.SendCommand("StopProgram");
 
         private void button_RB2_FreeMode_Click(object sender, EventArgs e)
-            => robot2Controller.SetFreeMode(true);
+            => robot2Controller.ToggleFreeMode();
 
         // Vision
         private void RB1_Vision_AquireSingle(int camera = 1)
@@ -403,13 +407,44 @@ namespace Demo_SLAS
         }
 
         private void teachHotelRB2_ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            robot1Controller.SendCommand("TeachHotel");
-        }
+            => robot2Controller.SendCommand("TeachHotel");
+        
+        private void teachHotelRB1_ToolStripMenuItem_Click(object sender, EventArgs e)
+            => robot1Controller.SendCommand("TeachHotel");
+        
+        private void nopRB1_ToolStripMenuItem_Click(object sender, EventArgs e)
+            => robot1Controller.NoOperation();
 
-        private void teachHotelRB2_ToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void nopRB2_ToolStripMenuItem_Click(object sender, EventArgs e)
+            => robot2Controller.NoOperation();
+
+        private void lockUIToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            robot2Controller.SendCommand("TeachHotel");
+            button_RB1_Connect.Enabled = UiLocked;
+            button_RB2_Connect.Enabled = UiLocked;
+
+            button_RB1_Disconnect.Enabled = UiLocked;
+            button_RB2_Disconnect.Enabled = UiLocked;
+            
+            button_RB1_HighPower.Enabled = UiLocked;
+            button_RB2_HighPower.Enabled = UiLocked;
+            
+            button_RB1_StartCycle.Enabled = UiLocked;
+            button_RB2_StartCycle.Enabled = UiLocked;
+            
+            button_RB1_PauseCycle.Enabled = UiLocked;
+            button_RB2_PauseCycle.Enabled = UiLocked;
+            
+            button_RB1_StopCycle.Enabled = UiLocked;
+            button_RB2_StopCycle.Enabled = UiLocked;
+            
+            button_RB1_FreeMode.Enabled = UiLocked;
+            button_RB2_FreeMode.Enabled = UiLocked;
+            
+            button_RB1_TriggerCamera.Enabled = UiLocked;
+            button_RB2_TriggerCamera.Enabled = UiLocked;
+
+            UiLocked = !UiLocked;
         }
     }
 }

@@ -45,6 +45,8 @@ namespace Tcs.Core
             }
         }
 
+        public JogControlManager jogControlManager { get; private set; }
+        
         private LogService logService;
         private LanguageService languageService;
         private Communications commHandle;
@@ -52,7 +54,7 @@ namespace Tcs.Core
         private TCSManager tcsManager;
         private LocationManager locationManager;
         private ProfileManager profileManager;
-        public JogControlManager jogControlManager { get; private set; }
+        private bool jogModeToggle = false;
 
 
         public RobotServerHandler()
@@ -150,6 +152,12 @@ namespace Tcs.Core
         public void SetFreeMode(bool freeAllJoints = true) 
             => RobotTcsCmds.SetFreeMode(tcsManager, freeAllJoints);
 
+        public void ToggleFreeMode()
+        {
+            jogModeToggle = !jogModeToggle;
+            RobotTcsCmds.SetFreeMode(tcsManager, jogModeToggle);
+        }
+
         public void LoadTCS() 
             => TcsHelper.LoadTCS(tcsManager);
 
@@ -162,10 +170,15 @@ namespace Tcs.Core
         public void SendCommand(string command)
             => TcsHelper.SendSingleCommand(tcsManager, command);
 
+        public void NoOperation()
+            => TcsHelper.SendSingleCommand(tcsManager, "NOP");
+
+
         private void Controller_PowerStateGplEvent(GPLEventObj obj)
         {
             if(obj.EventCode == GPLEventObj.GPLEvents.EventPowerState)
                 PowerStateChanged?.Invoke(this, EventArgs.Empty);
+            jogModeToggle = false;
         }
 
         public void JogJointMode()
