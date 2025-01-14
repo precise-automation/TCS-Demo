@@ -77,6 +77,7 @@ namespace Demo_SLAS
             this.teachHotelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rB2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teachHotelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.lockUIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button_RB1_StopCycle = new System.Windows.Forms.Button();
             this.label_RB1_ConnectionStatus = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -119,7 +120,7 @@ namespace Demo_SLAS
             this.radioButton_SortB = new System.Windows.Forms.RadioButton();
             this.button_RB1_PauseCycle = new System.Windows.Forms.Button();
             this.button_RB2_PauseCycle = new System.Windows.Forms.Button();
-            this.lockUIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_RB1_LiveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_RB2_LiveImage)).BeginInit();
@@ -131,11 +132,12 @@ namespace Demo_SLAS
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.controlToolStripMenuItem});
+            this.controlToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1428, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1322, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -173,7 +175,7 @@ namespace Demo_SLAS
             this.tCSToolStripMenuItem,
             this.powerToolStripMenuItem});
             this.rB1ControllerToolStripMenuItem.Name = "rB1ControllerToolStripMenuItem";
-            this.rB1ControllerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rB1ControllerToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.rB1ControllerToolStripMenuItem.Text = "RB1 - Controller";
             // 
             // connectionToolStripMenuItem
@@ -282,7 +284,7 @@ namespace Demo_SLAS
             this.rB1VisionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.connectionToolStripMenuItem1});
             this.rB1VisionToolStripMenuItem.Name = "rB1VisionToolStripMenuItem";
-            this.rB1VisionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rB1VisionToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.rB1VisionToolStripMenuItem.Text = "RB1 - Vision";
             // 
             // connectionToolStripMenuItem1
@@ -315,7 +317,7 @@ namespace Demo_SLAS
             this.tCSToolStripMenuItem1,
             this.toolStripMenuItem1});
             this.rB2ControllerToolStripMenuItem.Name = "rB2ControllerToolStripMenuItem";
-            this.rB2ControllerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rB2ControllerToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.rB2ControllerToolStripMenuItem.Text = "RB2 - Controller";
             // 
             // connectionToolStripMenuItem2
@@ -424,7 +426,7 @@ namespace Demo_SLAS
             this.rB2VisionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.connectionToolStripMenuItem3});
             this.rB2VisionToolStripMenuItem.Name = "rB2VisionToolStripMenuItem";
-            this.rB2VisionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rB2VisionToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.rB2VisionToolStripMenuItem.Text = "RB2 - Vision";
             // 
             // connectionToolStripMenuItem3
@@ -459,20 +461,20 @@ namespace Demo_SLAS
             this.rB2ToolStripMenuItem,
             this.lockUIToolStripMenuItem});
             this.tradeshowToolStripMenuItem.Name = "tradeshowToolStripMenuItem";
-            this.tradeshowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tradeshowToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.tradeshowToolStripMenuItem.Text = "Tradeshow";
             // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
@@ -481,7 +483,7 @@ namespace Demo_SLAS
             this.rB1ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.teachHotelToolStripMenuItem});
             this.rB1ToolStripMenuItem.Name = "rB1ToolStripMenuItem";
-            this.rB1ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rB1ToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.rB1ToolStripMenuItem.Text = "RB1 ";
             // 
             // teachHotelToolStripMenuItem
@@ -496,7 +498,7 @@ namespace Demo_SLAS
             this.rB2ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.teachHotelToolStripMenuItem1});
             this.rB2ToolStripMenuItem.Name = "rB2ToolStripMenuItem";
-            this.rB2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rB2ToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.rB2ToolStripMenuItem.Text = "RB2";
             // 
             // teachHotelToolStripMenuItem1
@@ -506,10 +508,17 @@ namespace Demo_SLAS
             this.teachHotelToolStripMenuItem1.Text = "Teach Hotel";
             this.teachHotelToolStripMenuItem1.Click += new System.EventHandler(this.teachHotelRB1_ToolStripMenuItem_Click);
             // 
+            // lockUIToolStripMenuItem
+            // 
+            this.lockUIToolStripMenuItem.Name = "lockUIToolStripMenuItem";
+            this.lockUIToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.lockUIToolStripMenuItem.Text = "Lock UI";
+            this.lockUIToolStripMenuItem.Click += new System.EventHandler(this.lockUIToolStripMenuItem_Click);
+            // 
             // button_RB1_StopCycle
             // 
             this.button_RB1_StopCycle.Location = new System.Drawing.Point(290, 304);
-            this.button_RB1_StopCycle.Name = "button_RB1_StopProcess";
+            this.button_RB1_StopCycle.Name = "button_RB1_StopCycle";
             this.button_RB1_StopCycle.Size = new System.Drawing.Size(75, 23);
             this.button_RB1_StopCycle.TabIndex = 7;
             this.button_RB1_StopCycle.Text = "Stop";
@@ -604,7 +613,7 @@ namespace Demo_SLAS
             // pictureBox_RB1_LiveImage
             // 
             this.pictureBox_RB1_LiveImage.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pictureBox_RB1_LiveImage.Location = new System.Drawing.Point(769, 27);
+            this.pictureBox_RB1_LiveImage.Location = new System.Drawing.Point(655, 27);
             this.pictureBox_RB1_LiveImage.Name = "pictureBox_RB1_LiveImage";
             this.pictureBox_RB1_LiveImage.Size = new System.Drawing.Size(647, 393);
             this.pictureBox_RB1_LiveImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -613,7 +622,7 @@ namespace Demo_SLAS
             // 
             // button_RB1_TriggerCamera
             // 
-            this.button_RB1_TriggerCamera.Location = new System.Drawing.Point(677, 383);
+            this.button_RB1_TriggerCamera.Location = new System.Drawing.Point(562, 387);
             this.button_RB1_TriggerCamera.Name = "button_RB1_TriggerCamera";
             this.button_RB1_TriggerCamera.Size = new System.Drawing.Size(75, 23);
             this.button_RB1_TriggerCamera.TabIndex = 1;
@@ -670,7 +679,7 @@ namespace Demo_SLAS
             // button_RB2_StartCycle
             // 
             this.button_RB2_StartCycle.Location = new System.Drawing.Point(197, 603);
-            this.button_RB2_StartCycle.Name = "button_RB2_PartCycle";
+            this.button_RB2_StartCycle.Name = "button_RB2_StartCycle";
             this.button_RB2_StartCycle.Size = new System.Drawing.Size(75, 23);
             this.button_RB2_StartCycle.TabIndex = 11;
             this.button_RB2_StartCycle.Text = "Part Cycle";
@@ -720,7 +729,7 @@ namespace Demo_SLAS
             // pictureBox_RB2_LiveImage
             // 
             this.pictureBox_RB2_LiveImage.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pictureBox_RB2_LiveImage.Location = new System.Drawing.Point(769, 426);
+            this.pictureBox_RB2_LiveImage.Location = new System.Drawing.Point(655, 426);
             this.pictureBox_RB2_LiveImage.Name = "pictureBox_RB2_LiveImage";
             this.pictureBox_RB2_LiveImage.Size = new System.Drawing.Size(647, 393);
             this.pictureBox_RB2_LiveImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -729,7 +738,7 @@ namespace Demo_SLAS
             // 
             // button_RB2_TriggerCamera
             // 
-            this.button_RB2_TriggerCamera.Location = new System.Drawing.Point(677, 443);
+            this.button_RB2_TriggerCamera.Location = new System.Drawing.Point(562, 443);
             this.button_RB2_TriggerCamera.Name = "button_RB2_TriggerCamera";
             this.button_RB2_TriggerCamera.Size = new System.Drawing.Size(75, 23);
             this.button_RB2_TriggerCamera.TabIndex = 3;
@@ -753,7 +762,7 @@ namespace Demo_SLAS
             this.toolStripStatusLabel_RB2_Vision_Status});
             this.statusStrip1.Location = new System.Drawing.Point(0, 822);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1428, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1322, 22);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -846,7 +855,7 @@ namespace Demo_SLAS
             // radioButton_SortA
             // 
             this.radioButton_SortA.AutoSize = true;
-            this.radioButton_SortA.Location = new System.Drawing.Point(408, 304);
+            this.radioButton_SortA.Location = new System.Drawing.Point(408, 268);
             this.radioButton_SortA.Name = "radioButton_SortA";
             this.radioButton_SortA.Size = new System.Drawing.Size(113, 17);
             this.radioButton_SortA.TabIndex = 20;
@@ -858,19 +867,19 @@ namespace Demo_SLAS
             // radioButton_SortB
             // 
             this.radioButton_SortB.AutoSize = true;
-            this.radioButton_SortB.Location = new System.Drawing.Point(408, 327);
+            this.radioButton_SortB.Location = new System.Drawing.Point(408, 291);
             this.radioButton_SortB.Name = "radioButton_SortB";
-            this.radioButton_SortB.Size = new System.Drawing.Size(160, 17);
+            this.radioButton_SortB.Size = new System.Drawing.Size(96, 17);
             this.radioButton_SortB.TabIndex = 21;
             this.radioButton_SortB.TabStop = true;
-            this.radioButton_SortB.Text = "Sort Ascending / Decending";
+            this.radioButton_SortB.Text = "Sort Asc / Dec";
             this.radioButton_SortB.UseVisualStyleBackColor = true;
             this.radioButton_SortB.CheckedChanged += new System.EventHandler(this.radioButton_SortB_CheckedChanged);
             // 
             // button_RB1_PauseCycle
             // 
             this.button_RB1_PauseCycle.Location = new System.Drawing.Point(197, 304);
-            this.button_RB1_PauseCycle.Name = "button_RB1_PauseProgram";
+            this.button_RB1_PauseCycle.Name = "button_RB1_PauseCycle";
             this.button_RB1_PauseCycle.Size = new System.Drawing.Size(75, 23);
             this.button_RB1_PauseCycle.TabIndex = 22;
             this.button_RB1_PauseCycle.Text = "Pause";
@@ -880,25 +889,25 @@ namespace Demo_SLAS
             // button_RB2_PauseCycle
             // 
             this.button_RB2_PauseCycle.Location = new System.Drawing.Point(197, 650);
-            this.button_RB2_PauseCycle.Name = "button_RB2_PauseProgram";
+            this.button_RB2_PauseCycle.Name = "button_RB2_PauseCycle";
             this.button_RB2_PauseCycle.Size = new System.Drawing.Size(75, 23);
             this.button_RB2_PauseCycle.TabIndex = 23;
             this.button_RB2_PauseCycle.Text = "Pause";
             this.button_RB2_PauseCycle.UseVisualStyleBackColor = true;
             this.button_RB2_PauseCycle.Click += new System.EventHandler(this.button_RB2_PauseCycle_Click);
             // 
-            // lockUIToolStripMenuItem
+            // aboutToolStripMenuItem
             // 
-            this.lockUIToolStripMenuItem.Name = "lockUIToolStripMenuItem";
-            this.lockUIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.lockUIToolStripMenuItem.Text = "Lock UI";
-            this.lockUIToolStripMenuItem.Click += new System.EventHandler(this.lockUIToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1428, 844);
+            this.ClientSize = new System.Drawing.Size(1322, 844);
             this.Controls.Add(this.button_RB2_PauseCycle);
             this.Controls.Add(this.button_RB1_PauseCycle);
             this.Controls.Add(this.radioButton_SortB);
@@ -936,6 +945,7 @@ namespace Demo_SLAS
             this.Name = "MainWindow";
             this.Text = "Brooks TCS Demo";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_RB1_LiveImage)).EndInit();
@@ -1039,6 +1049,7 @@ namespace Demo_SLAS
         private System.Windows.Forms.ToolStripMenuItem nopRB1_ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nopRB2_ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lockUIToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 

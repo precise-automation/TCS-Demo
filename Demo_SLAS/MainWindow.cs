@@ -446,5 +446,35 @@ namespace Demo_SLAS
 
             UiLocked = !UiLocked;
         }
+
+        private void MainWindow_ResizeEnd(object sender, EventArgs e)
+        {
+            Control control = (Control)sender;
+            int maxHight = control.Size.Height;
+            int maxWidth = control.Size.Width;
+
+            // Auto Resize Width
+            pictureBox_RB1_LiveImage.Width = maxWidth - pictureBox_RB1_LiveImage.Location.X - 30;
+            pictureBox_RB2_LiveImage.Width = maxWidth - pictureBox_RB2_LiveImage.Location.X - 30;
+
+
+            // Auto Resize Hight
+            var xPos = pictureBox_RB1_LiveImage.Location.X;
+            var yPos = pictureBox_RB1_LiveImage.Location.Y;
+            var pictureBoxHight = (maxHight - 110) / 2;
+            pictureBox_RB1_LiveImage.Height = pictureBoxHight;
+            button_RB1_TriggerCamera.Location = new Point(xPos - 85, yPos + pictureBoxHight-50);
+            
+            pictureBox_RB2_LiveImage.Height = pictureBoxHight;
+            pictureBox_RB2_LiveImage.Location = new Point(xPos, yPos + pictureBoxHight+10);
+            button_RB2_TriggerCamera.Location = new Point(xPos - 85, yPos + pictureBoxHight+50);
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            var window = new AboutWindow($"{version}");
+            window.Show();
+        }
     }
 }
