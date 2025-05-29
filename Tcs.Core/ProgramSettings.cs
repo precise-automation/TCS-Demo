@@ -1,4 +1,6 @@
 ﻿using Precise.Common.Core.Settings;
+using System.IO;
+using System.Threading;
 
 namespace Tcs.Core
 {
@@ -21,6 +23,11 @@ namespace Tcs.Core
         public ProgramSettings(string filePath)
         {
             settingsFilePath = filePath;
+            if (File.Exists(settingsFilePath) == false)
+            {
+                File.Create(settingsFilePath);
+                Thread.Sleep(3000);
+            }
             settingsPersister = new SettingsFilePersister(settingsFilePath);
             settingsService = new SettingsService(settingsPersister);
             GetSettings();

@@ -78,6 +78,7 @@ namespace Demo_SLAS
             this.rB2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teachHotelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.lockUIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button_RB1_StopCycle = new System.Windows.Forms.Button();
             this.label_RB1_ConnectionStatus = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -120,7 +121,6 @@ namespace Demo_SLAS
             this.radioButton_SortB = new System.Windows.Forms.RadioButton();
             this.button_RB1_PauseCycle = new System.Windows.Forms.Button();
             this.button_RB2_PauseCycle = new System.Windows.Forms.Button();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_RB1_LiveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_RB2_LiveImage)).BeginInit();
@@ -515,6 +515,13 @@ namespace Demo_SLAS
             this.lockUIToolStripMenuItem.Text = "Lock UI";
             this.lockUIToolStripMenuItem.Click += new System.EventHandler(this.lockUIToolStripMenuItem_Click);
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
             // button_RB1_StopCycle
             // 
             this.button_RB1_StopCycle.Location = new System.Drawing.Point(290, 304);
@@ -896,13 +903,6 @@ namespace Demo_SLAS
             this.button_RB2_PauseCycle.UseVisualStyleBackColor = true;
             this.button_RB2_PauseCycle.Click += new System.EventHandler(this.button_RB2_PauseCycle_Click);
             // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -946,6 +946,7 @@ namespace Demo_SLAS
             this.Text = "Brooks TCS Demo";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
+            this.Resize += new System.EventHandler(this.MainWindow_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_RB1_LiveImage)).EndInit();

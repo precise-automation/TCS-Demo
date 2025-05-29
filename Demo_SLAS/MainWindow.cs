@@ -26,6 +26,8 @@ namespace Demo_SLAS
 
         private bool UiLocked = false;
 
+        private System.Timers.Timer connectionTimer;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -49,6 +51,10 @@ namespace Demo_SLAS
             robot2Vision.ImageCaptured += RB2_Vision_ImageCaptured;
 
             radioButton_SortA.Checked = true;
+
+            connectionTimer = new System.Timers.Timer(10000);
+            connectionTimer.Elapsed += ConnectionTimer_Elapsed;
+            connectionTimer.Start();
         }
 
         private void InitializeSettings()
@@ -173,6 +179,12 @@ namespace Demo_SLAS
         private void button_RB2_TriggerCamera_Click(object sender, EventArgs e)
             => RB2_Vision_AquireSingle();
 
+        private void ConnectionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            pictureBox_RB1_LiveImage.Invoke(new Action(() => {
+                UpdateConnectionStatusDisplays();
+            }));
+        }
 
         private void Event_ConnectionStatusChanged(object sender, EventArgs e)
         {
@@ -444,6 +456,23 @@ namespace Demo_SLAS
             button_RB1_TriggerCamera.Enabled = UiLocked;
             button_RB2_TriggerCamera.Enabled = UiLocked;
 
+            radioButton_SortA.Enabled = UiLocked;
+            radioButton_SortB.Enabled = UiLocked;
+
+            rB1ControllerToolStripMenuItem.Enabled = UiLocked;
+            rB2ControllerToolStripMenuItem.Enabled = UiLocked;
+
+            rB1VisionToolStripMenuItem.Enabled = UiLocked;
+            rB2VisionToolStripMenuItem.Enabled = UiLocked;
+
+            rB1ToolStripMenuItem.Enabled = UiLocked;
+            rB2ToolStripMenuItem.Enabled = UiLocked;
+
+            startToolStripMenuItem.Enabled= UiLocked;
+            stopToolStripMenuItem.Enabled= UiLocked;
+
+            settingsToolStripMenuItem.Enabled = UiLocked;
+
             UiLocked = !UiLocked;
         }
 
@@ -475,6 +504,11 @@ namespace Demo_SLAS
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             var window = new AboutWindow($"{version}");
             window.Show();
+        }
+
+        private void MainWindow_Resize(object sender, EventArgs e)
+        {
+            MainWindow_ResizeEnd(sender, e);
         }
     }
 }

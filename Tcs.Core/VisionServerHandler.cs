@@ -46,6 +46,7 @@ namespace Tcs.Core
             visionEngineClientService.ErrorDetected += VisionEngineClientService_ErrorDetected;
             visionEngineClientService.ImageUpdated += VisionEngineClientService_ImageUpdated;
             visionEngineClientService.PropertyChanged += VisionEngineClientService_PropertyChanged;
+            visionEngineClientService
 
         }
 
@@ -82,7 +83,16 @@ namespace Tcs.Core
         }
 
         private void VisionEngineClientService_ErrorDetected(Exception exception)
-            => MessageBox.Show(exception.Message, "Vision Engine Client Service Error Detected");
+        {
+            if (exception.GetType() == typeof(IOException))
+            {
+                Disconnect();
+                visionEngineClientService.IsConnected = false;
+                ConnectionChanged?.Invoke(this, EventArgs.Empty);
+            }
+
+            MessageBox.Show(exception.Message, "Vision Engine Client Service Error Detected");
+        }
 
         private void VisionEngineClientService_ImageUpdated(object sender, ImageUpdatedArguments e)
         {
