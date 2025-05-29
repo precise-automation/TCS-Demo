@@ -53,6 +53,28 @@ namespace Demo_Example5
             this.disconnectToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_Robot1 = new System.Windows.Forms.TabPage();
+            this.button_GplVaraibleGet = new System.Windows.Forms.Button();
+            this.textBox_GplOutputWindow = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBox_GplVariableValue = new System.Windows.Forms.TextBox();
+            this.textBox_GplVariableName = new System.Windows.Forms.TextBox();
+            this.button_SetVariableValue = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.button_SendToController = new System.Windows.Forms.Button();
+            this.comboBox_ProfileName = new System.Windows.Forms.ComboBox();
+            this.button_SetMotionProfile = new System.Windows.Forms.Button();
+            this.textBox_MotionProfile = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button_UpdateLocation = new System.Windows.Forms.Button();
+            this.button_RecordCartesian = new System.Windows.Forms.Button();
+            this.textBox_LocPosition = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.button_MoveToLocation = new System.Windows.Forms.Button();
+            this.button_RecordJoint = new System.Windows.Forms.Button();
+            this.comboBox_LocName = new System.Windows.Forms.ComboBox();
             this.comboBox_JogMode = new System.Windows.Forms.ComboBox();
             this.button_JogPowerOff = new System.Windows.Forms.Button();
             this.button_JogPowerOn = new System.Windows.Forms.Button();
@@ -77,28 +99,6 @@ namespace Demo_Example5
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_RB1_Vision_Status = new System.Windows.Forms.ToolStripStatusLabel();
-            this.button_SendToController = new System.Windows.Forms.Button();
-            this.comboBox_ProfileName = new System.Windows.Forms.ComboBox();
-            this.button_SetMotionProfile = new System.Windows.Forms.Button();
-            this.textBox_MotionProfile = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button_UpdateLocation = new System.Windows.Forms.Button();
-            this.button_RecordCartesian = new System.Windows.Forms.Button();
-            this.textBox_LocPosition = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.button_MoveToLocation = new System.Windows.Forms.Button();
-            this.button_RecordJoint = new System.Windows.Forms.Button();
-            this.comboBox_LocName = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.button_SetVariableValue = new System.Windows.Forms.Button();
-            this.textBox_GplVariableName = new System.Windows.Forms.TextBox();
-            this.textBox_GplVariableValue = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.textBox_GplOutputWindow = new System.Windows.Forms.TextBox();
-            this.button_GplVaraibleGet = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage_Robot1.SuspendLayout();
@@ -338,6 +338,209 @@ namespace Demo_Example5
             this.tabPage_Robot1.Text = "Robot 1";
             this.tabPage_Robot1.UseVisualStyleBackColor = true;
             // 
+            // button_GplVaraibleGet
+            // 
+            this.button_GplVaraibleGet.Location = new System.Drawing.Point(546, 433);
+            this.button_GplVaraibleGet.Name = "button_GplVaraibleGet";
+            this.button_GplVaraibleGet.Size = new System.Drawing.Size(75, 23);
+            this.button_GplVaraibleGet.TabIndex = 45;
+            this.button_GplVaraibleGet.Text = "Get";
+            this.button_GplVaraibleGet.UseVisualStyleBackColor = true;
+            this.button_GplVaraibleGet.Click += new System.EventHandler(this.button_GplVaraibleGet_Click);
+            // 
+            // textBox_GplOutputWindow
+            // 
+            this.textBox_GplOutputWindow.Location = new System.Drawing.Point(26, 519);
+            this.textBox_GplOutputWindow.Multiline = true;
+            this.textBox_GplOutputWindow.Name = "textBox_GplOutputWindow";
+            this.textBox_GplOutputWindow.ReadOnly = true;
+            this.textBox_GplOutputWindow.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox_GplOutputWindow.Size = new System.Drawing.Size(690, 143);
+            this.textBox_GplOutputWindow.TabIndex = 44;
+            this.textBox_GplOutputWindow.WordWrap = false;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(23, 492);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(105, 13);
+            this.label12.TabIndex = 43;
+            this.label12.Text = "GPL Output Window";
+            // 
+            // textBox_GplVariableValue
+            // 
+            this.textBox_GplVariableValue.Location = new System.Drawing.Point(354, 435);
+            this.textBox_GplVariableValue.Name = "textBox_GplVariableValue";
+            this.textBox_GplVariableValue.Size = new System.Drawing.Size(100, 20);
+            this.textBox_GplVariableValue.TabIndex = 42;
+            this.textBox_GplVariableValue.Text = "7";
+            // 
+            // textBox_GplVariableName
+            // 
+            this.textBox_GplVariableName.Location = new System.Drawing.Point(155, 436);
+            this.textBox_GplVariableName.Name = "textBox_GplVariableName";
+            this.textBox_GplVariableName.Size = new System.Drawing.Size(190, 20);
+            this.textBox_GplVariableName.TabIndex = 41;
+            this.textBox_GplVariableName.Text = "test_integer";
+            // 
+            // button_SetVariableValue
+            // 
+            this.button_SetVariableValue.Location = new System.Drawing.Point(465, 433);
+            this.button_SetVariableValue.Name = "button_SetVariableValue";
+            this.button_SetVariableValue.Size = new System.Drawing.Size(75, 23);
+            this.button_SetVariableValue.TabIndex = 40;
+            this.button_SetVariableValue.Text = "Set";
+            this.button_SetVariableValue.UseVisualStyleBackColor = true;
+            this.button_SetVariableValue.Click += new System.EventHandler(this.button_SetVariableValue_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(351, 420);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(34, 13);
+            this.label11.TabIndex = 39;
+            this.label11.Text = "Value";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(152, 420);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(35, 13);
+            this.label10.TabIndex = 38;
+            this.label10.Text = "Name";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(23, 421);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(50, 13);
+            this.label9.TabIndex = 37;
+            this.label9.Text = "Variables";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(20, 245);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(48, 13);
+            this.label8.TabIndex = 36;
+            this.label8.Text = "Location";
+            // 
+            // button_SendToController
+            // 
+            this.button_SendToController.Location = new System.Drawing.Point(432, 375);
+            this.button_SendToController.Name = "button_SendToController";
+            this.button_SendToController.Size = new System.Drawing.Size(108, 23);
+            this.button_SendToController.TabIndex = 35;
+            this.button_SendToController.Text = "Send To Controller";
+            this.button_SendToController.UseVisualStyleBackColor = true;
+            this.button_SendToController.Click += new System.EventHandler(this.button_SendToController_Click);
+            // 
+            // comboBox_ProfileName
+            // 
+            this.comboBox_ProfileName.FormattingEnabled = true;
+            this.comboBox_ProfileName.Location = new System.Drawing.Point(152, 348);
+            this.comboBox_ProfileName.Name = "comboBox_ProfileName";
+            this.comboBox_ProfileName.Size = new System.Drawing.Size(193, 21);
+            this.comboBox_ProfileName.TabIndex = 34;
+            this.comboBox_ProfileName.DropDownClosed += new System.EventHandler(this.comboBox_ProfileName_DropDownClosed);
+            // 
+            // button_SetMotionProfile
+            // 
+            this.button_SetMotionProfile.Location = new System.Drawing.Point(351, 375);
+            this.button_SetMotionProfile.Name = "button_SetMotionProfile";
+            this.button_SetMotionProfile.Size = new System.Drawing.Size(75, 23);
+            this.button_SetMotionProfile.TabIndex = 33;
+            this.button_SetMotionProfile.Text = "Set";
+            this.button_SetMotionProfile.UseVisualStyleBackColor = true;
+            this.button_SetMotionProfile.Click += new System.EventHandler(this.button_SetMotionProfile_Click);
+            // 
+            // textBox_MotionProfile
+            // 
+            this.textBox_MotionProfile.Location = new System.Drawing.Point(152, 375);
+            this.textBox_MotionProfile.Name = "textBox_MotionProfile";
+            this.textBox_MotionProfile.Size = new System.Drawing.Size(193, 20);
+            this.textBox_MotionProfile.TabIndex = 32;
+            this.textBox_MotionProfile.Text = "50 50 50 50 0.1 0.1 10 0";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(149, 333);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(74, 13);
+            this.label2.TabIndex = 31;
+            this.label2.Text = "Motion Profile:";
+            // 
+            // button_UpdateLocation
+            // 
+            this.button_UpdateLocation.Location = new System.Drawing.Point(432, 293);
+            this.button_UpdateLocation.Name = "button_UpdateLocation";
+            this.button_UpdateLocation.Size = new System.Drawing.Size(108, 23);
+            this.button_UpdateLocation.TabIndex = 30;
+            this.button_UpdateLocation.Text = "Update";
+            this.button_UpdateLocation.UseVisualStyleBackColor = true;
+            this.button_UpdateLocation.Click += new System.EventHandler(this.button_UpdateLocation_Click);
+            // 
+            // button_RecordCartesian
+            // 
+            this.button_RecordCartesian.Location = new System.Drawing.Point(432, 259);
+            this.button_RecordCartesian.Name = "button_RecordCartesian";
+            this.button_RecordCartesian.Size = new System.Drawing.Size(108, 23);
+            this.button_RecordCartesian.TabIndex = 29;
+            this.button_RecordCartesian.Text = "Record Cartesian";
+            this.button_RecordCartesian.UseVisualStyleBackColor = true;
+            this.button_RecordCartesian.Click += new System.EventHandler(this.button_RecordCartesian_Click);
+            // 
+            // textBox_LocPosition
+            // 
+            this.textBox_LocPosition.Location = new System.Drawing.Point(152, 293);
+            this.textBox_LocPosition.Name = "textBox_LocPosition";
+            this.textBox_LocPosition.Size = new System.Drawing.Size(193, 20);
+            this.textBox_LocPosition.TabIndex = 28;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(149, 245);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(51, 13);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Location:";
+            // 
+            // button_MoveToLocation
+            // 
+            this.button_MoveToLocation.Location = new System.Drawing.Point(351, 293);
+            this.button_MoveToLocation.Name = "button_MoveToLocation";
+            this.button_MoveToLocation.Size = new System.Drawing.Size(75, 23);
+            this.button_MoveToLocation.TabIndex = 26;
+            this.button_MoveToLocation.Text = "Move To";
+            this.button_MoveToLocation.UseVisualStyleBackColor = true;
+            this.button_MoveToLocation.Click += new System.EventHandler(this.button_MoveToLocation_Click);
+            // 
+            // button_RecordJoint
+            // 
+            this.button_RecordJoint.Location = new System.Drawing.Point(351, 259);
+            this.button_RecordJoint.Name = "button_RecordJoint";
+            this.button_RecordJoint.Size = new System.Drawing.Size(75, 23);
+            this.button_RecordJoint.TabIndex = 25;
+            this.button_RecordJoint.Text = "Record Joint";
+            this.button_RecordJoint.UseVisualStyleBackColor = true;
+            this.button_RecordJoint.Click += new System.EventHandler(this.button_RecordJoint_Click);
+            // 
+            // comboBox_LocName
+            // 
+            this.comboBox_LocName.FormattingEnabled = true;
+            this.comboBox_LocName.Location = new System.Drawing.Point(152, 261);
+            this.comboBox_LocName.Name = "comboBox_LocName";
+            this.comboBox_LocName.Size = new System.Drawing.Size(193, 21);
+            this.comboBox_LocName.TabIndex = 24;
+            this.comboBox_LocName.DropDownClosed += new System.EventHandler(this.comboBox_LocName_DropDownClosed);
+            // 
             // comboBox_JogMode
             // 
             this.comboBox_JogMode.FormattingEnabled = true;
@@ -412,9 +615,9 @@ namespace Demo_Example5
             this.buttonJogMinus.TabIndex = 11;
             this.buttonJogMinus.Text = "-";
             this.buttonJogMinus.UseVisualStyleBackColor = true;
-            this.buttonJogMinus.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonJogMinus_MouseDown);
-            this.buttonJogMinus.MouseLeave += new System.EventHandler(this.buttonJogMinus_MouseLeave);
-            this.buttonJogMinus.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonJogMinus_MouseUp);
+            this.buttonJogMinus.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button_JogMinus_MouseDown);
+            this.buttonJogMinus.MouseLeave += new System.EventHandler(this.button_JogMinus_MouseLeave);
+            this.buttonJogMinus.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button_JogMinus_MouseUp);
             // 
             // button_JogPlus
             // 
@@ -508,7 +711,7 @@ namespace Demo_Example5
             this.tabPage_Vision1.Controls.Add(this.button_RB1_TriggerCamera);
             this.tabPage_Vision1.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Vision1.Name = "tabPage_Vision1";
-            this.tabPage_Vision1.Size = new System.Drawing.Size(768, 372);
+            this.tabPage_Vision1.Size = new System.Drawing.Size(768, 713);
             this.tabPage_Vision1.TabIndex = 2;
             this.tabPage_Vision1.Text = "Vision 1";
             this.tabPage_Vision1.UseVisualStyleBackColor = true;
@@ -577,201 +780,6 @@ namespace Demo_Example5
             this.toolStripStatusLabel_RB1_Vision_Status.Name = "toolStripStatusLabel_RB1_Vision_Status";
             this.toolStripStatusLabel_RB1_Vision_Status.Size = new System.Drawing.Size(79, 17);
             this.toolStripStatusLabel_RB1_Vision_Status.Text = "Disconnected";
-            // 
-            // button_SendToController
-            // 
-            this.button_SendToController.Location = new System.Drawing.Point(432, 375);
-            this.button_SendToController.Name = "button_SendToController";
-            this.button_SendToController.Size = new System.Drawing.Size(108, 23);
-            this.button_SendToController.TabIndex = 35;
-            this.button_SendToController.Text = "Send To Controller";
-            this.button_SendToController.UseVisualStyleBackColor = true;
-            // 
-            // comboBox_ProfileName
-            // 
-            this.comboBox_ProfileName.FormattingEnabled = true;
-            this.comboBox_ProfileName.Location = new System.Drawing.Point(152, 348);
-            this.comboBox_ProfileName.Name = "comboBox_ProfileName";
-            this.comboBox_ProfileName.Size = new System.Drawing.Size(193, 21);
-            this.comboBox_ProfileName.TabIndex = 34;
-            // 
-            // button_SetMotionProfile
-            // 
-            this.button_SetMotionProfile.Location = new System.Drawing.Point(351, 375);
-            this.button_SetMotionProfile.Name = "button_SetMotionProfile";
-            this.button_SetMotionProfile.Size = new System.Drawing.Size(75, 23);
-            this.button_SetMotionProfile.TabIndex = 33;
-            this.button_SetMotionProfile.Text = "Set";
-            this.button_SetMotionProfile.UseVisualStyleBackColor = true;
-            // 
-            // textBox_MotionProfile
-            // 
-            this.textBox_MotionProfile.Location = new System.Drawing.Point(152, 375);
-            this.textBox_MotionProfile.Name = "textBox_MotionProfile";
-            this.textBox_MotionProfile.Size = new System.Drawing.Size(193, 20);
-            this.textBox_MotionProfile.TabIndex = 32;
-            this.textBox_MotionProfile.Text = "50 50 50 50 0.1 0.1 10 0";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(149, 333);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 13);
-            this.label2.TabIndex = 31;
-            this.label2.Text = "Motion Profile:";
-            // 
-            // button_UpdateLocation
-            // 
-            this.button_UpdateLocation.Location = new System.Drawing.Point(432, 293);
-            this.button_UpdateLocation.Name = "button_UpdateLocation";
-            this.button_UpdateLocation.Size = new System.Drawing.Size(108, 23);
-            this.button_UpdateLocation.TabIndex = 30;
-            this.button_UpdateLocation.Text = "Update";
-            this.button_UpdateLocation.UseVisualStyleBackColor = true;
-            // 
-            // button_RecordCartesian
-            // 
-            this.button_RecordCartesian.Location = new System.Drawing.Point(432, 259);
-            this.button_RecordCartesian.Name = "button_RecordCartesian";
-            this.button_RecordCartesian.Size = new System.Drawing.Size(108, 23);
-            this.button_RecordCartesian.TabIndex = 29;
-            this.button_RecordCartesian.Text = "Record Cartesian";
-            this.button_RecordCartesian.UseVisualStyleBackColor = true;
-            // 
-            // textBox_LocPosition
-            // 
-            this.textBox_LocPosition.Location = new System.Drawing.Point(152, 293);
-            this.textBox_LocPosition.Name = "textBox_LocPosition";
-            this.textBox_LocPosition.Size = new System.Drawing.Size(193, 20);
-            this.textBox_LocPosition.TabIndex = 28;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(149, 245);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 13);
-            this.label4.TabIndex = 27;
-            this.label4.Text = "Location:";
-            // 
-            // button_MoveToLocation
-            // 
-            this.button_MoveToLocation.Location = new System.Drawing.Point(351, 293);
-            this.button_MoveToLocation.Name = "button_MoveToLocation";
-            this.button_MoveToLocation.Size = new System.Drawing.Size(75, 23);
-            this.button_MoveToLocation.TabIndex = 26;
-            this.button_MoveToLocation.Text = "Move To";
-            this.button_MoveToLocation.UseVisualStyleBackColor = true;
-            // 
-            // button_RecordJoint
-            // 
-            this.button_RecordJoint.Location = new System.Drawing.Point(351, 259);
-            this.button_RecordJoint.Name = "button_RecordJoint";
-            this.button_RecordJoint.Size = new System.Drawing.Size(75, 23);
-            this.button_RecordJoint.TabIndex = 25;
-            this.button_RecordJoint.Text = "Record Joint";
-            this.button_RecordJoint.UseVisualStyleBackColor = true;
-            // 
-            // comboBox_LocName
-            // 
-            this.comboBox_LocName.FormattingEnabled = true;
-            this.comboBox_LocName.Location = new System.Drawing.Point(152, 261);
-            this.comboBox_LocName.Name = "comboBox_LocName";
-            this.comboBox_LocName.Size = new System.Drawing.Size(193, 21);
-            this.comboBox_LocName.TabIndex = 24;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(20, 245);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(48, 13);
-            this.label8.TabIndex = 36;
-            this.label8.Text = "Location";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(23, 421);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(50, 13);
-            this.label9.TabIndex = 37;
-            this.label9.Text = "Variables";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(152, 420);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(35, 13);
-            this.label10.TabIndex = 38;
-            this.label10.Text = "Name";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(351, 420);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(34, 13);
-            this.label11.TabIndex = 39;
-            this.label11.Text = "Value";
-            // 
-            // button_SetVariableValue
-            // 
-            this.button_SetVariableValue.Location = new System.Drawing.Point(465, 433);
-            this.button_SetVariableValue.Name = "button_SetVariableValue";
-            this.button_SetVariableValue.Size = new System.Drawing.Size(75, 23);
-            this.button_SetVariableValue.TabIndex = 40;
-            this.button_SetVariableValue.Text = "Set";
-            this.button_SetVariableValue.UseVisualStyleBackColor = true;
-            this.button_SetVariableValue.Click += new System.EventHandler(this.button_SetVariableValue_Click);
-            // 
-            // textBox_GplVariableName
-            // 
-            this.textBox_GplVariableName.Location = new System.Drawing.Point(155, 436);
-            this.textBox_GplVariableName.Name = "textBox_GplVariableName";
-            this.textBox_GplVariableName.Size = new System.Drawing.Size(190, 20);
-            this.textBox_GplVariableName.TabIndex = 41;
-            this.textBox_GplVariableName.Text = "test_integer";
-            // 
-            // textBox_GplVariableValue
-            // 
-            this.textBox_GplVariableValue.Location = new System.Drawing.Point(354, 435);
-            this.textBox_GplVariableValue.Name = "textBox_GplVariableValue";
-            this.textBox_GplVariableValue.Size = new System.Drawing.Size(100, 20);
-            this.textBox_GplVariableValue.TabIndex = 42;
-            this.textBox_GplVariableValue.Text = "7";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(23, 492);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(105, 13);
-            this.label12.TabIndex = 43;
-            this.label12.Text = "GPL Output Window";
-            // 
-            // textBox_GplOutputWindow
-            // 
-            this.textBox_GplOutputWindow.Location = new System.Drawing.Point(26, 519);
-            this.textBox_GplOutputWindow.Multiline = true;
-            this.textBox_GplOutputWindow.Name = "textBox_GplOutputWindow";
-            this.textBox_GplOutputWindow.ReadOnly = true;
-            this.textBox_GplOutputWindow.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox_GplOutputWindow.Size = new System.Drawing.Size(690, 143);
-            this.textBox_GplOutputWindow.TabIndex = 44;
-            this.textBox_GplOutputWindow.WordWrap = false;
-            // 
-            // button_GplVaraibleGet
-            // 
-            this.button_GplVaraibleGet.Location = new System.Drawing.Point(546, 433);
-            this.button_GplVaraibleGet.Name = "button_GplVaraibleGet";
-            this.button_GplVaraibleGet.Size = new System.Drawing.Size(75, 23);
-            this.button_GplVaraibleGet.TabIndex = 45;
-            this.button_GplVaraibleGet.Text = "Get";
-            this.button_GplVaraibleGet.UseVisualStyleBackColor = true;
-            this.button_GplVaraibleGet.Click += new System.EventHandler(this.button_GplVaraibleGet_Click);
             // 
             // MainWindow
             // 

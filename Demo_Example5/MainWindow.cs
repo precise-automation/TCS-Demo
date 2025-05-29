@@ -243,12 +243,12 @@ namespace Demo_Example5
             stopJogging();
         }
 
-        private void buttonJogMinus_MouseLeave(object sender, EventArgs e)
+        private void button_JogMinus_MouseLeave(object sender, EventArgs e)
         {
             stopJogging();
         }
 
-        private void buttonJogMinus_MouseUp(object sender, MouseEventArgs e)
+        private void button_JogMinus_MouseUp(object sender, MouseEventArgs e)
         {
             stopJogging();
         }
@@ -266,7 +266,7 @@ namespace Demo_Example5
             isJogging = true;
         }
 
-        private void buttonJogMinus_MouseDown(object sender, MouseEventArgs e)
+        private void button_JogMinus_MouseDown(object sender, MouseEventArgs e)
         {
             robot1Controller.JogMinus();
             isJogging = true;
