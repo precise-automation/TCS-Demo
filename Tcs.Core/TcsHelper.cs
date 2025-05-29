@@ -11,13 +11,11 @@ namespace Tcs.Core
     {
         private static string Tcp_Project_SearchName = "Tcp_cmd_server";
         private static string Tcp_Project_Path = "/flash/projects/";
-        private static string Memory_Project_Path = "/GPL/";
+
 
         public static bool IsTcsRunning(TCSManager tcsManager)
         {
-            var executionDetails = tcsManager.Controller.GetExecutionDetails();
-            bool result = executionDetails.ThreadNames.Any(t => t.Contains(Tcp_Project_SearchName));
-            return result;
+            return ProgramManager.IsProgramRunning(tcsManager.Controller, Tcp_Project_SearchName);
         }
 
         public static string GetTcsProjectName(TCSManager tcsManager)
@@ -36,28 +34,12 @@ namespace Tcs.Core
 
         public static bool IsTcsInMemory(TCSManager tcsManager)
         {
-            var folders = tcsManager.Controller.FileSystem.GetDirectories(Memory_Project_Path);
-
-            bool result = folders.Any(f => f.EntryType == "dir" && f.EntryName.Contains(Tcp_Project_SearchName));
-            return result;
+            return ProgramManager.IsProgramInMemory(tcsManager.Controller, Tcp_Project_SearchName);
         }
         
         public static void LoadTCS(TCSManager tcsManager, string projectName = "Tcp_cmd_server")
         {
-            if (tcsManager.Controller.IsActive)
-                if (IsTcsRunning(tcsManager) == false)
-                    if (IsTcsInMemory(tcsManager) == false)
-                    {
-                        tcsManager.Controller.LoadProject(Tcp_Project_Path, projectName);
-
-                        // Wait for TCS to Load
-                        int count = 0;
-                        do
-                        {
-                            Thread.Sleep(250);
-                            count++;
-                        } while (IsTcsInMemory(tcsManager) == false && count < 4 * 10);
-                    }
+            ProgramManager.LoadProgram(tcsManager.Controller, projectName);
         }
 
         public static void StartTCS(TCSManager tcsManager)
@@ -82,8 +64,6 @@ namespace Tcs.Core
                 {
                     string thread = GetTcsThreadName(tcsManager);
                     tcsManager.Controller.ThreadStop(thread);
-                    //tcsManager.Controller.ThreadStopAll();
-                    //tcsManager.Controller.UnloadProject(Tcp_Project_Name);
                 }
             }
         }

@@ -1,17 +1,17 @@
 ﻿using Precise.Common.Communication.Controllers;
+using Precise.Common.Communication.Managers.JogControl;
+using Precise.Common.Communication.Managers.Monitoring.ProjectData;
+using Precise.Common.Communication.Managers.Output;
 using Precise.Common.Communication.Managers.TCS;
 using Precise.Common.Communication.Protocols.GplComm;
 using Precise.Common.Communication.Protocols.TCS;
-using Precise.Common.Communication.Managers.JogControl;
 using Precise.Common.Core.Language;
 using Precise.Common.Core.Logging;
+using Precise.Common.Core.Util;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
-using Precise.Common.Core.Util;
-using System.Diagnostics.Contracts;
-using Precise.Common.Communication.Managers.Output;
-using Precise.Common.Core.Services;
 
 namespace Tcs.Core
 {
@@ -23,7 +23,7 @@ namespace Tcs.Core
 
         public bool IsConnected
         {
-            get => tcsManager.IsConnected ;
+            get => tcsManager.IsConnected;
         }
 
         public LocationManager LocationManager
@@ -51,7 +51,7 @@ namespace Tcs.Core
         }
 
         public JogControlManager jogControlManager { get; private set; }
-        
+
         private LogService logService;
         private LanguageService languageService;
         private Communications commHandle;
@@ -134,7 +134,7 @@ namespace Tcs.Core
                 {
                     tcsManager.Controller.Disconnect();
                     tcsManager.Disconnect();
-                    
+
                 }
                 tcsManager.Disable();
 
@@ -149,19 +149,19 @@ namespace Tcs.Core
         private void Controller_ConnectionStateChanged(bool obj)
             => ConnectionChanged?.Invoke(this, EventArgs.Empty);
 
-        public void Init() 
+        public void Init()
             => RobotTcsCmds.RobotInit(tcsManager);
-        
+
         public void SetPower(bool powerState = true)
         {
             RobotTcsCmds.SetHighPower(tcsManager, powerState);
             Thread.Sleep(250);
         }
 
-        public void SetAttach(bool attach = true) 
+        public void SetAttach(bool attach = true)
             => RobotTcsCmds.AttachRobot(tcsManager, attach);
 
-        public void SetFreeMode(bool freeAllJoints = true) 
+        public void SetFreeMode(bool freeAllJoints = true)
             => RobotTcsCmds.SetFreeMode(tcsManager, freeAllJoints);
 
         public void ToggleFreeMode()
@@ -170,13 +170,13 @@ namespace Tcs.Core
             RobotTcsCmds.SetFreeMode(tcsManager, jogModeToggle);
         }
 
-        public void LoadTCS() 
+        public void LoadTCS()
             => TcsHelper.LoadTCS(tcsManager);
 
-        public void StartTCS() 
+        public void StartTCS()
             => TcsHelper.StartTCS(tcsManager);
 
-        public void StopTCS() 
+        public void StopTCS()
             => TcsHelper.StopTCS(tcsManager);
 
         public void SendCommand(string command)
@@ -188,7 +188,7 @@ namespace Tcs.Core
 
         private void Controller_PowerStateGplEvent(GPLEventObj obj)
         {
-            if(obj.EventCode == GPLEventObj.GPLEvents.EventPowerState)
+            if (obj.EventCode == GPLEventObj.GPLEvents.EventPowerState)
                 PowerStateChanged?.Invoke(this, EventArgs.Empty);
             jogModeToggle = false;
         }
@@ -239,14 +239,90 @@ namespace Tcs.Core
 
         private void OutputManager_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if(e.PropertyName == "Output")
+            if (e.PropertyName == "Output")
                 GplOutputUpdated.Invoke(this, EventArgs.Empty);
         }
-        
+
         public string GetGplOutputMsgs()
         {
             return outputManager.Output;
         }
-        
+
+        public void LoadProgram(string programName)
+        {
+            ProgramManager.LoadProgram(controllerHelper, programName);
+        }
+
+        public void CompileAndRun(string programName)
+        {
+            ProgramManager.StartProgram(controllerHelper, programName);
+        }
+
+        public void StopAllPrograms()
+        {
+            ProgramManager.StopAllPrograms(controllerHelper);
+        }
+
+        public string GetRobotCurrentLocation(bool joint = true)
+        {
+            if (joint)
+                return jogControlManager.JointPosition.ToString(",");
+            else
+                return jogControlManager.CartesianPosition.ToString(",");
+
+        }
+
+        public string LoadLocationValue(string locationName, string projectName, bool isJoint = true)
+        {
+            List<double> vals = new List<double>();
+            var cartesianElements = new string[] { "X", "Y", "Z", "Pitch", "Yaw", "Roll" };
+            var jointElements = new string[] { "Angle(1)", "Angle(2)", "Angle(3)", "Angle(4)", "Angle(5)", "Angle(6)", ".Angle(7)" };
+
+            if (isJoint)
+            {
+                for (int i = 0; i < 12; i++)
+                {
+                    double v = controllerHelper.GetVariable<double>(string.Format("{0}.{1}", locationName, jointElements[i]),
+                                                        projectName);
+                    vals.Add(v);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    string param = string.Format("{0}.{1}", locationName, cartesianElements[i]);
+                    double v = controllerHelper.GetVariable<double>(param, projectName);
+                    vals.Add(v);
+                }
+            }
+            return string.Join(",", vals);
+        }
+
+        public void SetLocationValue (string locationName, string projectName, string value, bool isJoint)
+        {
+            var val = value.Split(',');
+            var cartesianElements = new string[] { "X", "Y", "Z", "Pitch", "Yaw", "Roll" };
+            var jointElements = new string[] { "Angle(1)", "Angle(2)", "Angle(3)", "Angle(4)", "Angle(5)", "Angle(6)", ".Angle(7)" };
+
+            if (isJoint)
+            {
+                for (int i = 0; i < val.Length; i++)
+                {
+                    controllerHelper.SetVariable<double>(string.Format("{0}.{1}", locationName, jointElements[i]),
+                                                        double.Parse(val[i]),
+                                                        projectName);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < val.Length; i++)
+                {
+                    controllerHelper.SetVariable<double>(string.Format("{0}.{1}", locationName, cartesianElements[i]),
+                                                        double.Parse(val[i]),
+                                                        projectName);
+                }
+            }
+        }
     }
 }

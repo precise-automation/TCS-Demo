@@ -93,6 +93,7 @@
     <Compile Include="ProfileManager.cs" />
     <Compile Include="LocationManager.cs" />
     <Compile Include="ProgramSettings.cs" />
+    <Compile Include="ProgramManager.cs" />
     <Compile Include="RobotServerHandler.cs" />
     <Compile Include="VisionServerHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
