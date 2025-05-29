@@ -46,7 +46,6 @@ namespace Tcs.Core
             visionEngineClientService.ErrorDetected += VisionEngineClientService_ErrorDetected;
             visionEngineClientService.ImageUpdated += VisionEngineClientService_ImageUpdated;
             visionEngineClientService.PropertyChanged += VisionEngineClientService_PropertyChanged;
-            visionEngineClientService
 
         }
 
