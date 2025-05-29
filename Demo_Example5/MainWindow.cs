@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 using Tcs.Core;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Demo_Example5
 {
@@ -29,6 +30,7 @@ namespace Demo_Example5
 
             robot1Controller = new RobotServerHandler();
             robot1Controller.ConnectionChanged += Event_ConnectionStatusChanged;
+            robot1Controller.GplOutputUpdated += Robot1Controller_GplOutputUpdated;
             //robot1Controller.ConnectionChanged += Event_PowerStateChanged;
 
             robot1Vision = new VisionServerHandler();
@@ -36,6 +38,7 @@ namespace Demo_Example5
             robot1Vision.ImageCaptured += RB1_Vision_ImageCaptured;
 
         }
+
 
         private void InitializeSettings()
         {
@@ -291,5 +294,99 @@ namespace Demo_Example5
             comboBox_AxisSelection.Items.AddRange(axis);
             comboBox_AxisSelection.SelectedIndex = 0;
         }
+
+
+
+        private void button_RecordJoint_Click(object sender, EventArgs e)
+        {
+            var name = comboBox_LocName.Text;
+            var loc = robot1Controller.LocationManager.UpdateLocation(name, false);
+            textBox_LocPosition.Text = loc;
+            var locs = robot1Controller.LocationManager.GetLocationList();
+            comboBox_LocName.Items.Clear();
+            comboBox_LocName.Items.AddRange(locs);
+        }
+
+        private void button_RecordCartesian_Click(object sender, EventArgs e)
+        {
+            var name = comboBox_LocName.Text;
+            var loc = robot1Controller.LocationManager.UpdateLocation(name, true);
+            textBox_LocPosition.Text = loc;
+            var locs = robot1Controller.LocationManager.GetLocationList();
+            comboBox_LocName.Items.Clear();
+            comboBox_LocName.Items.AddRange(locs);
+        }
+
+        private void button_MoveToLocation_Click(object sender, EventArgs e)
+        {
+            var name = comboBox_LocName.Text;
+            robot1Controller.LocationManager.MoveToLocation(name);
+        }
+
+        private void comboBox_LocName_DropDownClosed(object sender, EventArgs e)
+        {
+            var name = comboBox_LocName.Text;
+            var loc = robot1Controller.LocationManager.GetLocationString(name);
+            textBox_LocPosition.Text = loc;
+        }
+
+
+        private void button_UpdateLocation_Click(object sender, EventArgs e)
+        {
+            var name = comboBox_LocName.Text;
+            var pos = textBox_LocPosition.Text;
+            robot1Controller.LocationManager.UpdateLocation(name, pos);
+        }
+
+        private void button_SetMotionProfile_Click(object sender, EventArgs e)
+        {
+            var name = comboBox_ProfileName.Text;
+            var prof = textBox_MotionProfile.Text;
+            robot1Controller.ProfileManager.UpdateProfile(name, prof);
+
+            var profs = robot1Controller.ProfileManager.GetProfileList();
+            comboBox_ProfileName.Items.Clear();
+            comboBox_ProfileName.Items.AddRange(profs);
+        }
+
+        private void comboBox_ProfileName_DropDownClosed(object sender, EventArgs e)
+        {
+            var name = comboBox_ProfileName.Text;
+            var prof = robot1Controller.ProfileManager.GetProfileString(name);
+            textBox_MotionProfile.Text = prof;
+        }
+
+        private void button_SendToController_Click(object sender, EventArgs e)
+        {
+            var name = comboBox_ProfileName.Text;
+            robot1Controller.ProfileManager.SendProfileToController(name);
+        }
+
+        private void button_SetVariableValue_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var val = int.Parse(textBox_GplVariableValue.Text);
+                robot1Controller.SetVariable<int>("test_integer", val, "test");
+            } catch { }
+        }
+
+        private void button_GplVaraibleGet_Click(object sender, EventArgs e)
+        {
+            var variableName = textBox_GplVariableName.Text;
+            var projectName = "test";
+            var variableValue = robot1Controller.GetVariable<int>(variableName, projectName);
+            textBox_GplVariableValue.Text = variableValue.ToString();
+        }
+
+        private void Robot1Controller_GplOutputUpdated(object sender, EventArgs e)
+        {
+            string msgs = robot1Controller.GetGplOutputMsgs();
+            msgs = msgs.Replace("\r\n", Environment.NewLine);
+            textBox_GplOutputWindow.Invoke(new Action(() => textBox_GplOutputWindow.Text = msgs));
+            
+        }
+
+
     }
 }

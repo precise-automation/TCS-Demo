@@ -9,6 +9,9 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 using Precise.Common.Core.Util;
+using System.Diagnostics.Contracts;
+using Precise.Common.Communication.Managers.Output;
+using Precise.Common.Core.Services;
 
 namespace Tcs.Core
 {
@@ -16,6 +19,8 @@ namespace Tcs.Core
     {
         public event EventHandler ConnectionChanged;
         public event EventHandler PowerStateChanged;
+        public event EventHandler GplOutputUpdated;
+
         public bool IsConnected
         {
             get => tcsManager.IsConnected ;
@@ -54,6 +59,7 @@ namespace Tcs.Core
         private TCSManager tcsManager;
         private LocationManager locationManager;
         private ProfileManager profileManager;
+        private OutputManager outputManager;
         private bool jogModeToggle = false;
 
 
@@ -63,6 +69,9 @@ namespace Tcs.Core
             languageService = new LanguageService(logService);
             commHandle = new Communications();
             controllerHelper = new ControllerHelper(commHandle);
+            outputManager = new OutputManager(languageService,
+                                       logService,
+                                       controllerHelper);
 
             string tcsMacroDirectory = TcsHelper.GetTCSMacroFolder();
 
@@ -97,6 +106,9 @@ namespace Tcs.Core
                     tcsManager.Controller.Connect(ipAddress);
                     if (TcsHelper.IsTcsRunning(tcsManager) == false)
                         MessageBox.Show("TCS Not Running On Target Controller", "Warning");
+                    outputManager.PropertyChanged += OutputManager_PropertyChanged;
+                    outputManager.Enable();
+                    //controllerHelper.OutputGplEvent +=
                 }
 
                 ConnectionChanged.Invoke(this, EventArgs.Empty);
@@ -218,5 +230,23 @@ namespace Tcs.Core
         {
             return jogControlManager.AvailableAxes;
         }
+
+        public void SetVariable<T>(string variableName, T variableValue, string projectName)
+            => controllerHelper.SetVariable<T>(variableName, variableValue, projectName);
+
+        public T GetVariable<T>(string variableName, string projectName)
+            => controllerHelper.GetVariable<T>(variableName, projectName);
+
+        private void OutputManager_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == "Output")
+                GplOutputUpdated.Invoke(this, EventArgs.Empty);
+        }
+        
+        public string GetGplOutputMsgs()
+        {
+            return outputManager.Output;
+        }
+        
     }
 }
